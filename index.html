@@ -1,390 +1,148 @@
 <!DOCTYPE html>
-<html lang="ru" class="scroll-smooth">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HJR-Bot: Интерактивный Обзор</title>
+    <title>Honji Review</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chosen Palette: Calm Harmony -->
-    <!-- Application Structure Plan: A single-page application with a sticky navigation header for easy access to different sections. The structure is designed to guide the user logically: from a high-level introduction (Hero), through the core value proposition presented in an interactive 'Problem/Solution' format, down to detailed feature explanations ('How It Works'), a 'Tech Stack' section for transparency, a 'Roadmap' for future plans, a 'Team' section, and finally, an interactive FAQ section for common queries. This thematic structure enhances user engagement and comprehension. -->
-    <!-- Visualization & Content Choices:
-        1. Problem/Solution Section: Info -> Four key problems and their corresponding bot solutions. Goal -> Compare and connect. Method -> Interactive tabbed interface. Interaction -> Click-to-reveal. Justification -> More engaging than a linear list.
-        2. 'How It Works' Section: Info -> Step-by-step processes for bot functions. Goal -> Organize and explain complex workflows. Method -> Simple, clean process flow diagrams built with structured HTML/CSS. Interaction -> Static visual aid. Justification -> Visual flows are more intuitive than text.
-        3. Tech Stack Section: Info -> Technologies used. Goal -> Inform and build trust. Method -> Grid layout with cards for each technology. Interaction -> Static. Justification -> Clearly presents technical details.
-        4. FAQ Section: Info -> Questions and answers about the bot. Goal -> Inform and organize. Method -> Accordion UI component. Interaction -> Click-to-expand/collapse answers. Justification -> A standard, space-efficient, and user-friendly pattern.
-        All visual elements are created using HTML and Tailwind CSS. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
-        .tab-active {
-            background-color: #4338ca;
-            color: #ffffff;
-        }
-        .tab-inactive {
-            background-color: #eef2ff;
-            color: #4338ca;
-        }
-        .faq-question {
-            cursor: pointer;
-        }
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-        .arrow-down {
-            transition: transform 0.3s ease-out;
-        }
-        .rotated {
-            transform: rotate(180deg);
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body class="bg-[#1E1E1E] text-white">
 
-<header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
-    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-        <div class="text-2xl font-bold text-indigo-700">
-            HJR-Bot
-        </div>
-        <ul class="hidden md:flex space-x-8">
-            <li><a href="#problems" class="text-slate-600 hover:text-indigo-700 transition">Проблемы и Решения</a></li>
-            <li><a href="#features" class="text-slate-600 hover:text-indigo-700 transition">Как это работает</a></li>
-            <li><a href="#tech-stack" class="text-slate-600 hover:text-indigo-700 transition">Технологии</a></li>
-            <li><a href="#team" class="text-slate-600 hover:text-indigo-700 transition">Команда</a></li>
-            <li><a href="#faq" class="text-slate-600 hover:text-indigo-700 transition">FAQ</a></li>
-        </ul>
-        <div class="md:hidden">
-            <button id="mobile-menu-button" class="text-slate-600 hover:text-indigo-700 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-        </div>
-    </nav>
-    <div id="mobile-menu" class="hidden md:hidden">
-        <ul class="px-6 pb-4 space-y-2">
-            <li><a href="#problems" class="block text-slate-600 hover:text-indigo-700 transition">Проблемы и Решения</a></li>
-            <li><a href="#features" class="block text-slate-600 hover:text-indigo-700 transition">Как это работает</a></li>
-            <li><a href="#tech-stack" class="block text-slate-600 hover:text-indigo-700 transition">Технологии</a></li>
-            <li><a href="#team" class="block text-slate-600 hover:text-indigo-700 transition">Команда</a></li>
-            <li><a href="#faq" class="block text-slate-600 hover:text-indigo-700 transition">FAQ</a></li>
-        </ul>
+<!-- Header -->
+<header class="py-6 px-4 md:px-8 sticky top-0 z-50 bg-[#1E1E1E]/80 backdrop-blur-md">
+    <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-2xl font-bold">Honji Review</h1>
+        <nav class="hidden md:flex items-center space-x-8">
+            <a href="#about" class="hover:text-gray-300">О нас</a>
+            <a href="#works" class="hover:text-gray-300">Наши работы</a>
+            <a href="#reviews" class="hover:text-gray-300">Отзывы</a>
+            <a href="bot.html" class="hover:text-gray-300">HJR-Bot</a>
+            <a href="#" class="bg-gradient-to-r from-purple-600 to-blue-600 px-6 py-2 rounded-lg font-semibold hover:opacity-90 transition">Оставить заявку</a>
+        </nav>
+        <button id="mobile-menu-button" class="md:hidden">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden mt-4">
+        <nav class="flex flex-col space-y-4">
+            <a href="#about" class="hover:text-gray-300">О нас</a>
+            <a href="#works" class="hover:text-gray-300">Наши работы</a>
+            <a href="#reviews" class="hover:text-gray-300">Отзывы</a>
+            <a href="bot.html" class="hover:text-gray-300">HJR-Bot</a>
+            <a href="#" class="bg-gradient-to-r from-purple-600 to-blue-600 px-6 py-2 rounded-lg font-semibold hover:opacity-90 transition text-center">Оставить заявку</a>
+        </nav>
     </div>
 </header>
 
-<main class="container mx-auto px-6 py-12">
-    <section id="hero" class="text-center py-16">
-        <h1 class="text-4xl md:text-6xl font-bold text-indigo-700 mb-4">HJR-Bot: Ваш Автоматизированный Ассистент</h1>
-        <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">
-            Автоматизация рутины, обеспечение справедливости и прозрачности в работе сообщества Honji Review. Беспристрастный цифровой помощник для решения сложных административных задач.
-        </p>
-        <div class="mt-8">
-            <a href="https://forms.gle/oP71jhyRrfZax4RZ9" target="_blank" rel="noopener noreferrer" class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-indigo-700 transition duration-300 ease-in-out text-lg shadow-lg hover:shadow-xl">
-                Голосовать за внедрение бота
-            </a>
+<main class="container mx-auto px-4 md:px-8">
+    <!-- Hero Section -->
+    <section id="hero" class="text-center py-24 md:py-32">
+        <h2 class="text-5xl md:text-7xl font-extrabold mb-4">Honji Review</h2>
+        <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-8">Создаем качественные и объективные рецензии, помогая вам выбрать лучшее.</p>
+        <a href="#" class="bg-gradient-to-r from-purple-600 to-blue-600 px-8 py-4 rounded-lg font-semibold hover:opacity-90 transition text-lg">Связаться с нами</a>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-16 md:py-24 flex flex-col md:flex-row items-center gap-12">
+        <div class="md:w-1/2">
+            <h3 class="text-4xl font-bold mb-6">О нас</h3>
+            <p class="text-gray-300 leading-relaxed">
+                Honji Review — это команда энтузиастов, посвятивших себя созданию честных и подробных обзоров. Мы верим, что качественная рецензия — это не просто мнение, а результат глубокого анализа и исследования. Наша миссия — предоставлять вам информацию, которой можно доверять, чтобы вы могли принимать взвешенные решения. Мы ценим объективность, прозрачность и внимание к деталям в каждой нашей работе.
+            </p>
+        </div>
+        <div class="md:w-1/2">
+            <img src="https://placehold.co/600x400/2A2A2A/FFFFFF?text=Honji+Review" alt="About Us Image" class="rounded-xl shadow-lg w-full">
         </div>
     </section>
 
-    <section id="problems" class="py-16">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold mb-2">Проблемы, которые мы решаем</h2>
-            <p class="text-slate-600 max-w-2xl mx-auto">Бот был создан для решения ключевых трудностей, мешающих росту проекта. Выберите проблему, чтобы увидеть, как HJR-Bot ее решает.</p>
-        </div>
-        <div class="flex flex-col md:flex-row gap-8 min-h-[400px]">
-            <div class="w-full md:w-1/3 flex flex-col space-y-4">
-                <button data-tab="problem1" class="problem-tab tab-active text-left p-4 rounded-lg font-medium transition">Сложность и предвзятость при апелляциях</button>
-                <button data-tab="problem2" class="problem-tab tab-inactive text-left p-4 rounded-lg font-medium transition">Непонятные и разрозненные правила</button>
-                <button data-tab="problem3" class="problem-tab tab-inactive text-left p-4 rounded-lg font-medium transition">Отсутствие удобного инструмента для постов</button>
-                <button data-tab="problem4" class="problem-tab tab-inactive text-left p-4 rounded-lg font-medium transition">Высокая административная нагрузка</button>
+    <!-- Our Works Section -->
+    <section id="works" class="py-16 md:py-24">
+        <h3 class="text-4xl font-bold text-center mb-12">Наши работы</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Work Item 1 -->
+            <div class="bg-[#2A2A2A] p-6 rounded-xl shadow-lg">
+                <img src="https://placehold.co/400x250/1E1E1E/FFFFFF?text=Работа+1" alt="Work 1" class="rounded-lg mb-4 w-full">
+                <h4 class="text-2xl font-bold mb-2">Название проекта 1</h4>
+                <p class="text-gray-400">Краткое описание проекта, его цели и результаты. Здесь можно рассказать о ключевых особенностях рецензии.</p>
             </div>
-            <div class="w-full md:w-2/3 bg-white p-8 rounded-xl shadow-lg">
-                <div id="problem1" class="solution-content">
-                    <h3 class="text-2xl font-bold text-indigo-700 mb-4">Решение №1: Справедливые апелляции с ИИ-арбитром</h3>
-                    <p class="text-slate-600">Чтобы исключить человеческий фактор, бот внедряет полностью автоматизированный процесс апелляции. ИИ выступает в роли независимого судьи, а бот — в роли судебного секретаря. Бот собирает доказательства, проводит "допрос" сторон, запрашивает контраргументы и передает полное дело ИИ Gemini. Вердикт выносится исключительно на основе правил проекта, обеспечивая максимальную объективность.</p>
-                </div>
-                <div id="problem2" class="solution-content hidden">
-                    <h3 class="text-2xl font-bold text-indigo-700 mb-4">Решение №2: ИИ-консультант по правилам</h3>
-                    <p class="text-slate-600">Вместо поиска нужного пункта в документах, теперь можно просто спросить у бота. Он работает как личный юрист 24/7. Вы задаете вопрос в свободной форме, и бот отправляет его ИИ Gemini вместе с полным текстом устава. ИИ анализирует документы и дает развернутый, понятный ответ со ссылками на конкретные пункты. Это экономит время и обеспечивает единое толкование правил.</p>
-                </div>
-                <div id="problem3" class="solution-content hidden">
-                    <h3 class="text-2xl font-bold text-indigo-700 mb-4">Решение №3: TextCrafter для создания постов</h3>
-                    <p class="text-slate-600">Встроенный модуль TextCrafter стандартизирует и упрощает процесс публикации. Ответственное лицо запускает команду, и бот в пошаговом диалоге помогает создать красивый пост: запрашивает фото, текст, подпись для кнопки и ссылку. Это позволяет быстро и по единому стандарту создавать качественный контент, не отвлекаясь на технические детали форматирования.</p>
-                </div>
-                <div id="problem4" class="solution-content hidden">
-                    <h3 class="text-2xl font-bold text-indigo-700 mb-4">Решение №4: Личный ассистент</h3>
-                    <p class="text-slate-600">Бот берет на себя роль личного ассистента, снимая административную нагрузку с редакторов. Он объединяет все функции в одном месте — от апелляций до создания постов. Это освобождает драгоценное время редакторов для более важных творческих и аналитических задач, повышая общую продуктивность проекта и снижая риск выгорания.</p>
-                </div>
+            <!-- Work Item 2 -->
+            <div class="bg-[#2A2A2A] p-6 rounded-xl shadow-lg">
+                <img src="https://placehold.co/400x250/1E1E1E/FFFFFF?text=Работа+2" alt="Work 2" class="rounded-lg mb-4 w-full">
+                <h4 class="text-2xl font-bold mb-2">Название проекта 2</h4>
+                <p class="text-gray-400">Краткое описание проекта, его цели и результаты. Здесь можно рассказать о ключевых особенностях рецензии.</p>
             </div>
-        </div>
-    </section>
-
-    <section id="features" class="py-16">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold mb-2">Как это работает</h2>
-            <p class="text-slate-600 max-w-2xl mx-auto">Посмотрите на ключевые функции бота и процессы, которые он автоматизирует. Каждый шаг продуман для максимальной эффективности и удобства.</p>
-        </div>
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="bg-white p-8 rounded-xl shadow-lg">
-                <h4 class="text-xl font-bold text-indigo-700 mb-4">Создание апелляции</h4>
-                <p class="text-slate-600 mb-6">Процесс, имитирующий реальный суд для максимальной объективности.</p>
-                <div class="space-y-4 text-sm">
-                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">1</div><span>Пользователь подает доказательства (ссылки, файлы).</span></div>
-                    <div class="flex justify-center"><div class="h-6 w-px bg-slate-300"></div></div>
-                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">2</div><span>Бот задает 3 стратегических вопроса для сбора аргументов.</span></div>
-                    <div class="flex justify-center"><div class="h-6 w-px bg-slate-300"></div></div>
-                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">3</div><span>Запускается 24-часовой таймер для сбора контраргументов.</span></div>
-                    <div class="flex justify-center"><div class="h-6 w-px bg-slate-300"></div></div>
-                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">4</div><span>Дело автоматически передается ИИ для вынесения вердикта.</span></div>
-                </div>
-            </div>
-            <div class="bg-white p-8 rounded-xl shadow-lg">
-                <h4 class="text-xl font-bold text-indigo-700 mb-4">Вопрос по правилам</h4>
-                <p class="text-slate-600 mb-6">Получите точный ответ на любой вопрос по уставу за секунды.</p>
-                <div class="space-y-4 text-sm">
-                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">1</div><span>Пользователь вводит команду /ask и свой вопрос.</span></div>
-                    <div class="flex justify-center"><div class="h-6 w-px bg-slate-300"></div></div>
-                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">2</div><span>Бот отправляет вопрос и файл rules.txt в API Google Gemini.</span></div>
-                    <div class="flex justify-center"><div class="h-6 w-px bg-slate-300"></div></div>
-                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">3</div><span>ИИ анализирует вопрос в контексте правил.</span></div>
-                    <div class="flex justify-center"><div class="h-6 w-px bg-slate-300"></div></div>
-                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">4</div><span>Пользователь получает развернутый и понятный ответ.</span></div>
-                </div>
-            </div>
-            <div class="bg-white p-8 rounded-xl shadow-lg">
-                <h4 class="text-xl font-bold text-indigo-700 mb-4">Создание поста (TextCrafter)</h4>
-                <p class="text-slate-600 mb-6">Простой пошаговый диалог для создания сложных публикаций.</p>
-                <div class="space-y-4 text-sm">
-                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">1</div><span>Ответственный вводит команду /craft.</span></div>
-                    <div class="flex justify-center"><div class="h-6 w-px bg-slate-300"></div></div>
-                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">2</div><span>Бот последовательно запрашивает фото, текст, текст кнопки и ссылку.</span></div>
-                    <div class="flex justify-center"><div class="h-6 w-px bg-slate-300"></div></div>
-                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">3</div><span>"Машина состояний" запоминает прогресс.</span></div>
-                    <div class="flex justify-center"><div class="h-6 w-px bg-slate-300"></div></div>
-                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">4</div><span>Готовый пост публикуется по единому стандарту.</span></div>
-                </div>
+            <!-- Work Item 3 -->
+            <div class="bg-[#2A2A2A] p-6 rounded-xl shadow-lg">
+                <img src="https://placehold.co/400x250/1E1E1E/FFFFFF?text=Работа+3" alt="Work 3" class="rounded-lg mb-4 w-full">
+                <h4 class="text-2xl font-bold mb-2">Название проекта 3</h4>
+                <p class="text-gray-400">Краткое описание проекта, его цели и результаты. Здесь можно рассказать о ключевых особенностях рецензии.</p>
             </div>
         </div>
     </section>
 
-    <section id="tech-stack" class="py-16">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold mb-2">Технический стек</h2>
-            <p class="text-slate-600 max-w-2xl mx-auto">Наш бот — это полноценное облачное приложение, созданное с использованием современных и надежных технологий.</p>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-center">
-            <div class="flex flex-col items-center">
-                <div class="bg-white rounded-full p-4 shadow-lg mb-4">
-                    <span class="text-4xl">🐍</span>
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-16 md:py-24">
+        <h3 class="text-4xl font-bold text-center mb-12">Отзывы</h3>
+        <div class="relative">
+            <div id="reviews-container" class="flex overflow-x-hidden">
+                <!-- Review 1 -->
+                <div class="review-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 p-4">
+                    <div class="bg-[#2A2A2A] p-8 rounded-xl shadow-lg h-full">
+                        <p class="text-gray-300 mb-6">"Отличная работа! Рецензии всегда подробные и по делу. Помогли мне сделать правильный выбор."</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/50x50/FFFFFF/1E1E1E?text=А" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h5 class="font-bold">Алексей</h5>
+                                <p class="text-sm text-gray-400">Пользователь</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <h5 class="font-bold">Python</h5>
-                <p class="text-sm text-slate-500">Основной язык</p>
-            </div>
-            <div class="flex flex-col items-center">
-                <div class="bg-white rounded-full p-4 shadow-lg mb-4">
-                    <span class="text-4xl">🤖</span>
+                <!-- Review 2 -->
+                <div class="review-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 p-4">
+                    <div class="bg-[#2A2A2A] p-8 rounded-xl shadow-lg h-full">
+                        <p class="text-gray-300 mb-6">"Ценю вашу объективность. Никакой воды, только факты. Продолжайте в том же духе!"</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/50x50/FFFFFF/1E1E1E?text=М" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h5 class="font-bold">Мария</h5>
+                                <p class="text-sm text-gray-400">Читатель</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <h5 class="font-bold">pyTelegramBotAPI</h5>
-                <p class="text-sm text-slate-500">Библиотека для Telegram</p>
-            </div>
-            <div class="flex flex-col items-center">
-                <div class="bg-white rounded-full p-4 shadow-lg mb-4">
-                    <span class="text-4xl">🐘</span>
-                </div>
-                <h5 class="font-bold">PostgreSQL</h5>
-                <p class="text-sm text-slate-500">База данных</p>
-            </div>
-            <div class="flex flex-col items-center">
-                <div class="bg-white rounded-full p-4 shadow-lg mb-4">
-                    <span class="text-4xl">🚂</span>
-                </div>
-                <h5 class="font-bold">Railway</h5>
-                <p class="text-sm text-slate-500">Хостинг-платформа</p>
-            </div>
-            <div class="flex flex-col items-center">
-                <div class="bg-white rounded-full p-4 shadow-lg mb-4">
-                    <span class="text-4xl">🦄</span>
-                </div>
-                <h5 class="font-bold">Gunicorn</h5>
-                <p class="text-sm text-slate-500">Веб-сервер</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="roadmap" class="py-16">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold mb-2">Планы на будущее</h2>
-            <p class="text-slate-600 max-w-2xl mx-auto">Проект постоянно развивается. Вот что мы планируем добавить в ближайшее время.</p>
-        </div>
-        <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
-            <h4 class="text-xl font-bold text-indigo-700 mb-4">Полная реализация функции "Вопрос по правилам"</h4>
-            <p class="text-slate-600">Сейчас эта функция находится в разработке. Мы планируем завершить ее интеграцию, чтобы любой участник мог мгновенно получать консультации по уставу с помощью команды `/ask`. Это полностью устранит необходимость ручного поиска информации и обеспечит единое толкование правил для всех.</p>
-        </div>
-    </section>
-
-    <section id="team" class="py-16">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold mb-2">Наша Команда</h2>
-            <p class="text-slate-600 max-w-2xl mx-auto">Люди, стоящие за созданием и развитием HJR-Bot.</p>
-        </div>
-        <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div class="bg-white p-8 rounded-xl shadow-lg text-center">
-                <div class="mx-auto bg-slate-100 rounded-full h-24 w-24 flex items-center justify-center mb-4">
-                    <span class="text-5xl">🌾</span>
-                </div>
-                <h5 class="text-xl font-bold">Рисовый Колонизатор</h5>
-                <p class="text-slate-500">Регулятор за выполнением задач</p>
-            </div>
-            <div class="bg-white p-8 rounded-xl shadow-lg text-center">
-                <div class="mx-auto bg-slate-100 rounded-full h-24 w-24 flex items-center justify-center mb-4">
-                    <span class="text-5xl">✨</span>
-                </div>
-                <h5 class="text-xl font-bold">ИИ Gemini</h5>
-                <p class="text-slate-500">Главный разработчик</p>
-            </div>
-            <div class="bg-white p-8 rounded-xl shadow-lg text-center">
-                <div class="mx-auto bg-slate-100 rounded-full h-24 w-24 flex items-center justify-center mb-4">
-                    <span class="text-5xl">🧪</span>
-                </div>
-                <h5 class="text-xl font-bold">Озодбек</h5>
-                <p class="text-slate-500">Тестер</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="faq" class="py-16">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold mb-2">Часто задаваемые вопросы</h2>
-            <p class="text-slate-600 max-w-2xl mx-auto">Ответы на вопросы, которые могут у вас возникнуть по поводу безопасности, надежности и использования бота.</p>
-        </div>
-        <div class="max-w-3xl mx-auto space-y-4">
-            <div class="bg-white rounded-xl shadow-lg">
-                <div class="faq-question p-6 flex justify-between items-center">
-                    <h5 class="font-medium text-lg">Зачем вообще нужен ИИ для апелляций?</h5>
-                    <span class="arrow-down text-indigo-700">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </span>
-                </div>
-                <div class="faq-answer px-6 pb-2">
-                    <p class="text-slate-600 pb-4">Использование ИИ в качестве арбитра позволяет достичь максимальной объективности. В отличие от человека, ИИ не имеет личных симпатий, не устает и не подвержен эмоциям. Его решение основывается исключительно на фактах (аргументах сторон) и законе (уставе проекта). Это гарантирует, что каждое решение будет рассмотрено по единому, справедливому стандарту.</p>
-                </div>
-            </div>
-            <div class="bg-white rounded-xl shadow-lg">
-                <div class="faq-question p-6 flex justify-between items-center">
-                    <h5 class="font-medium text-lg">Насколько безопасно передавать данные боту?</h5>
-                    <span class="arrow-down text-indigo-700">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </span>
-                </div>
-                <div class="faq-answer px-6 pb-2">
-                    <p class="text-slate-600 pb-4">Полностью безопасно. Бот размещен на надежной платформе Railway, данные хранятся в защищенной базе данных PostgreSQL. Все секретные ключи и токены хранятся в виде зашифрованных переменных окружения. Код бота полностью открыт, и вы можете лично убедиться в отсутствии скрытых функций.</p>
-                </div>
-            </div>
-            <div class="bg-white rounded-xl shadow-lg">
-                <div class="faq-question p-6 flex justify-between items-center">
-                    <h5 class="font-medium text-lg">Что произойдет, если бот перезапустится во время моей апелляции?</h5>
-                    <span class="arrow-down text-indigo-700">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </span>
-                </div>
-                <div class="faq-answer px-6 pb-2">
-                    <p class="text-slate-600 pb-4">Ничего страшного. Благодаря базе данных PostgreSQL, бот сохраняет состояние каждой апелляции после каждого шага. Если он перезапустится, фоновый процесс автоматически найдет все "зависшие" дела и продолжит их обработку с того места, где они были прерваны. Ваши данные не будут потеряны.</p>
-                </div>
-            </div>
-            <div class="bg-white rounded-xl shadow-lg">
-                <div class="faq-question p-6 flex justify-between items-center">
-                    <h5 class="font-medium text-lg">Могу ли я использовать этого бота для своего проекта?</h5>
-                    <span class="arrow-down text-indigo-700">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </span>
-                </div>
-                <div class="faq-answer px-6 pb-2">
-                    <p class="text-slate-600 pb-4">Да, можете. Код бота полностью открыт и доступен на GitHub по лицензии, которая позволяет свободное использование и модификацию. Вы можете клонировать репозиторий, настроить его под свои нужды и запустить собственную копию. Мы верим в открытый исходный код.</p>
-                </div>
-            </div>
-            <div class="bg-white rounded-xl shadow-lg">
-                <div class="faq-question p-6 flex justify-between items-center">
-                    <h5 class="font-medium text-lg">Что если ИИ выдаст решение, которое нарушает правила?</h5>
-                    <span class="arrow-down text-indigo-700">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </span>
-                </div>
-                <div class="faq-answer px-6 pb-2">
-                    <p class="text-slate-600 pb-4">Если ИИ нарушает правила, то его решения автоматически считаются недействительными. Это указано в уставе редакторов.</p>
-                </div>
-            </div>
-            <div class="bg-white rounded-xl shadow-lg">
-                <div class="faq-question p-6 flex justify-between items-center">
-                    <h5 class="font-medium text-lg">Что если решение ИИ формально верное, но все считают его несправедливым?</h5>
-                    <span class="arrow-down text-indigo-700">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </span>
-                </div>
-                <div class="faq-answer px-6 pb-2">
-                    <p class="text-slate-600 pb-4">Участники могут сделать запрос на повторное пересмотрение путем голосования. Тогда ИИ пересмотрит свое решение, учитывая все новые аргументы и доказательства. И он не предвзятый как человек, он сделает пересмотр исключительно основываясь на аргументах, доказательствах и правилах.</p>
+                <!-- Review 3 -->
+                <div class="review-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 p-4">
+                    <div class="bg-[#2A2A2A] p-8 rounded-xl shadow-lg h-full">
+                        <p class="text-gray-300 mb-6">"Благодаря вам я открыл для себя много нового. Спасибо за качественный контент!"</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/50x50/FFFFFF/1E1E1E?text=И" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h5 class="font-bold">Иван</h5>
+                                <p class="text-sm text-gray-400">Подписчик</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-
 </main>
 
-<footer class="bg-slate-800 text-white mt-16">
-    <div class="container mx-auto px-6 py-8 text-center">
-        <p>&copy; 2025 Honji Review. CC-BY-SA.</p>
-        <p class="text-sm text-slate-400 mt-2">Создано для повышения эффективности и справедливости в сообществе Honji Review.</p>
+<!-- Footer -->
+<footer class="border-t border-gray-800 mt-16">
+    <div class="container mx-auto px-4 md:px-8 py-8 flex flex-col md:flex-row justify-between items-center">
+        <h3 class="text-xl font-bold mb-4 md:mb-0">Honji Review</h3>
+        <div class="flex space-x-6">
+            <a href="#" class="text-gray-400 hover:text-white">Telegram</a>
+            <a href="#" class="text-gray-400 hover:text-white">GitHub</a>
+            <a href="#" class="text-gray-400 hover:text-white">Email</a>
+        </div>
     </div>
 </footer>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const problemTabs = document.querySelectorAll('.problem-tab');
-        const solutionContents = document.querySelectorAll('.solution-content');
-
-        problemTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const targetId = tab.dataset.tab;
-
-                problemTabs.forEach(t => {
-                    t.classList.remove('tab-active');
-                    t.classList.add('tab-inactive');
-                });
-                tab.classList.remove('tab-inactive');
-                tab.classList.add('tab-active');
-
-                solutionContents.forEach(content => {
-                    if (content.id === targetId) {
-                        content.classList.remove('hidden');
-                    } else {
-                        content.classList.add('hidden');
-                    }
-                });
-            });
-        });
-
-        const faqQuestions = document.querySelectorAll('.faq-question');
-        faqQuestions.forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                const arrow = question.querySelector('.arrow-down');
-
-                if (answer.style.maxHeight && answer.style.maxHeight !== '0px') {
-                    answer.style.maxHeight = '0px';
-                    arrow.classList.remove('rotated');
-                } else {
-                    answer.style.maxHeight = answer.scrollHeight + 'px';
-                    arrow.classList.add('rotated');
-                }
-            });
-        });
-
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-    });
-</script>
+<script src="script.js"></script>
 </body>
 </html>
