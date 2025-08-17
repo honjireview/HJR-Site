@@ -1,18 +1,17 @@
-# Используем официальный образ Nginx
-FROM nginx:alpine
+# Используем легковесный официальный образ веб-сервера Nginx
+FROM nginx:1.25-alpine
 
-# Устанавливаем gettext для утилиты envsubst, которая нужна для подстановки порта
-RUN apk update && apk add gettext
+# Удаляем стандартную конфигурацию Nginx
+RUN rm /etc/nginx/conf.d/default.conf
 
-# Копируем ваш HTML файл
-COPY index.html /usr/share/nginx/html
+# Копируем нашу собственную конфигурацию
+COPY nginx.conf /etc/nginx/conf.d/
 
-# Копируем шаблон конфигурации Nginx
-COPY nginx.conf.template /etc/nginx/templates/
+# Копируем все файлы сайта (html, css, js) в рабочую директорию сервера
+COPY . /usr/share/nginx/html
 
-# Копируем и делаем исполняемым скрипт запуска
-COPY start.sh /start.sh
-RUN chmod +x /start.sh
+# Указываем, что наше приложение будет работать на порту, который предоставит Railway
+EXPOSE 8080
 
-# Команда для запуска нашего скрипта при старте контейнера
-CMD ["/start.sh"]
+# Команда для запуска сервера
+CMD ["nginx", "-g", "daemon off;"]
