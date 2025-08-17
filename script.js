@@ -9,65 +9,73 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Logic for Bot Page (bot.html) ---
-    const mobileMenuButtonBot = document.getElementById('mobile-menu-button-bot');
-    const mobileMenuBot = document.getElementById('mobile-menu-bot');
+    // --- Reviews Slider Logic ---
+    const reviewsContainer = document.getElementById('reviews-container');
+    const prevButton = document.getElementById('prev-slide');
+    const nextButton = document.getElementById('next-slide');
 
-    if (mobileMenuButtonBot) {
-        mobileMenuButtonBot.addEventListener('click', () => {
-            mobileMenuBot.classList.toggle('hidden');
-        });
-    }
+    if (reviewsContainer && prevButton && nextButton) {
+        let slides = Array.from(reviewsContainer.children);
+        let currentIndex = 1; // Start from the first actual slide (after the clone)
+        let isTransitioning = false;
 
-    const problemTabs = document.querySelectorAll('.problem-tab');
-    const solutionContents = document.querySelectorAll('.solution-content');
+        // Clone first and last slides for infinite loop
+        const firstClone = slides[0].cloneNode(true);
+        const lastClone = slides[slides.length - 1].cloneNode(true);
+        reviewsContainer.appendChild(firstClone);
+        reviewsContainer.insertBefore(lastClone, slides[0]);
 
-    problemTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const targetId = tab.dataset.tab;
+        // Update slides array with clones
+        slides = Array.from(reviewsContainer.children);
 
-            problemTabs.forEach(t => {
-                t.classList.remove('tab-active');
-                t.classList.add('tab-inactive');
-            });
-            tab.classList.remove('tab-inactive');
-            tab.classList.add('tab-active');
+        const slideWidth = () => slides[0].getBoundingClientRect().width;
 
-            solutionContents.forEach(content => {
-                if (content.id === targetId) {
-                    content.classList.remove('hidden');
-                } else {
-                    content.classList.add('hidden');
-                }
-            });
-        });
-    });
+        const setPosition = () => {
+            reviewsContainer.style.transform = `translateX(-${currentIndex * slideWidth()}px)`;
+        };
 
-    const faqQuestions = document.querySelectorAll('.faq-question');
-    faqQuestions.forEach(question => {
-        question.addEventListener('click', () => {
-            const answer = question.nextElementSibling;
-            const arrow = question.querySelector('.arrow-down');
+        const shiftSlides = () => {
+            isTransitioning = true;
+            reviewsContainer.style.transition = 'transform 0.5s ease-in-out';
+            setPosition();
+        };
 
-            const isOpening = !answer.style.maxHeight || answer.style.maxHeight === '0px';
-
-            // Close all other answers
-            faqQuestions.forEach(q => {
-                const ans = q.nextElementSibling;
-                if (ans !== answer) {
-                    ans.style.maxHeight = '0px';
-                    q.querySelector('.arrow-down').classList.remove('rotated');
-                }
-            });
-
-            // Toggle the clicked one
-            if (isOpening) {
-                answer.style.maxHeight = answer.scrollHeight + 'px';
-                arrow.classList.add('rotated');
-            } else {
-                answer.style.maxHeight = '0px';
-                arrow.classList.remove('rotated');
+        reviewsContainer.addEventListener('transitionend', () => {
+            isTransitioning = false;
+            if (currentIndex === 0) {
+                reviewsContainer.style.transition = 'none';
+                currentIndex = slides.length - 2;
+                setPosition();
+            }
+            if (currentIndex === slides.length - 1) {
+                reviewsContainer.style.transition = 'none';
+                currentIndex = 1;
+                setPosition();
             }
         });
-    });
+
+        const handleNext = () => {
+            if (isTransitioning) return;
+            currentIndex++;
+            shiftSlides();
+        };
+
+        const handlePrev = () => {
+            if (isTransitioning) return;
+            currentIndex--;
+            shiftSlides();
+        };
+
+        nextButton.addEventListener('click', handleNext);
+        prevButton.addEventListener('click', handlePrev);
+
+        window.addEventListener('resize', () => {
+            reviewsContainer.style.transition = 'none';
+            setPosition();
+        });
+
+        // Initial position without transition
+        reviewsContainer.style.transition = 'none';
+        setPosition();
+    }
 });
