@@ -6,8 +6,33 @@
     <title>HJR-Bot: Интерактивный Обзор</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
+    <!-- Дополнительные стили для страницы бота, чтобы не конфликтовать с style.css -->
+    <style>
+        .tab-active {
+            background-color: #4338ca;
+            color: #ffffff;
+        }
+        .tab-inactive {
+            background-color: #eef2ff;
+            color: #4338ca;
+        }
+        .faq-question {
+            cursor: pointer;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .arrow-down {
+            transition: transform 0.3s ease-out;
+        }
+        .rotated {
+            transform: rotate(180deg);
+        }
+    </style>
 </head>
-<body id="bot-page" class="bg-slate-50 text-slate-800">
+<body class="bg-slate-50 text-slate-800">
 
 <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
     <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -24,12 +49,12 @@
         </button>
     </nav>
     <div id="mobile-menu-bot" class="hidden md:hidden mt-4 px-4">
-        <nav class="flex flex-col space-y-4">
-            <li><a href="index.html" class="block text-slate-600 hover:text-indigo-700 transition">← На главный сайт</a></li>
-            <li><a href="#problems" class="block text-slate-600 hover:text-indigo-700 transition">Проблемы и Решения</a></li>
-            <li><a href="#features" class="block text-slate-600 hover:text-indigo-700 transition">Как это работает</a></li>
-            <li><a href="#team" class="block text-slate-600 hover:text-indigo-700 transition">Команда</a></li>
-            <li><a href="#faq" class="block text-slate-600 hover:text-indigo-700 transition">FAQ</a></li>
+        <nav class="flex flex-col space-y-4 py-4">
+            <a href="index.html" class="block text-slate-600 hover:text-indigo-700 transition">← На главный сайт</a>
+            <a href="#problems" class="block text-slate-600 hover:text-indigo-700 transition">Проблемы и Решения</a>
+            <a href="#features" class="block text-slate-600 hover:text-indigo-700 transition">Как это работает</a>
+            <a href="#team" class="block text-slate-600 hover:text-indigo-700 transition">Команда</a>
+            <a href="#faq" class="block text-slate-600 hover:text-indigo-700 transition">FAQ</a>
         </nav>
     </div>
 </header>
@@ -54,20 +79,123 @@
         </div>
         <div class="flex flex-col md:flex-row gap-8 min-h-[300px]">
             <div class="w-full md:w-1/3 flex flex-col space-y-4">
-                <button data-tab="problem1" class="problem-tab tab-active">Сложность и предвзятость при апелляциях</button>
-                <button data-tab="problem2" class="problem-tab tab-inactive">Непонятные и разрозненные правила</button>
-                <button data-tab="problem3" class="problem-tab tab-inactive">Отсутствие удобного инструмента для постов</button>
+                <button data-tab="problem1" class="problem-tab tab-active text-left p-4 rounded-lg font-medium transition">Сложность и предвзятость при апелляциях</button>
+                <button data-tab="problem2" class="problem-tab tab-inactive text-left p-4 rounded-lg font-medium transition">Непонятные и разрозненные правила</button>
+                <button data-tab="problem3" class="problem-tab tab-inactive text-left p-4 rounded-lg font-medium transition">Отсутствие удобного инструмента для постов</button>
             </div>
             <div class="w-full md:w-2/3 bg-white p-8 rounded-xl shadow-lg">
-                <div id="problem1" class="solution-content"><h3 class="text-2xl font-bold text-indigo-700 mb-4">Решение: Справедливые апелляции с ИИ-арбитром</h3><p class="text-slate-600">Чтобы исключить человеческий фактор, бот внедряет полностью автоматизированный процесс апелляции...</p></div>
-                <div id="problem2" class="solution-content hidden"><h3 class="text-2xl font-bold text-indigo-700 mb-4">Решение: ИИ-консультант по правилам</h3><p class="text-slate-600">Вместо поиска нужного пункта в документах, теперь можно просто спросить у бота...</p></div>
-                <div id="problem3" class="solution-content hidden"><h3 class="text-2xl font-bold text-indigo-700 mb-4">Решение: TextCrafter для создания постов</h3><p class="text-slate-600">Встроенный модуль TextCrafter стандартизирует и упрощает процесс публикации...</p></div>
+                <div id="problem1" class="solution-content"><h3 class="text-2xl font-bold text-indigo-700 mb-4">Решение: Справедливые апелляции с ИИ-арбитром</h3><p class="text-slate-600">Чтобы исключить человеческий фактор, бот внедряет полностью автоматизированный процесс апелляции. ИИ выступает в роли независимого судьи, а бот — в роли судебного секретаря.</p></div>
+                <div id="problem2" class="solution-content hidden"><h3 class="text-2xl font-bold text-indigo-700 mb-4">Решение: ИИ-консультант по правилам</h3><p class="text-slate-600">Вместо поиска нужного пункта в документах, теперь можно просто спросить у бота. Он работает как личный юрист 24/7.</p></div>
+                <div id="problem3" class="solution-content hidden"><h3 class="text-2xl font-bold text-indigo-700 mb-4">Решение: TextCrafter для создания постов</h3><p class="text-slate-600">Встроенный модуль TextCrafter стандартизирует и упрощает процесс публикации, делая его доступным даже для новичков.</p></div>
             </div>
         </div>
     </section>
 
-    <!-- Полное содержимое страницы бота здесь -->
+    <section id="features" class="py-16">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2">Как это работает</h2>
+            <p class="text-slate-600 max-w-2xl mx-auto">Посмотрите на ключевые функции бота и процессы, которые он автоматизирует.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <h4 class="text-xl font-bold text-indigo-700 mb-4">Создание апелляции</h4>
+                <div class="space-y-4 text-sm">
+                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">1</div><span>Пользователь подает доказательства.</span></div>
+                    <div class="flex justify-center"><div class="h-6 w-px bg-slate-300"></div></div>
+                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">2</div><span>Бот задает 3 вопроса для сбора аргументов.</span></div>
+                    <div class="flex justify-center"><div class="h-6 w-px bg-slate-300"></div></div>
+                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">3</div><span>Запускается 24-часовой таймер для контраргументов.</span></div>
+                    <div class="flex justify-center"><div class="h-6 w-px bg-slate-300"></div></div>
+                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">4</div><span>Дело передается ИИ для вынесения вердикта.</span></div>
+                </div>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <h4 class="text-xl font-bold text-indigo-700 mb-4">Вопрос по правилам</h4>
+                <div class="space-y-4 text-sm">
+                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">1</div><span>Пользователь вводит /ask и свой вопрос.</span></div>
+                    <div class="flex justify-center"><div class="h-6 w-px bg-slate-300"></div></div>
+                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">2</div><span>Бот отправляет вопрос и правила в API Gemini.</span></div>
+                    <div class="flex justify-center"><div class="h-6 w-px bg-slate-300"></div></div>
+                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">3</div><span>ИИ анализирует вопрос в контексте правил.</span></div>
+                    <div class="flex justify-center"><div class="h-6 w-px bg-slate-300"></div></div>
+                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">4</div><span>Пользователь получает развернутый ответ.</span></div>
+                </div>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <h4 class="text-xl font-bold text-indigo-700 mb-4">Создание поста</h4>
+                <div class="space-y-4 text-sm">
+                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">1</div><span>Ответственный вводит команду /craft.</span></div>
+                    <div class="flex justify-center"><div class="h-6 w-px bg-slate-300"></div></div>
+                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">2</div><span>Бот последовательно запрашивает контент.</span></div>
+                    <div class="flex justify-center"><div class="h-6 w-px bg-slate-300"></div></div>
+                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">3</div><span>"Машина состояний" запоминает прогресс.</span></div>
+                    <div class="flex justify-center"><div class="h-6 w-px bg-slate-300"></div></div>
+                    <div class="flex items-center gap-4"><div class="bg-indigo-100 text-indigo-700 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">4</div><span>Готовый пост публикуется по стандарту.</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <section id="team" class="py-16">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2">Наша Команда</h2>
+            <p class="text-slate-600 max-w-2xl mx-auto">Люди, стоящие за созданием и развитием HJR-Bot.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                <div class="mx-auto bg-slate-100 rounded-full h-24 w-24 flex items-center justify-center mb-4"><span class="text-5xl">🌾</span></div>
+                <h5 class="text-xl font-bold">Рисовый Колонизатор</h5>
+                <p class="text-slate-500">Регулятор за выполнением задач</p>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                <div class="mx-auto bg-slate-100 rounded-full h-24 w-24 flex items-center justify-center mb-4"><span class="text-5xl">✨</span></div>
+                <h5 class="text-xl font-bold">ИИ Gemini</h5>
+                <p class="text-slate-500">Главный разработчик</p>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                <div class="mx-auto bg-slate-100 rounded-full h-24 w-24 flex items-center justify-center mb-4"><span class="text-5xl">🧪</span></div>
+                <h5 class="text-xl font-bold">Озодбек</h5>
+                <p class="text-slate-500">Тестер</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-16">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2">Часто задаваемые вопросы</h2>
+            <p class="text-slate-600 max-w-2xl mx-auto">Ответы на вопросы, которые могут у вас возникнуть.</p>
+        </div>
+        <div class="max-w-3xl mx-auto space-y-4">
+            <div class="bg-white rounded-xl shadow-lg">
+                <div class="faq-question p-6 flex justify-between items-center">
+                    <h5 class="font-medium text-lg">Зачем вообще нужен ИИ для апелляций?</h5>
+                    <span class="arrow-down text-indigo-700"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></span>
+                </div>
+                <div class="faq-answer px-6 pb-2"><p class="text-slate-600 pb-4">Использование ИИ в качестве арбитра позволяет достичь максимальной объективности. Его решение основывается исключительно на фактах и правилах проекта.</p></div>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg">
+                <div class="faq-question p-6 flex justify-between items-center">
+                    <h5 class="font-medium text-lg">Насколько безопасно передавать данные боту?</h5>
+                    <span class="arrow-down text-indigo-700"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></span>
+                </div>
+                <div class="faq-answer px-6 pb-2"><p class="text-slate-600 pb-4">Полностью безопасно. Бот размещен на надежной платформе, данные хранятся в защищенной базе данных, а все ключи зашифрованы.</p></div>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg">
+                <div class="faq-question p-6 flex justify-between items-center">
+                    <h5 class="font-medium text-lg">Что произойдет, если бот перезапустится?</h5>
+                    <span class="arrow-down text-indigo-700"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></span>
+                </div>
+                <div class="faq-answer px-6 pb-2"><p class="text-slate-600 pb-4">Ничего страшного. Благодаря базе данных, бот сохраняет состояние каждой апелляции и продолжит работу с того места, где остановился.</p></div>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg">
+                <div class="faq-question p-6 flex justify-between items-center">
+                    <h5 class="font-medium text-lg">Могу ли я использовать этого бота для своего проекта?</h5>
+                    <span class="arrow-down text-indigo-700"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></span>
+                </div>
+                <div class="faq-answer px-6 pb-2"><p class="text-slate-600 pb-4">Да, можете. Код бота полностью открыт и доступен на GitHub по лицензии, которая позволяет свободное использование и модификацию.</p></div>
+            </div>
+        </div>
+    </section>
 </main>
 
 <footer class="bg-slate-800 text-white mt-16">
