@@ -1,0 +1,6 @@
+# Файл конфигурации Nixpacks
+[phases.build]
+cmds = ["echo 'Building...'"]
+
+[start]
+cmd = "nginx -g 'daemon off;'"
