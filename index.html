@@ -6,7 +6,7 @@
     <title>HJR-Bot: Интерактивный Обзор</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chosen Palette: Calm Harmony -->
-    <!-- Application Structure Plan: A single-page application with a sticky navigation header for easy access to different sections. The structure is designed to guide the user logically: from a high-level introduction (Hero), through the core value proposition presented in an interactive 'Problem/Solution' format, down to detailed feature explanations ('How It Works'), a 'Tech Stack' section for transparency, a 'Roadmap' for future plans, and finally, an interactive FAQ section for common queries. This thematic structure enhances user engagement and comprehension. -->
+    <!-- Application Structure Plan: A single-page application with a sticky navigation header for easy access to different sections. The structure is designed to guide the user logically: from a high-level introduction (Hero), through the core value proposition presented in an interactive 'Problem/Solution' format, down to detailed feature explanations ('How It Works'), a 'Tech Stack' section for transparency, a 'Roadmap' for future plans, a 'Team' section, and finally, an interactive FAQ section for common queries. This thematic structure enhances user engagement and comprehension. -->
     <!-- Visualization & Content Choices:
         1. Problem/Solution Section: Info -> Four key problems and their corresponding bot solutions. Goal -> Compare and connect. Method -> Interactive tabbed interface. Interaction -> Click-to-reveal. Justification -> More engaging than a linear list.
         2. 'How It Works' Section: Info -> Step-by-step processes for bot functions. Goal -> Organize and explain complex workflows. Method -> Simple, clean process flow diagrams built with structured HTML/CSS. Interaction -> Static visual aid. Justification -> Visual flows are more intuitive than text.
@@ -54,6 +54,7 @@
             <li><a href="#problems" class="text-slate-600 hover:text-indigo-700 transition">Проблемы и Решения</a></li>
             <li><a href="#features" class="text-slate-600 hover:text-indigo-700 transition">Как это работает</a></li>
             <li><a href="#tech-stack" class="text-slate-600 hover:text-indigo-700 transition">Технологии</a></li>
+            <li><a href="#team" class="text-slate-600 hover:text-indigo-700 transition">Команда</a></li>
             <li><a href="#faq" class="text-slate-600 hover:text-indigo-700 transition">FAQ</a></li>
         </ul>
         <div class="md:hidden">
@@ -66,7 +67,8 @@
         <ul class="px-6 pb-4 space-y-2">
             <li><a href="#problems" class="block text-slate-600 hover:text-indigo-700 transition">Проблемы и Решения</a></li>
             <li><a href="#features" class="block text-slate-600 hover:text-indigo-700 transition">Как это работает</a></li>
-            <li><a href="#tech-stack" class="text-slate-600 hover:text-indigo-700 transition">Технологии</a></li>
+            <li><a href="#tech-stack" class="block text-slate-600 hover:text-indigo-700 transition">Технологии</a></li>
+            <li><a href="#team" class="block text-slate-600 hover:text-indigo-700 transition">Команда</a></li>
             <li><a href="#faq" class="block text-slate-600 hover:text-indigo-700 transition">FAQ</a></li>
         </ul>
     </div>
@@ -78,6 +80,11 @@
         <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">
             Автоматизация рутины, обеспечение справедливости и прозрачности в работе сообщества Honji Review. Беспристрастный цифровой помощник для решения сложных административных задач.
         </p>
+        <div class="mt-8">
+            <a href="https://forms.gle/oP71jhyRrfZax4RZ9" target="_blank" rel="noopener noreferrer" class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-indigo-700 transition duration-300 ease-in-out text-lg shadow-lg hover:shadow-xl">
+                Голосовать за внедрение бота
+            </a>
+        </div>
     </section>
 
     <section id="problems" class="py-16">
@@ -213,6 +220,36 @@
         <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
             <h4 class="text-xl font-bold text-indigo-700 mb-4">Полная реализация функции "Вопрос по правилам"</h4>
             <p class="text-slate-600">Сейчас эта функция находится в разработке. Мы планируем завершить ее интеграцию, чтобы любой участник мог мгновенно получать консультации по уставу с помощью команды `/ask`. Это полностью устранит необходимость ручного поиска информации и обеспечит единое толкование правил для всех.</p>
+        </div>
+    </section>
+
+    <section id="team" class="py-16">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2">Наша Команда</h2>
+            <p class="text-slate-600 max-w-2xl mx-auto">Люди, стоящие за созданием и развитием HJR-Bot.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                <div class="mx-auto bg-slate-100 rounded-full h-24 w-24 flex items-center justify-center mb-4">
+                    <span class="text-5xl">🌾</span>
+                </div>
+                <h5 class="text-xl font-bold">Рисовый Колонизатор</h5>
+                <p class="text-slate-500">Регулятор за выполнением задач</p>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                <div class="mx-auto bg-slate-100 rounded-full h-24 w-24 flex items-center justify-center mb-4">
+                    <span class="text-5xl">✨</span>
+                </div>
+                <h5 class="text-xl font-bold">ИИ Gemini</h5>
+                <p class="text-slate-500">Главный разработчик</p>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                <div class="mx-auto bg-slate-100 rounded-full h-24 w-24 flex items-center justify-center mb-4">
+                    <span class="text-5xl">🧪</span>
+                </div>
+                <h5 class="text-xl font-bold">Озодбек</h5>
+                <p class="text-slate-500">Тестер</p>
+            </div>
         </div>
     </section>
 
