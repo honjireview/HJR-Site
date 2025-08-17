@@ -1,11 +1,18 @@
 # Используем официальный образ Nginx
 FROM nginx:alpine
 
-# Копируем ваш HTML файл в директорию, где Nginx хранит сайты
+# Устанавливаем gettext для утилиты envsubst, которая нужна для подстановки порта
+RUN apk update && apk add gettext
+
+# Копируем ваш HTML файл
 COPY index.html /usr/share/nginx/html
 
-# Указываем, что контейнер будет слушать порт 80
-EXPOSE 80
+# Копируем шаблон конфигурации Nginx
+COPY nginx.conf.template /etc/nginx/templates/
 
-# Команда для запуска Nginx при старте контейнера
-CMD ["nginx", "-g", "daemon off;"]
+# Копируем и делаем исполняемым скрипт запуска
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
+# Команда для запуска нашего скрипта при старте контейнера
+CMD ["/start.sh"]
