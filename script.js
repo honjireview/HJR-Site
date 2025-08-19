@@ -1,5 +1,22 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+    // --- Splash Screen Logic ---
+    const body = document.body;
+    const splashScreen = document.getElementById('splash-screen');
+
+    if (splashScreen) {
+        body.classList.add('no-scroll'); // Prevent scrolling while splash is visible
+
+        setTimeout(() => {
+            splashScreen.style.opacity = '0';
+            // After fade out, remove it from the DOM and allow scrolling
+            splashScreen.addEventListener('transitionend', () => {
+                splashScreen.remove();
+                body.classList.remove('no-scroll');
+            }, { once: true });
+        }, 2000); // Splash screen will be visible for 2 seconds
+    }
+
     // --- Mobile Menu Logic ---
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -70,23 +87,25 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --- Animate sections on scroll (Intersection Observer) ---
-    const sections = document.querySelectorAll('.fade-in-section');
-    if (sections.length > 0) {
+    // This now handles both the parent section and its staggered children
+    const sectionsToAnimate = document.querySelectorAll('.fade-in-section, .animated-children-container');
+    if (sectionsToAnimate.length > 0) {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target); // Optional: stop observing once it's visible
+                    observer.unobserve(entry.target);
                 }
             });
         }, {
-            threshold: 0.1 // Trigger when 10% of the element is visible
+            threshold: 0.1
         });
 
-        sections.forEach(section => {
+        sectionsToAnimate.forEach(section => {
             observer.observe(section);
         });
     }
+
 
     // --- Active Nav Link Highlighting on Scroll ---
     const navLinks = document.querySelectorAll('.nav-link');
@@ -100,6 +119,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     currentSectionId = section.getAttribute('id');
                 }
             });
+
+            // Special case for hero section
+            if (window.scrollY < 300) {
+                currentSectionId = 'hero';
+            }
 
             navLinks.forEach(link => {
                 link.classList.remove('nav-link-active');
