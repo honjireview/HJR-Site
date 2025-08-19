@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
             splashScreen.classList.add('visible');
         }, 50);
 
-        // Start the "zoom out" animation after 1 second
+        // Start the "zoom out" animation after 3 seconds
         setTimeout(() => {
             splashScreen.classList.remove('visible');
 
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 body.classList.remove('no-scroll'); // Allow scrolling again
             }, 500); // This MUST match the CSS transition duration
 
-        }, 1050); // Total time visible = 1050ms - 50ms = 1000ms (1 second)
+        }, 3050); // Total time visible = 3050ms - 50ms = 3000ms (3 seconds)
     }
 
     // --- Mobile Menu Logic ---
