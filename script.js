@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 splashScreen.remove();
                 body.classList.remove('no-scroll');
             }, { once: true });
-        }, 2000); // Splash screen will be visible for 2 seconds
+        }, 1000); // Splash screen will be visible for 1 second
     }
 
     // --- Mobile Menu Logic ---
