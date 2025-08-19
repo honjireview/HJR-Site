@@ -5,16 +5,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const splashScreen = document.getElementById('splash-screen');
 
     if (splashScreen) {
-        body.classList.add('no-scroll'); // Prevent scrolling while splash is visible
+        body.classList.add('no-scroll'); // Prevent scrolling
 
+        // Trigger the "zoom in" animation shortly after the page loads
         setTimeout(() => {
-            splashScreen.style.opacity = '0';
-            // After fade out, remove it from the DOM and allow scrolling
-            splashScreen.addEventListener('transitionend', () => {
-                splashScreen.remove();
-                body.classList.remove('no-scroll');
-            }, { once: true });
-        }, 1000); // Splash screen will be visible for 1 second
+            splashScreen.classList.add('visible');
+        }, 50);
+
+        // Start the "zoom out" animation after 1 second
+        setTimeout(() => {
+            splashScreen.classList.remove('visible');
+
+            // Remove the element from the DOM after the exit animation completes
+            setTimeout(() => {
+                if (splashScreen) {
+                    splashScreen.remove();
+                }
+                body.classList.remove('no-scroll'); // Allow scrolling again
+            }, 500); // This MUST match the CSS transition duration
+
+        }, 1050); // Total time visible = 1050ms - 50ms = 1000ms (1 second)
     }
 
     // --- Mobile Menu Logic ---
