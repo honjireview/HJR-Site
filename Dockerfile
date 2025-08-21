@@ -1,17 +1,18 @@
-# Используем легковесный официальный образ веб-сервера Nginx
-FROM nginx:1.25-alpine
+# Используем официальный образ Python
+FROM python:3.12-slim
 
-# Удаляем стандартную конфигурацию Nginx
-RUN rm /etc/nginx/conf.d/default.conf
+# Устанавливаем рабочую директорию в контейнере
+WORKDIR /app
 
-# Копируем нашу собственную конфигурацию
-COPY nginx.conf /etc/nginx/conf.d/
+# Копируем файл с зависимостями
+COPY requirements.txt requirements.txt
 
-# Копируем все файлы сайта (html, css, js) в рабочую директорию сервера
-COPY . /usr/share/nginx/html
+# Устанавливаем зависимости
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Указываем, что наше приложение будет работать на порту, который предоставит Railway
-EXPOSE 8080
+# Копируем весь остальной код приложения
+COPY . .
 
-# Команда для запуска сервера
-CMD ["nginx", "-g", "daemon off;"]
+# Указываем Gunicorn, как запускать наше приложение.
+# Он будет искать переменную 'app' в файле 'app.py'.
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app:app"]
