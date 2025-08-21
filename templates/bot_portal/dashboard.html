@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}Дашборд - Портал HJR-Bot{% endblock %}
+
+{% block head_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bot_portal.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="text-center py-16">
+    <h1 class="text-4xl font-bold">Главная страница портала бота</h1>
+    <p class="text-slate-400 mt-4">Здесь будет архив, трекер, статистика и т.д.</p>
+</div>
+{% endblock %}
+
+{% block body_js %}
+<script src="{{ url_for('static', filename='js/bot_portal.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,23 @@
+<!-- Наследуем общий шаблон -->
+{% extends "layout.html" %}
+
+<!-- Задаем уникальный заголовок для этой страницы -->
+{% block title %}Главная - Honji Review{% endblock %}
+
+<!-- Подключаем уникальные стили для этой части сайта -->
+{% block head_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main_site.css') }}">
+{% endblock %}
+
+<!-- Основное содержимое страницы -->
+{% block content %}
+<div class="text-center py-16">
+    <h1 class="text-4xl font-bold">Главная страница основного сайта</h1>
+    <p class="text-slate-400 mt-4">Здесь будет форум, отзывы и т.д.</p>
+</div>
+{% endblock %}
+
+<!-- Подключаем уникальные скрипты -->
+{% block body_js %}
+<script src="{{ url_for('static', filename='js/main_site.js') }}"></script>
+{% endblock %}
