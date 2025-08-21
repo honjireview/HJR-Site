@@ -1,0 +1,27 @@
+# Виртуальные окружения
+/venv
+/env
+/.venv
+/.env
+
+# Файлы кэша Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Файлы IDE (JetBrains / PyCharm)
+.idea/
+*.iml
+/workspace.xml
+/shelf/
+
+# Файлы операционной системы
+.DS_Store
+Thumbs.db
+
+# Файлы с переменными окружения (если будете использовать)
+.env
+.env.*
+
+# Логи
+*.log
