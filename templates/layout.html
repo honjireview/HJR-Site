@@ -15,12 +15,16 @@
         <div>
             <a href="{{ url_for('main_site.index') }}" class="px-4 py-2 hover:text-indigo-300">Основной сайт</a>
 
-            {% if session.get('logged_in') %}
-            <a href="{{ url_for('bot_portal.dashboard') }}" class="px-4 py-2 hover:text-indigo-300">Панель управления</a>
-            <a href="{{ url_for('bot_portal.logout') }}" class="px-4 py-2 hover:text-indigo-300">[Выход]</a>
-            {% else %}
+            <!-- --- НАЧАЛО ИЗМЕНЕНИЙ --- -->
+            <!-- Логика теперь разделена: ссылка на портал и кнопка выхода -->
+
             <a href="{{ url_for('bot_portal.showcase') }}" class="px-4 py-2 hover:text-indigo-300">Портал Бота</a>
+
+            <!-- Кнопка "Выход" появляется только если мы находимся внутри блюпринта 'bot_portal' И пользователь авторизован -->
+            {% if request.blueprint == 'bot_portal' and session.get('logged_in') %}
+            <a href="{{ url_for('bot_portal.logout') }}" class="px-4 py-2 text-slate-500 hover:text-indigo-300">[Выход]</a>
             {% endif %}
+            <!-- --- КОНЕЦ ИЗМЕНЕНИЙ --- -->
 
         </div>
     </nav>

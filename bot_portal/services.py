@@ -62,9 +62,10 @@ class AuthService:
         auth_date = int(auth_data.get('auth_date', 0))
         current_time = time.time()
         log.debug(f"[AUTH_TIME_CHECK] Время сервера: {current_time}, Время данных: {auth_date}, Разница: {current_time - auth_date} сек.")
-        if current_time - auth_date > 300: # 5 минут
+        # ИЗМЕНЕНИЕ: Уменьшаем время жизни данных до 60 секунд для повышения безопасности
+        if current_time - auth_date > 60:
             log.warning(f"[AUTH_TIME_CHECK] ПРОВАЛ: Данные аутентификации устарели (прошло {current_time - auth_date} сек).")
-            return False, "Данные аутентификации устарели."
+            return False, "Данные аутентификации устарели. Пожалуйста, попробуйте снова."
         log.info("[AUTH_TIME_CHECK] УСПЕХ: Срок действия данных в норме.")
 
         # 2. Проверка подписи
