@@ -20,7 +20,6 @@ def dashboard():
     if not session.get('logged_in'):
         return redirect(url_for('bot_portal.login'))
 
-    # Здесь будет логика для получения данных для дашборда
     return render_template('dashboard.html', user=session)
 
 @bot_portal_bp.route('/login')
@@ -42,6 +41,7 @@ def handle_login():
     if success:
         return redirect(url_for('bot_portal.dashboard'))
     else:
+        # В реальной системе здесь может быть страница с ошибкой
         return f"Ошибка авторизации: {message}", 403
 
 @bot_portal_bp.route('/logout')

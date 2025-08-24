@@ -1,14 +1,19 @@
-# /bot_portal/routes.py
-from flask import render_template, request, redirect, url_for, session, current_app # <--- Импортируем current_app
-# ... (остальные импорты)
+# /main_site/routes.py
+from flask import render_template
+from . import main_site_bp
 
-# ... (dashboard, handle_login, logout)
+@main_site_bp.route('/')
+def index():
+    """
+    Обрабатывает главную страницу основного сайта.
+    """
+    # Этот маршрут теперь будет отображать заглушку или главную страницу всего проекта,
+    # так как витрина бота была перенесена.
+    return render_template('index.html')
 
-@bot_portal_bp.route('/login')
-def login():
+@main_site_bp.route('/contact')
+def contact():
     """
-    Отображает страницу входа.
+    Обрабатывает страницу контактов.
     """
-    # 3. Получаем username из конфигурации, а не из os.getenv
-    bot_username = current_app.config.get('TELEGRAM_BOT_USERNAME', 'YourBot')
-    return render_template('login.html', bot_username=bot_username)
+    return render_template('contact.html')
