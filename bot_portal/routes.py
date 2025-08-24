@@ -1,8 +1,10 @@
 # /bot_portal/routes.py
 from flask import render_template, request, redirect, url_for, session, current_app, jsonify
 from . import bot_portal_bp
-# --- НАЧАЛО ИЗМЕНЕНИЙ: Добавляем импорт GeminiService ---
-from .services import AuthService, AppealService, GeminiService
+# --- НАЧАЛО ИЗМЕНЕНИЙ: Исправлен импорт сервисов на явные модульные импорты ---
+from .services.auth_service import AuthService
+from .services.appeal_service import AppealService
+from .services.gemini_service import GeminiService
 # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
 @bot_portal_bp.route('/')

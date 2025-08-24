@@ -2,17 +2,13 @@ from flask import Flask
 import os
 import db
 import telebot
-import logging # <-- Импортируем логирование
+import logging
 
-# --- НАЧАЛО ИЗМЕНЕНИЙ ---
 # Базовая конфигурация логирования.
-# В Railway логи будут автоматически перехватываться и отображаться.
 logging.basicConfig(
-    level=logging.DEBUG, # Устанавливаем уровень DEBUG для максимальной детализации
+    level=logging.DEBUG,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
-# --- КОНЕЦ ИЗМЕНЕНИЙ ---
-
 
 def create_app():
     """

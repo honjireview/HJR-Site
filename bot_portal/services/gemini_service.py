@@ -2,7 +2,7 @@
 import os
 import logging
 import google.generativeai as genai
-from ..models.rate_limit_model import RateLimitModel
+from ..models import RateLimitModel
 
 log = logging.getLogger(__name__)
 
