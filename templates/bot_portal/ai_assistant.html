@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}ИИ-Ассистент - Панель управления{% endblock %}
+
+{% block content %}
+<div class="py-12 max-w-4xl mx-auto">
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-4xl font-bold">ИИ-Ассистент по правилам</h1>
+            <p class="text-slate-400 mt-2">Задайте вопрос по уставу или процессам проекта.</p>
+        </div>
+        <a href="{{ url_for('bot_portal.dashboard') }}" class="text-indigo-400 hover:underline text-sm">&larr; Назад в панель</a>
+    </div>
+
+    <div id="chat-container" class="bg-slate-800/50 border border-slate-700 rounded-lg shadow-lg flex flex-col h-[60vh]">
+        <!-- Chat messages will be appended here -->
+        <div id="chat-messages" class="flex-1 p-6 space-y-4 overflow-y-auto">
+            <div class="flex items-start gap-3">
+                <div class="bg-indigo-500/20 text-indigo-300 font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm">ИИ</div>
+                <div class="bg-slate-800 p-3 rounded-lg max-w-xl">
+                    <p class="text-sm text-slate-300">Здравствуйте! Я ваш ассистент по правилам проекта Honji Review. Чем могу помочь?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Message input form -->
+        <div class="p-4 border-t border-slate-700 bg-slate-800">
+            <form id="chat-form" class="flex items-center gap-4">
+                <textarea id="message-input" rows="1" class="flex-1 bg-slate-700 text-slate-300 rounded-lg p-2 resize-none focus:ring-2 focus:ring-indigo-500 focus:outline-none text-sm" placeholder="Введите ваш вопрос..."></textarea>
+                <button type="submit" id="send-button" class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-500 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                    Отправить
+                </button>
+            </form>
+            <p id="char-counter" class="text-xs text-slate-500 text-right mt-1">0 / 2000</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body_js %}
+<script src="{{ url_for('static', filename='js/ai_assistant.js') }}"></script>
+{% endblock %}

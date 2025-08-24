@@ -59,6 +59,33 @@ def appeal_detail(case_id):
 
     return render_template('appeal_detail.html', appeal=appeal_details)
 
+# --- НАЧАЛО ИЗМЕНЕНИЙ ---
+@bot_portal_bp.route('/ai-assistant', methods=['GET', 'POST'])
+def ai_assistant():
+    """
+    Обрабатывает страницу ИИ-ассистента.
+    GET - отображает страницу.
+    POST - обрабатывает AJAX-запрос с вопросом.
+    """
+    if not session.get('logged_in'):
+        # Если POST-запрос от неавторизованного пользователя, возвращаем ошибку
+        if request.method == 'POST':
+            return jsonify({"error": "Требуется авторизация."}), 401
+        return redirect(url_for('bot_portal.login'))
+
+    if request.method == 'POST':
+        data = request.get_json()
+        question = data.get('question', '')
+        user_id = session['user_id']
+
+        if not question:
+            return jsonify({"error": "Вопрос не может быть пустым."}), 400
+
+        response = GeminiService.ask_question(user_id, question)
+        return jsonify(response)
+
+    return render_template('ai_assistant.html')
+
 @bot_portal_bp.route('/login')
 def login():
     """
