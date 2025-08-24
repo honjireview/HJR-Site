@@ -7,12 +7,11 @@
     <div class="flex justify-between items-center mb-8">
         <div>
             <h1 class="text-4xl font-bold">Архив апелляций</h1>
-            <p class="text-slate-400 mt-2">Здесь отображены все дела, обработанные системой.</p>
+            <p class="text-slate-400 mt-2">Здесь отображены все дела, обработанные системой. Нажмите на строку для просмотра деталей.</p>
         </div>
         <a href="{{ url_for('bot_portal.dashboard') }}" class="text-indigo-400 hover:underline text-sm">&larr; Назад в панель</a>
     </div>
 
-    <!-- Таблица с делами -->
     <div class="bg-slate-800/50 border border-slate-700 rounded-lg shadow-lg overflow-hidden">
         <table class="min-w-full">
             <thead class="bg-slate-800">
@@ -25,7 +24,9 @@
             </thead>
             <tbody class="divide-y divide-slate-700">
             {% for appeal in appeals %}
-            <tr class="hover:bg-slate-800 transition">
+            <!-- --- НАЧАЛО ИЗМЕНЕНИЙ: Делаем строку ссылкой --- -->
+            <tr class="hover:bg-slate-800 transition cursor-pointer" onclick="window.location.href='{{ url_for('bot_portal.appeal_detail', case_id=appeal.case_id) }}';">
+                <!-- --- КОНЕЦ ИЗМЕНЕНИЙ --- -->
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">#{{ appeal.case_id }}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-400">{{ appeal.decision_text }}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm">

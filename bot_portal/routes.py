@@ -1,7 +1,7 @@
 # /bot_portal/routes.py
 from flask import render_template, request, redirect, url_for, session, current_app
-import os
 from . import bot_portal_bp
+# ИЗМЕНЕНИЕ: Теперь импорт идет из нового модуля 'services'
 from .services import AuthService, AppealService
 
 @bot_portal_bp.route('/')
@@ -25,16 +25,39 @@ def dashboard():
 @bot_portal_bp.route('/archive')
 def archive():
     """
-    Отображает страницу с архивом всех дел.
+    Отображает страницу с архивом всех дел с возможностью сортировки.
     """
     if not session.get('logged_in'):
         return redirect(url_for('bot_portal.login'))
 
-    # Получаем отформатированные данные через сервис
-    appeals_list = AppealService.get_all_appeals_for_display()
+    # Получаем параметры сортировки из URL, со значениями по умолчанию
+    sort_by = request.args.get('sort_by', 'created_at')
+    order = request.args.get('order', 'desc')
 
-    # Передаем данные в новый шаблон
-    return render_template('archive.html', appeals=appeals_list)
+    appeals_list = AppealService.get_all_appeals_for_display(sort_by=sort_by, order=order)
+
+    # Передаем в шаблон не только данные, но и текущие параметры сортировки
+    return render_template(
+        'archive.html',
+        appeals=appeals_list,
+        current_sort=sort_by,
+        current_order=order
+    )
+
+@bot_portal_bp.route('/archive/<int:case_id>')
+def appeal_detail(case_id):
+    """
+    Отображает страницу с детальной информацией по одному делу.
+    """
+    if not session.get('logged_in'):
+        return redirect(url_for('bot_portal.login'))
+
+    appeal_details = AppealService.get_appeal_details(case_id)
+
+    if not appeal_details:
+        return "Дело не найдено", 404
+
+    return render_template('appeal_detail.html', appeal=appeal_details)
 
 @bot_portal_bp.route('/login')
 def login():
@@ -55,7 +78,6 @@ def handle_login():
     if success:
         return redirect(url_for('bot_portal.dashboard'))
     else:
-        # В реальной системе здесь может быть страница с ошибкой
         return f"Ошибка авторизации: {message}", 403
 
 @bot_portal_bp.route('/logout')

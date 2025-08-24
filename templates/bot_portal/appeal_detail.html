@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block title %}Дело №{{ appeal.case_id }} - Архив{% endblock %}
+
+{% block content %}
+<div class="py-12 max-w-4xl mx-auto">
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-4xl font-bold">Дело <span class="text-indigo-400">#{{ appeal.case_id }}</span></h1>
+            <p class="text-slate-400 mt-2">Дата подачи: {{ appeal.created_at }}</p>
+        </div>
+        <a href="{{ url_for('bot_portal.archive') }}" class="text-indigo-400 hover:underline text-sm">&larr; Назад в архив</a>
+    </div>
+
+    <div class="space-y-8">
+        <!-- Блок: Предмет спора -->
+        <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h2 class="text-2xl font-bold mb-4">Предмет спора</h2>
+            <div class="text-slate-300 bg-slate-900/50 p-4 rounded-md whitespace-pre-wrap font-mono text-sm">{{ appeal.decision_text }}</div>
+        </div>
+
+        <!-- Блок: Позиция Заявителя -->
+        <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h2 class="text-2xl font-bold mb-4 text-green-400">Позиция Заявителя</h2>
+            <dl class="space-y-4 text-sm">
+                <div>
+                    <dt class="font-semibold text-slate-400">Основные аргументы:</dt>
+                    <dd class="text-slate-300 mt-1">{{ appeal.applicant_position.main_arguments }}</dd>
+                </div>
+                <div>
+                    <dt class="font-semibold text-slate-400">Нарушенный пункт устава:</dt>
+                    <dd class="text-slate-300 mt-1">{{ appeal.applicant_position.violated_rule }}</dd>
+                </div>
+                <div>
+                    <dt class="font-semibold text-slate-400">Желаемый результат:</dt>
+                    <dd class="text-slate-300 mt-1">{{ appeal.applicant_position.desired_outcome }}</dd>
+                </div>
+                <div>
+                    <dt class="font-semibold text-slate-400">Дополнительный контекст:</dt>
+                    <dd class="text-slate-300 mt-1">{{ appeal.applicant_position.context }}</dd>
+                </div>
+            </dl>
+        </div>
+
+        <!-- Блок: Позиция Совета -->
+        <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h2 class="text-2xl font-bold mb-4 text-red-400">Позиция Совета</h2>
+            {% if appeal.council_position %}
+            {% for answer in appeal.council_position %}
+            <div class="border-t border-slate-700 pt-4 mt-4 first:border-t-0 first:pt-0 first:mt-0">
+                <h3 class="font-bold text-slate-300 mb-2">Ответ от: {{ answer.responder }}</h3>
+                <dl class="space-y-4 text-sm">
+                    <div>
+                        <dt class="font-semibold text-slate-400">Контраргументы:</dt>
+                        <dd class="text-slate-300 mt-1">{{ answer.counter_arguments }}</dd>
+                    </div>
+                    <div>
+                        <dt class="font-semibold text-slate-400">Обоснование по уставу:</dt>
+                        <dd class="text-slate-300 mt-1">{{ answer.rule_basis }}</dd>
+                    </div>
+                    <div>
+                        <dt class="font-semibold text-slate-400">Оценка аргументов заявителя:</dt>
+                        <dd class="text-slate-300 mt-1">{{ answer.applicant_assessment }}</dd>
+                    </div>
+                </dl>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p class="text-slate-500 text-sm">Совет не предоставил контраргументов.</p>
+            {% endif %}
+        </div>
+
+        <!-- Блок: Вердикт ИИ -->
+        <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h2 class="text-2xl font-bold mb-4 text-indigo-400">Вердикт ИИ</h2>
+            <div class="prose prose-invert max-w-none text-slate-300 whitespace-pre-wrap">{{ appeal.ai_verdict }}</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
