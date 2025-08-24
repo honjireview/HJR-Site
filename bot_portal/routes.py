@@ -1,16 +1,26 @@
 # /bot_portal/routes.py
-from flask import render_template, request, redirect, url_for, session
+from flask import render_template, request, redirect, url_for, session, current_app
+import os
 from . import bot_portal_bp
 from .services import AuthService
+
+@bot_portal_bp.route('/')
+def showcase():
+    """
+    Отображает главную страницу-витрину портала бота.
+    """
+    bot_username = current_app.config.get('TELEGRAM_BOT_USERNAME', 'YourBot')
+    return render_template('showcase.html', bot_username=bot_username)
 
 @bot_portal_bp.route('/dashboard')
 def dashboard():
     """
-    Главная страница портала бота. Требует авторизации.
+    Главная страница панели управления. Требует авторизации.
     """
     if not session.get('logged_in'):
         return redirect(url_for('bot_portal.login'))
 
+    # Здесь будет логика для получения данных для дашборда
     return render_template('dashboard.html', user=session)
 
 @bot_portal_bp.route('/login')
@@ -18,7 +28,8 @@ def login():
     """
     Отображает страницу входа.
     """
-    return render_template('login.html', bot_username=os.getenv("TELEGRAM_BOT_USERNAME", "ВашБот"))
+    bot_username = current_app.config.get('TELEGRAM_BOT_USERNAME', 'YourBot')
+    return render_template('login.html', bot_username=bot_username)
 
 @bot_portal_bp.route('/auth/telegram')
 def handle_login():
@@ -31,7 +42,6 @@ def handle_login():
     if success:
         return redirect(url_for('bot_portal.dashboard'))
     else:
-        # В реальной системе здесь может быть страница с ошибкой
         return f"Ошибка авторизации: {message}", 403
 
 @bot_portal_bp.route('/logout')
@@ -40,4 +50,4 @@ def logout():
     Выход из системы.
     """
     AuthService.logout_user()
-    return redirect(url_for('bot_portal.login'))
+    return redirect(url_for('bot_portal.showcase'))
