@@ -1,5 +1,8 @@
+# app.py
 from flask import Flask
 import os
+import db
+import telebot # <--- 1. Импортируем telebot
 
 def create_app():
     """
@@ -7,19 +10,32 @@ def create_app():
     """
     app = Flask(__name__)
 
-    # Настройка секретного ключа для сессий (важно для авторизации)
-    # В Railway эту переменную нужно будет добавить в окружение
-    app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'a_default_secret_key_for_local_dev')
+    app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'a_very_secret_key_for_local_development_only')
 
-    # Здесь в будущем будет логика подключения к базе данных
-    # ...
+    # --- НАЧАЛО ИЗМЕНЕНИЙ ---
+    # Получаем токен и инициализируем временный экземпляр бота
+    TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
+    if TELEGRAM_TOKEN:
+        try:
+            temp_bot = telebot.TeleBot(TELEGRAM_TOKEN)
+            bot_info = temp_bot.get_me()
+            # 2. Сохраняем username в конфигурацию приложения
+            app.config['TELEGRAM_BOT_USERNAME'] = bot_info.username
+        except Exception as e:
+            # Если токен невалидный или нет сети, приложение не запустится
+            # Это правильное поведение - мы сразу узнаем о проблеме
+            raise RuntimeError(f"Could not get bot info from Telegram API: {e}")
+    else:
+        # Если токен не задан, мы не можем работать
+        raise RuntimeError("TELEGRAM_TOKEN is not set in environment variables.")
+    # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
-    # Регистрация "блюпринтов" (наших мини-приложений)
+    db.init_app(app)
+
     from main_site.routes import main_site_bp
     from bot_portal.routes import bot_portal_bp
 
     app.register_blueprint(main_site_bp)
-    # Все URL-адреса портала бота будут начинаться с /bot/ (например, /bot/archive)
     app.register_blueprint(bot_portal_bp, url_prefix='/bot')
 
     return app
@@ -28,5 +44,4 @@ def create_app():
 app = create_app()
 
 if __name__ == '__main__':
-    # Запускаем для локальной разработки.
     app.run(debug=True, port=5000)

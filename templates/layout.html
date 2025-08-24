@@ -1,39 +1,16 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Блок 'title' будет заменяться на каждой странице -->
-    <title>{% block title %}Honji Review{% endblock %}</title>
-    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+...
+<nav class="container mx-auto p-4 flex justify-between items-center">
+    <a href="{{ url_for('main_site.index') }}" class="text-xl font-bold text-indigo-400">Honji Review</a>
+    <div>
+        <a href="{{ url_for('main_site.index') }}" class="px-4 py-2 hover:text-indigo-300">Основной сайт</a>
 
-    <!-- Блок 'head_css' для подключения уникальных стилей -->
-    {% block head_css %}{% endblock %}
-</head>
-<body class="bg-slate-900 text-slate-300">
+        {% if session.get('logged_in') %}
+        <a href="{{ url_for('bot_portal.dashboard') }}" class="px-4 py-2 hover:text-indigo-300">Панель управления</a>
+        <a href="{{ url_for('bot_portal.logout') }}" class="px-4 py-2 hover:text-indigo-300">[Выход]</a>
+        {% else %}
+        <a href="{{ url_for('bot_portal.login') }}" class="px-4 py-2 hover:text-indigo-300">Портал Бота</a>
+        {% endif %}
 
-<header>
-    <!-- Здесь будет общая шапка сайта -->
-    <nav class="container mx-auto p-4 flex justify-between items-center">
-        <a href="{{ url_for('main_site.index') }}" class="text-xl font-bold text-indigo-400">Honji Review</a>
-        <div>
-            <a href="{{ url_for('main_site.index') }}" class="px-4 py-2 hover:text-indigo-300">Основной сайт</a>
-            <a href="{{ url_for('bot_portal.dashboard') }}" class="px-4 py-2 hover:text-indigo-300">Портал Бота</a>
-        </div>
-    </nav>
-</header>
-
-<main class="container mx-auto p-4">
-    <!-- Блок 'content' — сюда будет вставляться основное содержимое каждой страницы -->
-    {% block content %}{% endblock %}
-</main>
-
-<footer class="container mx-auto p-4 mt-8 border-t border-slate-800 text-center text-slate-500">
-    <!-- Здесь будет общий подвал сайта -->
-    <p>&copy; 2025 Honji Review. Все права защищены.</p>
-</footer>
-
-<!-- Блок 'body_js' для подключения уникальных скриптов -->
-{% block body_js %}{% endblock %}
-</body>
-</html>
+    </div>
+</nav>
+...

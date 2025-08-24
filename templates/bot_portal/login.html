@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}Вход - Портал HJR-Bot{% endblock %}
+
+{% block content %}
+<div class="text-center py-16 max-w-md mx-auto">
+    <h1 class="text-4xl font-bold text-indigo-400">Панель управления</h1>
+    <p class="text-slate-400 mt-4">Для доступа к панели управления необходимо подтвердить свою личность через Telegram.</p>
+    <div class="mt-8">
+        <script async src="https://telegram.org/js/telegram-widget.js?22"
+                data-telegram-login="{{ bot_username }}"
+                data-size="large"
+                data-auth-url="{{ url_for('bot_portal.handle_login', _external=True) }}"
+                data-request-access="write"></script>
+    </div>
+</div>
+{% endblock %}
