@@ -9,30 +9,24 @@
 {% block content %}
 <div class="py-12 max-w-4xl mx-auto">
 
-    <!-- Приветствие пользователя -->
     <div class="mb-8">
         <h1 class="text-4xl font-bold">Добро пожаловать, {{ user.first_name }}!</h1>
         <p class="text-slate-400 mt-2">Вы вошли как @{{ user.username }}. Это ваша панель управления ботом.</p>
     </div>
 
-    <!-- Сетка с основными разделами -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-        <!-- Карточка: Архив дел -->
         <a href="{{ url_for('bot_portal.archive') }}" class="block bg-slate-800/50 hover:bg-slate-800 border border-slate-700 rounded-lg p-6 transition group">
             <h2 class="text-xl font-bold text-indigo-400 mb-2">Архив дел</h2>
             <p class="text-slate-400 text-sm">Просмотр всех завершенных и активных апелляций, поданных через бота.</p>
             <span class="text-indigo-500 group-hover:text-indigo-300 mt-4 inline-block text-sm font-semibold">Перейти в архив →</span>
         </a>
 
-        <!-- Карточка: ИИ-Ассистент (в разработке) -->
-        <div class="bg-slate-800/30 border border-slate-800 rounded-lg p-6 opacity-50 cursor-not-allowed">
-            <h2 class="text-xl font-bold text-slate-500 mb-2">ИИ-Ассистент</h2>
-            <p class="text-slate-600 text-sm">Задайте вопрос по уставу и правилам проекта и получите мгновенный ответ от ИИ.</p>
-            <span class="text-slate-700 mt-4 inline-block text-sm font-semibold">(В разработке)</span>
-        </div>
-
-        <!-- Карточка: Статистика (в разработке) -->
+        <a href="{{ url_for('bot_portal.ai_assistant') }}" class="block bg-slate-800/50 hover:bg-slate-800 border border-slate-700 rounded-lg p-6 transition group">
+            <h2 class="text-xl font-bold text-indigo-400 mb-2">ИИ-Ассистент</h2>
+            <p class="text-slate-400 text-sm">Задайте вопрос по уставу и правилам проекта и получите мгновенный ответ от ИИ.</p>
+            <span class="text-indigo-500 group-hover:text-indigo-300 mt-4 inline-block text-sm font-semibold">Задать вопрос →</span>
+        </a>
         <div class="bg-slate-800/30 border border-slate-800 rounded-lg p-6 opacity-50 cursor-not-allowed">
             <h2 class="text-xl font-bold text-slate-500 mb-2">Статистика</h2>
             <p class="text-slate-600 text-sm">Аналитика по работе бота: количество дел, среднее время рассмотрения и т.д.</p>
