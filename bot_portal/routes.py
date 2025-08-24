@@ -2,7 +2,7 @@
 from flask import render_template, request, redirect, url_for, session, current_app
 import os
 from . import bot_portal_bp
-from .services import AuthService
+from .services import AuthService, AppealService
 
 @bot_portal_bp.route('/')
 def showcase():
@@ -22,18 +22,19 @@ def dashboard():
 
     return render_template('dashboard.html', user=session)
 
-# --- НАЧАЛО ИЗМЕНЕНИЙ ---
 @bot_portal_bp.route('/archive')
 def archive():
     """
-    Временный маршрут-заглушка для архива дел.
+    Отображает страницу с архивом всех дел.
     """
     if not session.get('logged_in'):
         return redirect(url_for('bot_portal.login'))
 
-    # Пока что просто отображаем заглушку
-    return "<h1>Архив дел</h1><p>Эта страница находится в разработке.</p><a href='/bot/dashboard'>Назад</a>"
-# --- КОНЕЦ ИЗМЕНЕНИЙ ---
+    # Получаем отформатированные данные через сервис
+    appeals_list = AppealService.get_all_appeals_for_display()
+
+    # Передаем данные в новый шаблон
+    return render_template('archive.html', appeals=appeals_list)
 
 @bot_portal_bp.route('/login')
 def login():
@@ -54,6 +55,7 @@ def handle_login():
     if success:
         return redirect(url_for('bot_portal.dashboard'))
     else:
+        # В реальной системе здесь может быть страница с ошибкой
         return f"Ошибка авторизации: {message}", 403
 
 @bot_portal_bp.route('/logout')

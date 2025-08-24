@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %}Архив дел - Панель управления{% endblock %}
+
+{% block content %}
+<div class="py-12 max-w-6xl mx-auto">
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-4xl font-bold">Архив апелляций</h1>
+            <p class="text-slate-400 mt-2">Здесь отображены все дела, обработанные системой.</p>
+        </div>
+        <a href="{{ url_for('bot_portal.dashboard') }}" class="text-indigo-400 hover:underline text-sm">&larr; Назад в панель</a>
+    </div>
+
+    <!-- Таблица с делами -->
+    <div class="bg-slate-800/50 border border-slate-700 rounded-lg shadow-lg overflow-hidden">
+        <table class="min-w-full">
+            <thead class="bg-slate-800">
+            <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">ID Дела</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Предмет спора</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Статус</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Дата подачи</th>
+            </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-700">
+            {% for appeal in appeals %}
+            <tr class="hover:bg-slate-800 transition">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">#{{ appeal.case_id }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-400">{{ appeal.decision_text }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                    {% set color = appeal.status.color %}
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                     bg-{{ color }}-500/20 text-{{ color }}-300">
+                            {{ appeal.status.text }}
+                        </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">{{ appeal.created_at }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4" class="text-center py-10 text-slate-500">Нет данных для отображения.</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
