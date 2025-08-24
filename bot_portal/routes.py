@@ -22,6 +22,19 @@ def dashboard():
 
     return render_template('dashboard.html', user=session)
 
+# --- НАЧАЛО ИЗМЕНЕНИЙ ---
+@bot_portal_bp.route('/archive')
+def archive():
+    """
+    Временный маршрут-заглушка для архива дел.
+    """
+    if not session.get('logged_in'):
+        return redirect(url_for('bot_portal.login'))
+
+    # Пока что просто отображаем заглушку
+    return "<h1>Архив дел</h1><p>Эта страница находится в разработке.</p><a href='/bot/dashboard'>Назад</a>"
+# --- КОНЕЦ ИЗМЕНЕНИЙ ---
+
 @bot_portal_bp.route('/login')
 def login():
     """
@@ -41,7 +54,6 @@ def handle_login():
     if success:
         return redirect(url_for('bot_portal.dashboard'))
     else:
-        # В реальной системе здесь может быть страница с ошибкой
         return f"Ошибка авторизации: {message}", 403
 
 @bot_portal_bp.route('/logout')
