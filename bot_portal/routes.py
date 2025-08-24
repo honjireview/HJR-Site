@@ -1,8 +1,9 @@
 # /bot_portal/routes.py
-from flask import render_template, request, redirect, url_for, session, current_app
+from flask import render_template, request, redirect, url_for, session, current_app, jsonify
 from . import bot_portal_bp
-# ИЗМЕНЕНИЕ: Теперь импорт идет из нового модуля 'services'
-from .services import AuthService, AppealService
+# --- НАЧАЛО ИЗМЕНЕНИЙ: Добавляем импорт GeminiService ---
+from .services import AuthService, AppealService, GeminiService
+# --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
 @bot_portal_bp.route('/')
 def showcase():
@@ -30,13 +31,11 @@ def archive():
     if not session.get('logged_in'):
         return redirect(url_for('bot_portal.login'))
 
-    # Получаем параметры сортировки из URL, со значениями по умолчанию
     sort_by = request.args.get('sort_by', 'created_at')
     order = request.args.get('order', 'desc')
 
     appeals_list = AppealService.get_all_appeals_for_display(sort_by=sort_by, order=order)
 
-    # Передаем в шаблон не только данные, но и текущие параметры сортировки
     return render_template(
         'archive.html',
         appeals=appeals_list,
@@ -59,7 +58,6 @@ def appeal_detail(case_id):
 
     return render_template('appeal_detail.html', appeal=appeal_details)
 
-# --- НАЧАЛО ИЗМЕНЕНИЙ ---
 @bot_portal_bp.route('/ai-assistant', methods=['GET', 'POST'])
 def ai_assistant():
     """
@@ -68,7 +66,6 @@ def ai_assistant():
     POST - обрабатывает AJAX-запрос с вопросом.
     """
     if not session.get('logged_in'):
-        # Если POST-запрос от неавторизованного пользователя, возвращаем ошибку
         if request.method == 'POST':
             return jsonify({"error": "Требуется авторизация."}), 401
         return redirect(url_for('bot_portal.login'))

@@ -12,14 +12,22 @@ log = logging.getLogger(__name__)
 class AuthService:
     @staticmethod
     def _is_telegram_data_valid(auth_data):
+        log.debug("[AUTH_VALIDATION] Начало криптографической проверки.")
         BOT_TOKEN = os.getenv("TELEGRAM_TOKEN")
         if not BOT_TOKEN:
             log.error("[AUTH_VALIDATION] Критическая ошибка: TELEGRAM_TOKEN не установлен.")
             return False
+
         received_hash = auth_data.pop('hash')
+        log.debug(f"[AUTH_VALIDATION] Полученный хэш: {received_hash}")
+
         data_check_string = "\n".join(sorted([f"{k}={v}" for k, v in auth_data.items()]))
+        log.debug(f"[AUTH_VALIDATION] Строка для проверки: \n---\n{data_check_string}\n---")
+
         secret_key = hashlib.sha256(BOT_TOKEN.encode()).digest()
         calculated_hash = hmac.new(secret_key, data_check_string.encode(), hashlib.sha256).hexdigest()
+        log.debug(f"[AUTH_VALIDATION] Рассчитанный хэш: {calculated_hash}")
+
         is_valid = calculated_hash == received_hash
         if not is_valid:
             log.warning("[AUTH_VALIDATION] ПРОВАЛ: Хэши не совпадают.")
@@ -41,6 +49,7 @@ class AuthService:
         log.info(f"--- [AUTH_START] Начало аутентификации для id={auth_data.get('id')} ---")
         auth_date = int(auth_data.get('auth_date', 0))
         current_time = time.time()
+        log.debug(f"[AUTH_TIME_CHECK] Время сервера: {current_time}, Время данных: {auth_date}, Разница: {current_time - auth_date} сек.")
         if current_time - auth_date > 60:
             log.warning(f"[AUTH_TIME_CHECK] ПРОВАЛ: Данные устарели (прошло {current_time - auth_date} сек).")
             return False, "Данные аутентификации устарели."
