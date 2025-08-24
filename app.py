@@ -1,8 +1,18 @@
-# app.py
 from flask import Flask
 import os
 import db
-import telebot # <--- 1. Импортируем telebot
+import telebot
+import logging # <-- Импортируем логирование
+
+# --- НАЧАЛО ИЗМЕНЕНИЙ ---
+# Базовая конфигурация логирования.
+# В Railway логи будут автоматически перехватываться и отображаться.
+logging.basicConfig(
+    level=logging.DEBUG, # Устанавливаем уровень DEBUG для максимальной детализации
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+# --- КОНЕЦ ИЗМЕНЕНИЙ ---
+
 
 def create_app():
     """
@@ -12,23 +22,17 @@ def create_app():
 
     app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'a_very_secret_key_for_local_development_only')
 
-    # --- НАЧАЛО ИЗМЕНЕНИЙ ---
-    # Получаем токен и инициализируем временный экземпляр бота
     TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
     if TELEGRAM_TOKEN:
         try:
             temp_bot = telebot.TeleBot(TELEGRAM_TOKEN)
             bot_info = temp_bot.get_me()
-            # 2. Сохраняем username в конфигурацию приложения
             app.config['TELEGRAM_BOT_USERNAME'] = bot_info.username
+            logging.info(f"Успешно получен username бота: @{bot_info.username}")
         except Exception as e:
-            # Если токен невалидный или нет сети, приложение не запустится
-            # Это правильное поведение - мы сразу узнаем о проблеме
-            raise RuntimeError(f"Could not get bot info from Telegram API: {e}")
+            raise RuntimeError(f"Не удалось получить информацию о боте: {e}")
     else:
-        # Если токен не задан, мы не можем работать
-        raise RuntimeError("TELEGRAM_TOKEN is not set in environment variables.")
-    # --- КОНЕЦ ИЗМЕНЕНИЙ ---
+        raise RuntimeError("TELEGRAM_TOKEN не установлен в переменных окружения.")
 
     db.init_app(app)
 
