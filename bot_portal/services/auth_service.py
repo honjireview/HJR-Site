@@ -13,9 +13,9 @@ class AuthService:
     @staticmethod
     def _is_telegram_data_valid(auth_data):
         log.debug("[AUTH_VALIDATION] Начало криптографической проверки.")
-        BOT_TOKEN = os.getenv("HJRSCANNER_TELEGRAM_TOKEN")
+        BOT_TOKEN = os.getenv("HJRBOT_TELEGRAM_TOKEN")
         if not BOT_TOKEN:
-            log.error("[AUTH_VALIDATION] Критическая ошибка: HJRSCANNER_TELEGRAM_TOKEN не установлен.")
+            log.error("[AUTH_VALIDATION] Критическая ошибка: HJRBOT_TELEGRAM_TOKEN не установлен.")
             return False
 
         received_hash = auth_data.pop('hash')

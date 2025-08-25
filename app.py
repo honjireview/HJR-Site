@@ -18,17 +18,17 @@ def create_app():
 
     app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'a_very_secret_key_for_local_development_only')
 
-    HJRSCANNER_TELEGRAM_TOKEN = os.getenv('HJRSCANNER_TELEGRAM_TOKEN')
-    if HJRSCANNER_TELEGRAM_TOKEN:
+    HJRBOT_TELEGRAM_TOKEN = os.getenv('HJRBOT_TELEGRAM_TOKEN')
+    if HJRBOT_TELEGRAM_TOKEN:
         try:
-            temp_bot = telebot.TeleBot(HJRSCANNER_TELEGRAM_TOKEN)
+            temp_bot = telebot.TeleBot(HJRBOT_TELEGRAM_TOKEN)
             bot_info = temp_bot.get_me()
             app.config['TELEGRAM_BOT_USERNAME'] = bot_info.username
             logging.info(f"Успешно получен username бота: @{bot_info.username}")
         except Exception as e:
             raise RuntimeError(f"Не удалось получить информацию о боте: {e}")
     else:
-        raise RuntimeError("HJRSCANNER_TELEGRAM_TOKEN не установлен в переменных окружения.")
+        raise RuntimeError("HJRBOT_TELEGRAM_TOKEN не установлен в переменных окружения.")
 
     # --- НАЧАЛО ИЗМЕНЕНИЙ: Запускаем инициализацию БД ---
     # Это гарантирует, что все таблицы будут созданы при старте приложения, если их нет
