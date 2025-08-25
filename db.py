@@ -138,12 +138,12 @@ def init_db_schema():
         """,
         """
         CREATE TABLE IF NOT EXISTS ai_chat_history (
-            message_id SERIAL PRIMARY KEY,
-            user_id BIGINT NOT NULL,
-            sender TEXT NOT NULL CHECK (sender IN ('user', 'ai')),
+                                                       message_id SERIAL PRIMARY KEY,
+                                                       user_id BIGINT NOT NULL,
+                                                       sender TEXT NOT NULL CHECK (sender IN ('user', 'ai')),
             message_text TEXT NOT NULL,
             timestamp TIMESTAMPTZ NOT NULL DEFAULT NOW()
-        );
+            );
         """
     ]
 

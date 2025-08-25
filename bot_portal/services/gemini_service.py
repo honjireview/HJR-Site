@@ -2,7 +2,8 @@
 import os
 import logging
 import google.generativeai as genai
-from ..models import RateLimitModel
+from ..models.rate_limit_model import RateLimitModel
+from ..models.ai_chat_history_model import AiChatHistoryModel # <-- Импортирована модель для логирования
 
 log = logging.getLogger(__name__)
 
@@ -57,6 +58,14 @@ class GeminiService:
             return {"error": f"Вы превысили лимит запросов ({GeminiService.MAX_REQUESTS} за {GeminiService.RATE_LIMIT_HOURS} часа). Пожалуйста, попробуйте позже."}
         log.info("[GEMINI_ASK] УСПЕХ: Проверка лимитов пройдена.")
 
+        # --- НАЧАЛО ИЗМЕНЕНИЙ: Логирование вопроса пользователя ---
+        try:
+            AiChatHistoryModel.log_message(user_id, 'user', question_text)
+            log.info(f"[GEMINI_ASK] Вопрос от user_id={user_id} залогирован в историю чата.")
+        except Exception as e:
+            log.error(f"[GEMINI_ASK] ОШИБКА: Не удалось залогировать вопрос пользователя: {e}")
+        # --- КОНЕЦ ИЗМЕНЕНИЙ ---
+
         # 3. Формирование промпта
         instructions = GeminiService._read_file('gemini_instructions.txt', "Отвечай только на вопросы по правилам.")
         rules_context = GeminiService._read_file('rules.txt', "Правила не найдены.")
@@ -81,14 +90,23 @@ class GeminiService:
             log.info("[GEMINI_ASK] Отправка запроса в Gemini API...")
             model = genai.GenerativeModel('gemini-1.5-pro-latest')
             response = model.generate_content(prompt)
+            ai_answer = response.text # Сохраняем ответ в переменную
             log.info("[GEMINI_ASK] УСПЕХ: Ответ от Gemini API получен.")
-            log.debug(f"[GEMINI_ASK] Текст ответа (первые 100 символов): {response.text[:100]}...")
+            log.debug(f"[GEMINI_ASK] Текст ответа (первые 100 символов): {ai_answer[:100]}...")
 
             # 5. Логирование успешного запроса
             RateLimitModel.log_request(user_id)
             log.info(f"[GEMINI_ASK] Запрос для user_id={user_id} успешно залогирован в БД.")
 
-            return {"answer": response.text}
+            # --- НАЧАЛО ИЗМЕНЕНИЙ: Логирование ответа ИИ ---
+            try:
+                AiChatHistoryModel.log_message(user_id, 'ai', ai_answer)
+                log.info(f"[GEMINI_ASK] Ответ ИИ для user_id={user_id} залогирован в историю чата.")
+            except Exception as e:
+                log.error(f"[GEMINI_ASK] ОШИБКА: Не удалось залогировать ответ ИИ: {e}")
+            # --- КОНЕЦ ИЗМЕНЕНИЙ ---
+
+            return {"answer": ai_answer}
         except Exception as e:
             log.error(f"[GEMINI_ASK] КРИТИЧЕСКАЯ ОШИБКА при обращении к Gemini API: {e}")
             return {"error": "Произошла внутренняя ошибка при обработке вашего запроса."}
