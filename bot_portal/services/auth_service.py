@@ -5,7 +5,7 @@ import hashlib
 import time
 import logging
 from flask import session
-from ..models import EditorModel
+from ..models.editor_model import EditorModel
 
 log = logging.getLogger(__name__)
 
