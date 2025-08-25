@@ -1,4 +1,5 @@
-from .auth_service import AuthService
-from .appeal_service import AppealService
-from .gemini_service import GeminiService
-from .stats_service import StatsService
+# /bot_portal/services/__init__.py
+
+# Этот файл делает директорию 'services' пакетом Python.
+# Явные импорты сервисов производятся напрямую в тех модулях, где они нужны,
+# чтобы избежать циклических зависимостей.
