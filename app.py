@@ -30,6 +30,12 @@ def create_app():
     else:
         raise RuntimeError("TELEGRAM_TOKEN не установлен в переменных окружения.")
 
+    # --- НАЧАЛО ИЗМЕНЕНИЙ: Запускаем инициализацию БД ---
+    # Это гарантирует, что все таблицы будут созданы при старте приложения, если их нет
+    with app.app_context():
+        db.init_db_schema()
+    # --- КОНЕЦ ИЗМЕНЕНИЙ ---
+
     db.init_app(app)
 
     from main_site.routes import main_site_bp
