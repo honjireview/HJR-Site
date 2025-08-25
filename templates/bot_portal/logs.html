@@ -2,10 +2,6 @@
 
 {% block title %}Логи сообщений - Панель управления{% endblock %}
 
-{% block head_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/bot_portal.css') }}">
-{% endblock %}
-
 {% block content %}
 <div class="py-12 max-w-7xl mx-auto">
     <div class="flex justify-between items-center mb-8">
@@ -16,66 +12,93 @@
         <a href="{{ url_for('bot_portal.dashboard') }}" class="text-indigo-400 hover:underline text-sm">&larr; Назад в панель</a>
     </div>
 
-    <div class="card mb-6">
-        <form method="get" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            <input type="text" name="q" placeholder="Поиск..." value="{{ filters.get('q','') }}" class="form-input">
-            <input type="text" name="chat_id" placeholder="Chat ID" value="{{ filters.get('chat_id','') }}" class="form-input">
-            <input type="text" name="author_user_id" placeholder="Author ID" value="{{ filters.get('author_user_id','') }}" class="form-input">
-            <input type="date" name="date_from" value="{{ filters.get('date_from','')|string }}" class="form-input">
-            <input type="date" name="date_to" value="{{ filters.get('date_to','')|string }}" class="form-input">
+    <div class="mb-6 border-b border-slate-700">
+        <nav class="flex -mb-px space-x-6">
+            {% set base_args = request.args.to_dict() %}
+            {% set _ = base_args.pop('chat_type', None) %}
+            {% set _ = base_args.pop('page', None) %}
 
-            <select name="content_type" class="form-select">
+            <a href="{{ url_for('logs.logs_index', **base_args) }}"
+               class="py-3 px-1 border-b-2 font-medium text-sm transition
+                      {% if not active_chat_type %} border-indigo-400 text-indigo-400
+                      {% else %} border-transparent text-slate-400 hover:border-slate-500 hover:text-slate-300 {% endif %}">
+                Все логи
+            </a>
+            <a href="{{ url_for('logs.logs_index', chat_type='supergroup', **base_args) }}"
+               class="py-3 px-1 border-b-2 font-medium text-sm transition
+                      {% if active_chat_type == 'supergroup' %} border-indigo-400 text-indigo-400
+                      {% else %} border-transparent text-slate-400 hover:border-slate-500 hover:text-slate-300 {% endif %}">
+                Супергруппы
+            </a>
+            <a href="{{ url_for('logs.logs_index', chat_type='channel', **base_args) }}"
+               class="py-3 px-1 border-b-2 font-medium text-sm transition
+                      {% if active_chat_type == 'channel' %} border-indigo-400 text-indigo-400
+                      {% else %} border-transparent text-slate-400 hover:border-slate-500 hover:text-slate-300 {% endif %}">
+                Каналы
+            </a>
+        </nav>
+    </div>
+    <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-4 mb-6">
+        <form method="get" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <input type="hidden" name="chat_type" value="{{ active_chat_type or '' }}">
+            <input type="text" name="q" placeholder="Поиск..." value="{{ filters.get('q','') }}" class="bg-slate-700 text-sm rounded-md p-2 w-full focus:ring-2 focus:ring-indigo-500 focus:outline-none transition">
+            <input type="text" name="chat_id" placeholder="Chat ID" value="{{ filters.get('chat_id','') }}" class="bg-slate-700 text-sm rounded-md p-2 w-full focus:ring-2 focus:ring-indigo-500 focus:outline-none transition">
+            <input type="text" name="author_user_id" placeholder="Author ID" value="{{ filters.get('author_user_id','') }}" class="bg-slate-700 text-sm rounded-md p-2 w-full focus:ring-2 focus:ring-indigo-500 focus:outline-none transition">
+            <input type="date" name="date_from" value="{{ filters.get('date_from','')|string }}" class="bg-slate-700 text-sm rounded-md p-2 w-full focus:ring-2 focus:ring-indigo-500 focus:outline-none transition text-slate-400" style="color-scheme: dark;">
+            <input type="date" name="date_to" value="{{ filters.get('date_to','')|string }}" class="bg-slate-700 text-sm rounded-md p-2 w-full focus:ring-2 focus:ring-indigo-500 focus:outline-none transition text-slate-400" style="color-scheme: dark;">
+
+            <select name="content_type" class="bg-slate-700 text-sm rounded-md p-2 w-full focus:ring-2 focus:ring-indigo-500 focus:outline-none transition">
                 <option value="">Тип контента (все)</option>
                 {% for ct in ['text','photo','document','audio','video','voice','sticker','other'] %}
                 <option value="{{ ct }}" {% if filters.get('content_type')==ct %}selected{% endif %}>{{ ct }}</option>
                 {% endfor %}
             </select>
-            <select name="has_file" class="form-select">
+            <select name="has_file" class="bg-slate-700 text-sm rounded-md p-2 w-full focus:ring-2 focus:ring-indigo-500 focus:outline-none transition">
                 <option value="">Файл (все)</option>
                 <option value="true" {% if filters.get('has_file') is sameas true %}selected{% endif %}>Есть</option>
                 <option value="false" {% if filters.get('has_file') is sameas false %}selected{% endif %}>Нет</option>
             </select>
-            <select name="sort_by" class="form-select">
+            <select name="sort_by" class="bg-slate-700 text-sm rounded-md p-2 w-full focus:ring-2 focus:ring-indigo-500 focus:outline-none transition">
                 {% for col in ['logged_at','created_at','message_id','chat_id','author_user_id','content_type'] %}
                 <option value="{{ col }}" {% if sort_by==col %}selected{% endif %}>Сортировка: {{ col }}</option>
                 {% endfor %}
             </select>
-            <select name="order" class="form-select">
+            <select name="order" class="bg-slate-700 text-sm rounded-md p-2 w-full focus:ring-2 focus:ring-indigo-500 focus:outline-none transition">
                 {% for o in ['desc','asc'] %}
                 <option value="{{ o }}" {% if order==o %}selected{% endif %}>Порядок: {{ o }}</option>
                 {% endfor %}
             </select>
 
             <div class="flex items-center gap-2">
-                <input type="number" min="1" max="200" name="per_page" value="{{ per_page }}" class="form-input">
-                <button type="submit" class="btn w-full">Применить</button>
+                <input type="number" min="1" max="200" name="per_page" value="{{ per_page }}" class="bg-slate-700 text-sm rounded-md p-2 w-full focus:ring-2 focus:ring-indigo-500 focus:outline-none transition">
+                <button type="submit" class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-500 transition">Применить</button>
             </div>
         </form>
     </div>
 
-    <div class="table-wrapper">
-        <table class="data-table">
-            <thead>
+    <div class="bg-slate-800/50 border border-slate-700 rounded-lg shadow-lg overflow-x-auto">
+        <table class="min-w-full">
+            <thead class="bg-slate-800">
             <tr>
-                <th>Дата лога</th>
-                <th>Чат</th>
-                <th>Автор</th>
-                <th>Контент</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Дата лога</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Чат</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Автор</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Контент</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="divide-y divide-slate-700">
             {% for item in items %}
-            <tr>
-                <td class="text-slate-500 font-mono">{{ item.logged_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
-                <td>
+            <tr class="hover:bg-slate-800 transition">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 font-mono">{{ item.logged_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">
                     <div class="font-semibold text-slate-300">{{ item.chat_title or 'N/A' }}</div>
                     <div class="text-slate-500 font-mono">{{ item.chat_id }}</div>
                 </td>
-                <td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">
                     <div class="font-semibold text-slate-300">{{ item.author_first_name or 'N/A' }}</div>
                     <div class="text-slate-500">@{{ item.author_username or 'no_username' }}</div>
                 </td>
-                <td class="text-slate-300">
+                <td class="px-6 py-4 text-sm text-slate-300">
                     <div class="flex justify-between items-start">
                         <div class="max-w-md truncate" title="{{ item.text }}">{{ item.text or 'Нет текста' }}</div>
                         <a href="{{ url_for('logs.logs_view', internal_id=item.internal_id) }}" class="ml-4 text-indigo-400 hover:underline flex-shrink-0">Детали &rarr;</a>

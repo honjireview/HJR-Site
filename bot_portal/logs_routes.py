@@ -19,12 +19,21 @@ def logs_index():
     sort_by = request.args.get('sort_by', 'logged_at')
     order = request.args.get('order', 'desc')
 
+    # --- НАЧАЛО ИЗМЕНЕНИЙ: Добавляем фильтр по chat_type ---
+    active_chat_type = request.args.get('chat_type')
+    # --- КОНЕЦ ИЗМЕНЕНИЙ ---
+
     filters = {}
     if request.args.get('chat_id'):
         try:
             filters['chat_id'] = int(request.args['chat_id'])
         except ValueError:
             pass
+
+    # --- НАЧАЛО ИЗМЕНЕНИЙ: Интегрируем фильтр chat_type в основной запрос ---
+    if active_chat_type in ('supergroup', 'channel'):
+        filters['chat_type'] = active_chat_type
+    # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
     if request.args.get('author_user_id'):
         try:
@@ -65,20 +74,17 @@ def logs_index():
 
     pages = (total + per_page - 1) // per_page
 
-    # Формируем URLы пагинации без использования ** в шаблоне
-    args = request.args.to_dict(flat=True)
-    prev_url = None
-    next_url = None
-    if page > 1:
-        args_prev = dict(args)
-        args_prev['page'] = page - 1
-        prev_url = request.url_rule.rule and request.base_url + (
-                    '?' + '&'.join(f"{k}={v}" for k, v in args_prev.items())) if args_prev else request.base_url
-    if page < pages:
-        args_next = dict(args)
-        args_next['page'] = page + 1
-        next_url = request.url_rule.rule and request.base_url + (
-                    '?' + '&'.join(f"{k}={v}" for k, v in args_next.items())) if args_next else request.base_url
+    def get_paginated_url(p, ct=active_chat_type):
+        args = request.args.to_dict(flat=True)
+        args['page'] = p
+        if ct:
+            args['chat_type'] = ct
+        else:
+            args.pop('chat_type', None)
+        return f"{request.base_url}?{'&'.join(f'{k}={v}' for k, v in args.items())}"
+
+    prev_url = get_paginated_url(page - 1) if page > 1 else None
+    next_url = get_paginated_url(page + 1) if page < pages else None
 
     return render_template(
         'bot_portal/logs.html',
@@ -91,7 +97,8 @@ def logs_index():
         order=order,
         filters=filters,
         prev_url=prev_url,
-        next_url=next_url
+        next_url=next_url,
+        active_chat_type=active_chat_type # Передаем активный тип чата в шаблон
     )
 
 

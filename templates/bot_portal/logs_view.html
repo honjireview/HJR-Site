@@ -2,11 +2,17 @@
 
 {% block title %}Запись лога #{{ item.internal_id }}{% endblock %}
 
-{% block head_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/bot_portal.css') }}">
-{% endblock %}
-
 {% block content %}
+{% set key_map = {
+'internal_id': 'Внутренний ID', 'message_id': 'ID Сообщения', 'chat_id': 'ID Чата',
+'chat_type': 'Тип чата', 'chat_title': 'Название чата', 'topic_id': 'ID Темы',
+'topic_name': 'Название темы', 'author_user_id': 'ID Автора', 'author_username': 'Юзернейм автора',
+'author_first_name': 'Имя автора', 'author_is_bot': 'Автор - бот?', 'content_type': 'Тип контента',
+'file_id': 'ID Файла', 'reply_to_message_id': 'ID сообщения в ответе',
+'forward_from_chat_id': 'Переслано из чата (ID)', 'forward_from_message_id': 'Переслано из сообщения (ID)',
+'created_at': 'Время создания (TG)', 'last_edited_at': 'Последнее изменение', 'logged_at': 'Время записи в лог'
+} %}
+
 <div class="py-12 max-w-4xl mx-auto">
     <div class="flex justify-between items-center mb-8">
         <div>
@@ -22,22 +28,20 @@
     </div>
     {% else %}
     <div class="space-y-8">
-        <div class="card">
-            <h2 class="text-2xl font-bold mb-4">Детали сообщения</h2>
+
+        <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h2 class="text-2xl font-bold mb-4 text-indigo-400">Об авторе и сообщении</h2>
             <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-sm">
-                {% for k, v in item.items() %}
-                {% if k not in ['edit_history', 'text'] %}
+                {% for key in ['author_user_id', 'author_first_name', 'author_username', 'author_is_bot', 'content_type', 'file_id'] %}
+                {% if key in item %}
                 <div class="py-2 border-b border-slate-800">
-                    <dt class="font-semibold text-slate-400">{{ k }}</dt>
-                    <dd class="text-slate-300 mt-1 font-mono break-all">{{ v or 'N/A' }}</dd>
+                    <dt class="font-semibold text-slate-400">{{ key_map.get(key, key) }}</dt>
+                    <dd class="text-slate-300 mt-1 font-mono break-all">{{ item[key] or 'N/A' }}</dd>
                 </div>
                 {% endif %}
                 {% endfor %}
             </dl>
-        </div>
-
-        <div class="card">
-            <h2 class="text-2xl font-bold mb-4">Текст сообщения</h2>
+            <h3 class="text-lg font-semibold mt-6 mb-2">Текст сообщения:</h3>
             {% if item.text %}
             <div class="text-slate-300 bg-slate-900/50 p-4 rounded-md whitespace-pre-wrap font-mono text-sm">{{ item.text }}</div>
             {% else %}
@@ -45,14 +49,26 @@
             {% endif %}
         </div>
 
-        <div class="card">
-            <h2 class="text-2xl font-bold mb-4">История правок (JSON)</h2>
+        <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h2 class="text-2xl font-bold mb-4 text-slate-400">О чате и метаданных</h2>
+            <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-sm">
+                {% for key in ['message_id', 'chat_id', 'chat_title', 'chat_type', 'topic_id', 'topic_name', 'created_at', 'last_edited_at', 'logged_at', 'reply_to_message_id', 'forward_from_chat_id', 'forward_from_message_id'] %}
+                {% if key in item %}
+                <div class="py-2 border-b border-slate-800">
+                    <dt class="font-semibold text-slate-400">{{ key_map.get(key, key) }}</dt>
+                    <dd class="text-slate-300 mt-1 font-mono break-all">{{ item[key] or 'N/A' }}</dd>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </dl>
+            <h3 class="text-lg font-semibold mt-6 mb-2">История правок (JSON):</h3>
             {% if item.edit_history %}
             <pre class="bg-slate-900/50 p-4 rounded-md overflow-x-auto text-xs text-slate-300">{{ item.edit_history | tojson(indent=2) }}</pre>
             {% else %}
             <p class="text-slate-500 text-sm">Нет истории правок.</p>
             {% endif %}
         </div>
+
     </div>
     {% endif %}
 </div>
