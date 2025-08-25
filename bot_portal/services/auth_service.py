@@ -36,7 +36,7 @@ class AuthService:
         return is_valid
 
     @staticmethod
-    def _create_user_session(user_data):
+    def _create_user_session(user_data, editor_details):
         session.clear()
         session.permanent = True
         session['user_id'] = int(user_data['id'])
@@ -44,7 +44,8 @@ class AuthService:
         session['first_name'] = user_data.get('first_name', 'N/A')
         session['photo_url'] = user_data.get('photo_url')
         session['logged_in'] = True
-        log.info(f"[AUTH_SESSION] УСПЕХ: Сессия создана для user_id={session['user_id']} (@{session['username']}).")
+        session['role'] = editor_details.get('role', 'editor')
+        log.info(f"[AUTH_SESSION] УСПЕХ: Сессия создана для user_id={session['user_id']} (@{session['username']}) с ролью '{session['role']}'.")
 
     @staticmethod
     def authenticate_user(auth_data):
@@ -63,12 +64,14 @@ class AuthService:
         user_id = int(auth_data['id'])
         log.debug(f"[AUTH_PERMISSIONS] Проверка прав для user_id={user_id}...")
         editor = EditorModel.find_by_id(user_id)
+
         if not editor:
             log.warning(f"[AUTH_PERMISSIONS] ПРОВАЛ: Пользователь user_id={user_id} не является активным редактором.")
             return False, "Доступ запрещен."
         log.info(f"[AUTH_PERMISSIONS] УСПЕХ: Пользователь user_id={user_id} является активным редактором.")
 
-        AuthService._create_user_session(auth_data)
+        AuthService._create_user_session(auth_data, editor)
+
         log.info(f"--- [AUTH_END] Аутентификация для user_id={user_id} завершена успешно. ---")
         return True, "Аутентификация прошла успешно."
 

@@ -42,7 +42,6 @@
         </div>
     </div>
 
-
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         <a href="{{ url_for('bot_portal.archive') }}" class="block bg-slate-800/50 hover:bg-slate-800 border border-slate-700 rounded-lg p-6 transition group">
             <h2 class="text-xl font-bold text-indigo-400 mb-2">Архив дел</h2>
@@ -61,6 +60,14 @@
             <p class="text-slate-400 text-sm">Поиск и просмотр всех сообщений, обработанных и сохраненных ботом.</p>
             <span class="text-indigo-500 group-hover:text-indigo-300 mt-4 inline-block text-sm font-semibold">Открыть логи →</span>
         </a>
+
+        {% if session.role == 'executor' %}
+        <a href="{{ url_for('bot_portal.editors_list') }}" class="block bg-slate-800/50 hover:bg-slate-800 border border-slate-700 rounded-lg p-6 transition group md:col-span-2 lg:col-span-1">
+            <h2 class="text-xl font-bold text-yellow-400 mb-2">Управление редакторами</h2>
+            <p class="text-slate-400 text-sm">Изменение статуса редакторов (активен / в СНС).</p>
+            <span class="text-yellow-500 group-hover:text-yellow-300 mt-4 inline-block text-sm font-semibold">Перейти к управлению →</span>
+        </a>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

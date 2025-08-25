@@ -1,14 +1,22 @@
-from flask import render_template, request, redirect, url_for, session, current_app, jsonify
-# --- НАЧАЛО ИЗМЕНЕНИЙ: Импортируем блюпринт из __init__.py ---
+# /bot_portal/routes.py
+from flask import render_template, request, redirect, url_for, session, current_app, jsonify, abort
+from functools import wraps
 from . import bot_portal_bp
-# --- КОНЕЦ ИЗМЕНЕНИЙ ---
 from .services.auth_service import AuthService
-# ЗАМЕНА: импортируем модуль вместо несуществующего класса AppealService
 from .services import appeal_service
 from .services.gemini_service import GeminiService
 from .services.stats_service import StatsService
 from .models.rate_limit_model import RateLimitModel
+from .models.editor_model import EditorModel
 
+# Декоратор для проверки роли Исполнителя
+def executor_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get('role') != 'executor':
+            abort(403)  # Forbidden
+        return f(*args, **kwargs)
+    return decorated_function
 
 @bot_portal_bp.route('/')
 def showcase():
@@ -28,8 +36,6 @@ def dashboard():
 
     stats = StatsService.get_dashboard_stats()
     return render_template('dashboard.html', user=session, stats=stats)
-
-# ... (остальной код файла остается без изменений) ...
 
 @bot_portal_bp.route('/archive')
 def archive():
@@ -136,3 +142,35 @@ def portal_logs_shortcut():
     if not session.get('logged_in'):
         return redirect(url_for('bot_portal.login'))
     return redirect(url_for('logs.logs_index'))
+
+@bot_portal_bp.route('/editors')
+@executor_required
+def editors_list():
+    """
+    Отображает страницу управления редакторами. Доступно только для 'executor'.
+    """
+    editors = EditorModel.get_all_editors()
+    return render_template('editors.html', editors=editors, user=session)
+
+@bot_portal_bp.route('/editors/update-status', methods=['POST'])
+@executor_required
+def update_editor_status():
+    """
+    Обрабатывает AJAX-запрос на изменение статуса редактора.
+    """
+    data = request.get_json()
+    user_id = data.get('user_id')
+    is_inactive = data.get('is_inactive')
+
+    if user_id is None or is_inactive is None:
+        return jsonify({"success": False, "error": "Missing parameters"}), 400
+
+    if int(user_id) == session.get('user_id'):
+        return jsonify({"success": False, "error": "You cannot change your own status."}), 403
+
+    success = EditorModel.update_status(user_id, is_inactive)
+
+    if success:
+        return jsonify({"success": True})
+    else:
+        return jsonify({"success": False, "error": "Database update failed"}), 500
