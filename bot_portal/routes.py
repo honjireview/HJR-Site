@@ -1,5 +1,7 @@
 from flask import render_template, request, redirect, url_for, session, current_app, jsonify
+# --- НАЧАЛО ИЗМЕНЕНИЙ: Импорт блюпринта из __init__.py ---
 from . import bot_portal_bp
+# --- КОНЕЦ ИЗМЕНЕНИЙ ---
 from .services.auth_service import AuthService
 from .services.appeal_service import AppealService
 from .services.gemini_service import GeminiService
@@ -25,6 +27,8 @@ def dashboard():
 
     stats = StatsService.get_dashboard_stats()
     return render_template('dashboard.html', user=session, stats=stats)
+
+# ... (остальной код файла остается без изменений) ...
 
 @bot_portal_bp.route('/archive')
 def archive():
@@ -95,14 +99,12 @@ def login():
     Отображает страницу входа.
     """
     bot_username = current_app.config.get('TELEGRAM_BOT_USERNAME', 'YourBot')
-    # --- НАЧАЛО ИЗМЕНЕНИЙ: Передаем хеш коммита и URL репозитория в шаблон ---
     commit_hash = current_app.config.get('COMMIT_HASH', 'N/A')
     github_url = "https://github.com/honjireview/HJR-Site"
     return render_template('login.html',
                            bot_username=bot_username,
                            commit_hash=commit_hash,
                            github_url=github_url)
-    # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
 @bot_portal_bp.route('/auth/telegram')
 def handle_login():
