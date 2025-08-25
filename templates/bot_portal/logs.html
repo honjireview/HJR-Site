@@ -1,102 +1,103 @@
+<!-- /templates/bot_portal/logs.html -->
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <title>Логи сообщений</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    table { border-collapse: collapse; width: 100%; }
-    th, td { border: 1px solid #ddd; padding: 6px; font-size: 14px; }
-    th { background: #f6f6f6; }
-    form.filters { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-bottom: 12px; }
-    .pager { margin-top: 10px; display: flex; gap: 8px; align-items: center; }
-    .nowrap { white-space: nowrap; }
-    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
-  </style>
+    <meta charset="utf-8">
+    <title>Логи сообщений</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 6px; font-size: 14px; }
+        th { background: #f6f6f6; }
+        form.filters { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-bottom: 12px; }
+        .pager { margin-top: 10px; display: flex; gap: 8px; align-items: center; }
+        .nowrap { white-space: nowrap; }
+        .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+    </style>
 </head>
 <body>
-  <h1>Логи сообщений</h1>
+<h1>Логи сообщений</h1>
 
-  <form class="filters" method="get">
+<form class="filters" method="get">
     <input name="q" placeholder="Поиск в тексте/чатах" value="{{ filters.get('q','') }}">
     <input name="chat_id" placeholder="chat_id" value="{{ filters.get('chat_id','') }}">
     <input name="author_user_id" placeholder="author_user_id" value="{{ filters.get('author_user_id','') }}">
     <select name="content_type">
-      <option value="">content_type (любой)</option>
-      {% for ct in ['text','photo','document','audio','video','voice','sticker','other'] %}
+        <option value="">content_type (любой)</option>
+        {% for ct in ['text','photo','document','audio','video','voice','sticker','other'] %}
         <option value="{{ ct }}" {% if filters.get('content_type')==ct %}selected{% endif %}>{{ ct }}</option>
-      {% endfor %}
+        {% endfor %}
     </select>
     <select name="has_file">
-      <option value="">файл? (любой)</option>
-      <option value="true" {% if filters.get('has_file') is sameas true %}selected{% endif %}>есть</option>
-      <option value="false" {% if filters.get('has_file') is sameas false %}selected{% endif %}>нет</option>
+        <option value="">файл? (любой)</option>
+        <option value="true" {% if filters.get('has_file') is sameas true %}selected{% endif %}>есть</option>
+        <option value="false" {% if filters.get('has_file') is sameas false %}selected{% endif %}>нет</option>
     </select>
     <input type="date" name="date_from" value="{{ filters.get('date_from','')|string }}">
     <input type="date" name="date_to" value="{{ filters.get('date_to','')|string }}">
 
     <select name="sort_by">
-      {% for col in ['logged_at','created_at','message_id','chat_id','author_user_id','content_type'] %}
+        {% for col in ['logged_at','created_at','message_id','chat_id','author_user_id','content_type'] %}
         <option value="{{ col }}" {% if sort_by==col %}selected{% endif %}>{{ col }}</option>
-      {% endfor %}
+        {% endfor %}
     </select>
     <select name="order">
-      {% for o in ['asc','desc'] %}
+        {% for o in ['asc','desc'] %}
         <option value="{{ o }}" {% if order==o %}selected{% endif %}>{{ o }}</option>
-      {% endfor %}
+        {% endfor %}
     </select>
 
     <input type="number" min="1" max="200" name="per_page" value="{{ per_page }}" placeholder="per_page">
     <button type="submit">Применить</button>
-  </form>
+</form>
 
-  <div>Всего: {{ total }} | Стр. {{ page }} из {{ pages }}</div>
+<div>Всего: {{ total }} | Стр. {{ page }} из {{ pages }}</div>
 
-  <table>
+<table>
     <thead>
-      <tr>
+    <tr>
         <th>logged_at</th>
         <th>chat</th>
         <th>author</th>
         <th>type</th>
         <th class="nowrap">message_id</th>
         <th>text</th>
-      </tr>
+    </tr>
     </thead>
     <tbody>
-      {% for it in items %}
-      <tr>
+    {% for it in items %}
+    <tr>
         <td class="nowrap">{{ it.logged_at }}</td>
         <td class="mono">
-          {{ it.chat_type }} · {{ it.chat_id }}
-          <div>{{ it.chat_title }}</div>
-          {% if it.topic_id %}<div>topic: {{ it.topic_id }} · {{ it.topic_name }}</div>{% endif %}
+            {{ it.chat_type }} · {{ it.chat_id }}
+            <div>{{ it.chat_title }}</div>
+            {% if it.topic_id %}<div>topic: {{ it.topic_id }} · {{ it.topic_name }}</div>{% endif %}
         </td>
         <td class="mono">
-          id: {{ it.author_user_id }}
-          <div>@{{ it.author_username }} {{ it.author_first_name }}</div>
-          {% if it.author_is_bot %}<span>(bot)</span>{% endif %}
+            id: {{ it.author_user_id }}
+            <div>@{{ it.author_username }} {{ it.author_first_name }}</div>
+            {% if it.author_is_bot %}<span>(bot)</span>{% endif %}
         </td>
         <td>{{ it.content_type }}</td>
         <td class="mono">{{ it.message_id }}</td>
         <td>
-          <div title="last edited: {{ it.last_edited_at }}">{{ it.text }}</div>
-          {% if it.file_id %}<div class="mono">file_id: {{ it.file_id }}</div>{% endif %}
-          <div><a href="{{ url_for('logs.logs_view', internal_id=it.internal_id) }}">подробно</a></div>
+            <div title="last edited: {{ it.last_edited_at }}">{{ it.text }}</div>
+            {% if it.file_id %}<div class="mono">file_id: {{ it.file_id }}</div>{% endif %}
+            <div><a href="{{ url_for('logs.logs_view', internal_id=it.internal_id) }}">подробно</a></div>
         </td>
-      </tr>
-      {% endfor %}
+    </tr>
+    {% endfor %}
     </tbody>
-  </table>
+</table>
 
-  <div class="pager">
-    {% if page > 1 %}
-      <a href="{{ url_for('logs.logs_index', **request.args.to_dict(flat=True), page=page-1) }}">&larr; Предыдущая</a>
+<div class="pager">
+    {% if prev_url %}
+    <a href="{{ prev_url }}">&larr; Предыдущая</a>
     {% endif %}
     <span>Страница {{ page }} / {{ pages }}</span>
-    {% if page < pages %}
-      <a href="{{ url_for('logs.logs_index', **request.args.to_dict(flat=True), page=page+1) }}">Следующая &rarr;</a>
+    {% if next_url %}
+    <a href="{{ next_url }}">Следующая &rarr;</a>
     {% endif %}
-  </div>
+</div>
 </body>
 </html>

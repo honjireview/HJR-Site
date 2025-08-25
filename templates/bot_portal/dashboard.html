@@ -1,20 +1,18 @@
 {% extends "layout.html" %}
-
-{% block title %}Панель управления - Портал HJR-Bot{% endblock %}
-
-{% block head_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/bot_portal.css') }}">
-{% endblock %}
+{% block title %}Панель управления{% endblock %}
 
 {% block content %}
-<div class="py-12 max-w-4xl mx-auto">
-
-    <div class="mb-8">
-        <h1 class="text-4xl font-bold">Добро пожаловать, {{ user.first_name }}!</h1>
-        <p class="text-slate-400 mt-2">Вы вошли как @{{ user.username }}. Это ваша панель управления ботом.</p>
+<div class="py-12 max-w-6xl mx-auto">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-4xl font-bold">Панель управления</h1>
+    <div class="flex items-center gap-3">
+      <a href="{{ url_for('bot_portal.archive') }}" class="text-slate-400 hover:underline text-sm">Архив дел</a>
+      <a href="{{ url_for('bot_portal.ai_assistant') }}" class="text-slate-400 hover:underline text-sm">ИИ‑ассистент</a>
+      <a href="{{ url_for('logs.logs_index') }}" class="bg-slate-700 text-white text-sm px-3 py-2 rounded hover:bg-slate-600">Логи сообщений</a>
     </div>
+  </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
         <a href="{{ url_for('bot_portal.archive') }}" class="block bg-slate-800/50 hover:bg-slate-800 border border-slate-700 rounded-lg p-6 transition group">
             <h2 class="text-xl font-bold text-indigo-400 mb-2">Архив дел</h2>

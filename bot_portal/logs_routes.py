@@ -9,6 +9,7 @@ logs_bp = Blueprint(
     template_folder='../templates/bot_portal'
 )
 
+
 @logs_bp.route('/logs')
 def logs_index():
     # Параметры запроса
@@ -47,7 +48,7 @@ def logs_index():
     if request.args.get('date_to'):
         try:
             # до конца дня включительно
-            filters['date_to'] = datetime.fromisoformat(request.args['date_to']) 
+            filters['date_to'] = datetime.fromisoformat(request.args['date_to'])
         except ValueError:
             pass
 
@@ -64,6 +65,21 @@ def logs_index():
 
     pages = (total + per_page - 1) // per_page
 
+    # Формируем URLы пагинации без использования ** в шаблоне
+    args = request.args.to_dict(flat=True)
+    prev_url = None
+    next_url = None
+    if page > 1:
+        args_prev = dict(args)
+        args_prev['page'] = page - 1
+        prev_url = request.url_rule.rule and request.base_url + (
+                    '?' + '&'.join(f"{k}={v}" for k, v in args_prev.items())) if args_prev else request.base_url
+    if page < pages:
+        args_next = dict(args)
+        args_next['page'] = page + 1
+        next_url = request.url_rule.rule and request.base_url + (
+                    '?' + '&'.join(f"{k}={v}" for k, v in args_next.items())) if args_next else request.base_url
+
     return render_template(
         'bot_portal/logs.html',
         items=data,
@@ -73,8 +89,11 @@ def logs_index():
         total=total,
         sort_by=sort_by,
         order=order,
-        filters=filters
+        filters=filters,
+        prev_url=prev_url,
+        next_url=next_url
     )
+
 
 @logs_bp.route('/logs/<int:internal_id>')
 def logs_view(internal_id: int):
