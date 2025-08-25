@@ -1,6 +1,10 @@
 # /bot_portal/services/stats_service.py
 import logging
-from ..models import AppealModel, MessageLogModel, RateLimitModel
+from datetime import datetime, timedelta
+# ЗАМЕНА: импортируем модели напрямую из их модулей, а не из пакета
+from ..models.appeal_model import AppealModel
+from ..models.message_log_model import MessageLogModel
+from ..models.rate_limit_model import RateLimitModel
 
 log = logging.getLogger(__name__)
 
