@@ -8,6 +8,7 @@ from .services.gemini_service import GeminiService
 from .services.stats_service import StatsService
 from .models.rate_limit_model import RateLimitModel
 from .models.editor_model import EditorModel
+from .models.message_log_model import MessageLogModel
 
 # Декоратор для проверки роли Исполнителя
 def executor_required(f):
@@ -174,3 +175,31 @@ def update_editor_status():
         return jsonify({"success": True})
     else:
         return jsonify({"success": False, "error": "Database update failed"}), 500
+
+# --- НАЧАЛО ИЗМЕНЕНИЙ: Новый маршрут для просмотра активности редактора ---
+@bot_portal_bp.route('/editors/<int:user_id>/activity')
+@executor_required
+def editor_activity(user_id):
+    """
+    Отображает страницу с логами активности конкретного редактора.
+    """
+    page = request.args.get('page', 1, type=int)
+    per_page = 25 # Установим фиксированное количество логов на страницу
+
+    editor = EditorModel.find_by_id(user_id)
+    if not editor:
+        abort(404)
+
+    logs, total = MessageLogModel.get_logs_by_author(user_id, page=page, per_page=per_page)
+
+    pages = (total + per_page - 1) // per_page
+
+    return render_template(
+        'editor_activity.html',
+        editor=editor,
+        logs=logs,
+        page=page,
+        pages=pages,
+        total=total
+    )
+# --- КОНЕЦ ИЗМЕНЕНИЙ ---

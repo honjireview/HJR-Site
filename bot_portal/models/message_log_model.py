@@ -116,6 +116,36 @@ class MessageLogModel:
 
     # --- НАЧАЛО ИЗМЕНЕНИЙ ---
     @staticmethod
+    def get_logs_by_author(user_id: int, page: int = 1, per_page: int = 50) -> Tuple[List[Dict[str, Any]], int]:
+        """
+        Возвращает список логов для конкретного автора с пагинацией.
+        """
+        offset = (page - 1) * per_page
+        conn = get_db()
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+
+        # Считаем общее количество записей для пагинации
+        cur.execute("SELECT COUNT(*) FROM message_log WHERE author_user_id = %s", (user_id,))
+        total = cur.fetchone()[0]
+
+        # Получаем сами записи
+        cur.execute(
+            """
+            SELECT
+                internal_id, chat_title, chat_id, text, content_type, file_id, logged_at
+            FROM message_log
+            WHERE author_user_id = %s
+            ORDER BY logged_at DESC
+                LIMIT %s OFFSET %s
+            """,
+            (user_id, per_page, offset)
+        )
+        rows = cur.fetchall()
+        cur.close()
+        return [dict(r) for r in rows], total
+    # --- КОНЕЦ ИЗМЕНЕНИЙ ---
+
+    @staticmethod
     def get_total_count():
         """
         Возвращает общее количество записей в логе.
@@ -126,4 +156,3 @@ class MessageLogModel:
         count = cur.fetchone()[0]
         cur.close()
         return count
-    # --- КОНЕЦ ИЗМЕНЕНИЙ ---

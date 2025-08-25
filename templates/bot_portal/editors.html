@@ -2,11 +2,11 @@
 {% block title %}Управление редакторами{% endblock %}
 
 {% block content %}
-<div class="py-12 max-w-4xl mx-auto">
+<div class="py-12 max-w-6xl mx-auto">
     <div class="flex justify-between items-center mb-8">
         <div>
             <h1 class="text-4xl font-bold">Управление редакторами</h1>
-            <p class="text-slate-400 mt-2">Изменение статуса участников Совета Редакторов.</p>
+            <p class="text-slate-400 mt-2">Изменение статуса и просмотр активности участников Совета Редакторов.</p>
         </div>
         <a href="{{ url_for('bot_portal.dashboard') }}" class="text-indigo-400 hover:underline text-sm">&larr; Назад в панель</a>
     </div>
@@ -17,7 +17,8 @@
             <tr>
                 <th class="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Редактор</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Статус</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Действие</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Управление статусом</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Действия</th>
             </tr>
             </thead>
             <tbody class="divide-y divide-slate-700">
@@ -48,6 +49,11 @@
                     {% else %}
                     <span class="text-xs text-slate-500 italic">Это вы</span>
                     {% endif %}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                    <a href="{{ url_for('bot_portal.editor_activity', user_id=editor.user_id) }}" class="text-indigo-400 hover:underline text-xs">
+                        Посмотреть активность &rarr;
+                    </a>
                 </td>
             </tr>
             {% endfor %}

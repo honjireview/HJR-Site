@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+{% block title %}Активность редактора {{ editor.first_name }}{% endblock %}
+
+{% block content %}
+<div class="py-12 max-w-6xl mx-auto">
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-4xl font-bold">Активность редактора</h1>
+            <p class="text-slate-400 mt-2">Просмотр всех залогированных действий для <span class="font-semibold text-indigo-400">{{ editor.first_name }} (@{{ editor.username }})</span>.</p>
+        </div>
+        <a href="{{ url_for('bot_portal.editors_list') }}" class="text-indigo-400 hover:underline text-sm">&larr; Назад к списку редакторов</a>
+    </div>
+
+    <div class="bg-slate-800/50 border border-slate-700 rounded-lg shadow-lg overflow-x-auto">
+        <table class="min-w-full">
+            <thead class="bg-slate-800">
+            <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Дата лога</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Чат</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Содержимое</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Детали</th>
+            </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-700">
+            {% for log in logs %}
+            <tr class="hover:bg-slate-800 transition">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 font-mono">{{ log.logged_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                    <div class="font-semibold text-slate-300">{{ log.chat_title or 'N/A' }}</div>
+                    <div class="text-slate-500 font-mono">{{ log.chat_id }}</div>
+                </td>
+                <td class="px-6 py-4 text-sm text-slate-300 max-w-lg truncate" title="{{ log.text }}">
+                    {{ log.text or 'Нет текста' }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                    <a href="{{ url_for('logs.logs_view', internal_id=log.internal_id) }}" class="text-indigo-400 hover:underline text-xs">
+                        Подробнее &rarr;
+                    </a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4" class="text-center py-16 text-slate-500">
+                    <p class="text-lg">Для этого редактора нет записей об активности.</p>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-6 flex justify-between items-center text-sm">
+        <div class="text-slate-500">
+            Показано {{ logs|length }} из {{ total }} записей. Страница {{ page }} из {{ pages }}.
+        </div>
+        {% if pages > 1 %}
+        <div class="flex gap-2">
+            {% if page > 1 %}
+            <a href="{{ url_for('bot_portal.editor_activity', user_id=editor.user_id, page=page-1) }}" class="px-4 py-2 bg-slate-700 rounded-md hover:bg-slate-600 transition">&larr; Предыдущая</a>
+            {% else %}
+            <span class="px-4 py-2 bg-slate-800 text-slate-600 rounded-md cursor-not-allowed">&larr; Предыдущая</span>
+            {% endif %}
+
+            {% if page < pages %}
+            <a href="{{ url_for('bot_portal.editor_activity', user_id=editor.user_id, page=page+1) }}" class="px-4 py-2 bg-slate-700 rounded-md hover:bg-slate-600 transition">Следующая &rarr;</a>
+            {% else %}
+            <span class="px-4 py-2 bg-slate-800 text-slate-600 rounded-md cursor-not-allowed">Следующая &rarr;</span>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
