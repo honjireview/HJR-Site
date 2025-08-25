@@ -6,22 +6,20 @@ import psycopg2.extras
 
 class MessageLogModel:
     allowed_sort_columns = [
-        'logged_at', 'created_at', 'message_id', 'chat_id', 'author_user_id', 'content_type'
+        'logged_at', 'created_at', 'message_id', 'chat_id', 'author_user_id', 'content_type', 'chat_type'
     ]
     allowed_orders = ['asc', 'desc']
 
     @staticmethod
     def list_logs(
-        page: int = 1,
-        per_page: int = 50,
-        sort_by: str = 'logged_at',
-        order: str = 'desc',
-        filters: Optional[Dict[str, Any]] = None
+            page: int = 1,
+            per_page: int = 50,
+            sort_by: str = 'logged_at',
+            order: str = 'desc',
+            filters: Optional[Dict[str, Any]] = None
     ) -> Tuple[List[Dict[str, Any]], int]:
         """
         Возвращает список логов и общее количество записей для пагинации.
-        filters может содержать ключи: chat_id, author_user_id, content_type,
-        date_from (datetime), date_to (datetime), has_file (bool), q (строка поиска по text).
         """
         filters = filters or {}
         sort_col = sort_by if sort_by in MessageLogModel.allowed_sort_columns else 'logged_at'
@@ -33,6 +31,10 @@ class MessageLogModel:
         if filters.get('chat_id') is not None:
             where_clauses.append("chat_id = %s")
             params.append(filters['chat_id'])
+
+        if filters.get('chat_type'):
+            where_clauses.append("chat_type = %s")
+            params.append(filters['chat_type'])
 
         if filters.get('author_user_id') is not None:
             where_clauses.append("author_user_id = %s")
@@ -67,12 +69,10 @@ class MessageLogModel:
         conn = get_db()
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-        # Общее количество
         count_sql = f"SELECT COUNT(*) FROM message_log{where_sql}"
         cur.execute(count_sql, params)
         total = cur.fetchone()[0]
 
-        # Данные страницы
         data_sql = f"""
             SELECT
               internal_id, message_id, chat_id, chat_type, chat_title,
@@ -99,12 +99,12 @@ class MessageLogModel:
         cur.execute(
             """
             SELECT
-              internal_id, message_id, chat_id, chat_type, chat_title,
-              topic_id, topic_name,
-              author_user_id, author_username, author_first_name, author_is_bot,
-              text, content_type, file_id,
-              reply_to_message_id, forward_from_chat_id, forward_from_message_id,
-              created_at, last_edited_at, edit_history, logged_at
+                internal_id, message_id, chat_id, chat_type, chat_title,
+                topic_id, topic_name,
+                author_user_id, author_username, author_first_name, author_is_bot,
+                text, content_type, file_id,
+                reply_to_message_id, forward_from_chat_id, forward_from_message_id,
+                created_at, last_edited_at, edit_history, logged_at
             FROM message_log
             WHERE internal_id = %s
             """,
@@ -113,3 +113,17 @@ class MessageLogModel:
         row = cur.fetchone()
         cur.close()
         return dict(row) if row else None
+
+    # --- НАЧАЛО ИЗМЕНЕНИЙ ---
+    @staticmethod
+    def get_total_count():
+        """
+        Возвращает общее количество записей в логе.
+        """
+        conn = get_db()
+        cur = conn.cursor()
+        cur.execute("SELECT COUNT(*) FROM message_log")
+        count = cur.fetchone()[0]
+        cur.close()
+        return count
+    # --- КОНЕЦ ИЗМЕНЕНИЙ ---

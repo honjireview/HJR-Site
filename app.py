@@ -3,12 +3,25 @@ import os
 import db
 import telebot
 import logging
+import subprocess # <-- Добавлено
 
 # Базовая конфигурация логирования.
 logging.basicConfig(
     level=logging.DEBUG,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
+
+# --- НАЧАЛО ИЗМЕНЕНИЙ: Функция для получения хеша коммита ---
+def get_git_commit_hash():
+    """Возвращает короткий хэш текущего коммита Git."""
+    try:
+        # Пытаемся получить хэш через git-команду
+        commit_hash = subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD']).strip().decode('utf-8')
+        return commit_hash
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        # В случае ошибки (не git-репозиторий или git не установлен) возвращаем None
+        return None
+# --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
 def create_app():
     """
@@ -17,6 +30,11 @@ def create_app():
     app = Flask(__name__)
 
     app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'a_very_secret_key_for_local_development_only')
+
+    # --- НАЧАЛО ИЗМЕНЕНИЙ: Сохраняем хеш коммита в конфиг приложения ---
+    commit_hash = os.getenv('COMMIT_HASH') or get_git_commit_hash()
+    app.config['COMMIT_HASH'] = commit_hash or 'local'
+    # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
     HJRBOT_TELEGRAM_TOKEN = os.getenv('HJRBOT_TELEGRAM_TOKEN')
     if HJRBOT_TELEGRAM_TOKEN:
@@ -30,25 +48,18 @@ def create_app():
     else:
         raise RuntimeError("HJRBOT_TELEGRAM_TOKEN не установлен в переменных окружения.")
 
-    # --- НАЧАЛО ИЗМЕНЕНИЙ: Запускаем инициализацию БД ---
-    # Это гарантирует, что все таблицы будут созданы при старте приложения, если их нет
     with app.app_context():
         db.init_db_schema()
-    # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
     db.init_app(app)
 
     from main_site.routes import main_site_bp
     from bot_portal.routes import bot_portal_bp
-    # ... existing code ...
-    from bot_portal.logs_routes import logs_bp  # админ‑страницы логов
-    # ... existing code ...
+    from bot_portal.logs_routes import logs_bp
 
     app.register_blueprint(main_site_bp)
     app.register_blueprint(bot_portal_bp, url_prefix='/bot')
-    # ... existing code ...
     app.register_blueprint(logs_bp, url_prefix='/bot/admin')
-    # ... existing code ...
 
     return app
 

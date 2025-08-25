@@ -32,3 +32,17 @@ class RateLimitModel:
         count = cur.fetchone()[0]
         cur.close()
         return count
+
+    # --- НАЧАЛО ИЗМЕНЕНИЙ ---
+    @staticmethod
+    def get_total_count():
+        """
+        Возвращает общее количество запросов к ИИ.
+        """
+        conn = get_db()
+        cur = conn.cursor()
+        cur.execute("SELECT COUNT(*) FROM ai_requests_log")
+        count = cur.fetchone()[0]
+        cur.close()
+        return count
+    # --- КОНЕЦ ИЗМЕНЕНИЙ ---

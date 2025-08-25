@@ -1,15 +1,11 @@
 from flask import render_template, request, redirect, url_for, session, current_app, jsonify
 from . import bot_portal_bp
-# --- НАЧАЛО ИЗМЕНЕНИЙ: Исправлен импорт сервисов на явные модульные импорты ---
 from .services.auth_service import AuthService
 from .services.appeal_service import AppealService
 from .services.gemini_service import GeminiService
-# --- КОНЕЦ ИЗМЕНЕНИЙ ---
-# --- НАЧАЛО ИЗМЕНЕНИЙ: импорт логирования запросов ИИ ---
+from .services.stats_service import StatsService
 from .models.rate_limit_model import RateLimitModel
 
-
-# --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
 @bot_portal_bp.route('/')
 def showcase():
@@ -27,7 +23,8 @@ def dashboard():
     if not session.get('logged_in'):
         return redirect(url_for('bot_portal.login'))
 
-    return render_template('dashboard.html', user=session)
+    stats = StatsService.get_dashboard_stats()
+    return render_template('dashboard.html', user=session, stats=stats)
 
 @bot_portal_bp.route('/archive')
 def archive():
@@ -68,8 +65,6 @@ def appeal_detail(case_id):
 def ai_assistant():
     """
     Обрабатывает страницу ИИ-ассистента.
-    GET - отображает страницу.
-    POST - обрабатывает AJAX-запрос с вопросом.
     """
     if not session.get('logged_in'):
         if request.method == 'POST':
@@ -84,12 +79,10 @@ def ai_assistant():
         if not question:
             return jsonify({"error": "Вопрос не может быть пустым."}), 400
 
-        # --- НАЧАЛО ИЗМЕНЕНИЙ: логируем факт запроса пользователя к ИИ ---
         try:
             RateLimitModel.log_request(user_id)
         except Exception as e:
             current_app.logger.warning(f"Не удалось записать ai_requests_log: {e}")
-        # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
         response = GeminiService.ask_question(user_id, question)
         return jsonify(response)
@@ -102,7 +95,14 @@ def login():
     Отображает страницу входа.
     """
     bot_username = current_app.config.get('TELEGRAM_BOT_USERNAME', 'YourBot')
-    return render_template('login.html', bot_username=bot_username)
+    # --- НАЧАЛО ИЗМЕНЕНИЙ: Передаем хеш коммита и URL репозитория в шаблон ---
+    commit_hash = current_app.config.get('COMMIT_HASH', 'N/A')
+    github_url = "https://github.com/honjireview/HJR-Site"
+    return render_template('login.html',
+                           bot_username=bot_username,
+                           commit_hash=commit_hash,
+                           github_url=github_url)
+    # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
 @bot_portal_bp.route('/auth/telegram')
 def handle_login():
@@ -132,5 +132,4 @@ def portal_logs_shortcut():
     """
     if not session.get('logged_in'):
         return redirect(url_for('bot_portal.login'))
-    # перенаправляем на зарегистрированный роут списка логов
     return redirect(url_for('logs.logs_index'))

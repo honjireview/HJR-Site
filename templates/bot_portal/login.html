@@ -3,28 +3,69 @@
 {% block title %}Вход - Портал HJR-Bot{% endblock %}
 
 {% block content %}
-<div class="text-center py-16 max-w-lg mx-auto">
-    <h1 class="text-4xl font-bold text-indigo-400">Панель управления</h1>
-    <p class="text-slate-400 mt-4">Для доступа к панели управления необходимо подтвердить свою личность через Telegram.</p>
-
-    <!-- НАЧАЛО ИЗМЕНЕНИЙ -->
-
-    <!-- 1. Блок с объяснением о получаемых данных -->
-    <div class="mt-8 text-sm text-slate-500 bg-slate-800/50 border border-slate-700 rounded-lg p-4">
-        <h3 class="font-semibold text-slate-300 mb-2">Какие данные мы получим?</h3>
-        <p>Нажимая на кнопку, вы разрешаете Telegram передать нам ваши **публичные** данные: ID, имя, юзернейм и фото профиля. Мы **не получаем** доступ к вашим чатам, контактам или номеру телефона. Эти данные необходимы исключительно для проверки того, что вы являетесь активным редактором проекта.</p>
+<div class="py-16 max-w-2xl mx-auto">
+    <div class="text-center">
+        <h1 class="text-4xl font-bold text-indigo-400">Вход в Панель управления</h1>
+        <p class="text-slate-400 mt-4">Для доступа необходимо подтвердить свою личность через Telegram.</p>
     </div>
 
-    <!-- 2. Обертка для центрирования кнопки -->
-    <div class="mt-8 flex justify-center">
-        <script async src="https://telegram.org/js/telegram-widget.js?22"
-                data-telegram-login="{{ bot_username }}"
-                data-size="large"
-                data-auth-url="{{ url_for('bot_portal.handle_login', _external=True) }}"
-                data-request-access="write"></script>
+    <div class="mt-10 bg-slate-800/50 border border-slate-700 rounded-lg p-8">
+        <div class="flex items-start">
+            <div class="flex-shrink-0">
+                <svg class="h-8 w-8 text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.286zm0 13.036h.008v.008h-.008v-.008z" />
+                </svg>
+            </div>
+            <div class="ml-4">
+                <h3 class="text-lg font-bold text-slate-200">Безопасность и прозрачность</h3>
+                <p class="text-sm text-slate-400 mt-1">
+                    Аутентификация происходит через официальный виджет Telegram. Все данные криптографически подписаны и проверяются на нашем сервере, что гарантирует их подлинность.
+                </p>
+
+                <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <h4 class="font-semibold text-green-400">✅ Что мы получаем:</h4>
+                        <ul class="list-disc list-inside text-slate-400 mt-1 space-y-1">
+                            <li>Ваш публичный никнейм</li>
+                            <li>Ваш уникальный Telegram ID</li>
+                            <li>Ваше публичное фото профиля</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-red-400">❌ Что мы НЕ получаем:</h4>
+                        <ul class="list-disc list-inside text-slate-400 mt-1 space-y-1">
+                            <li>Доступ к вашим чатам</li>
+                            <li>Ваш номер телефона</li>
+                            <li>Список ваших контактов</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-8 text-center">
+        <p class="text-sm text-slate-500 mb-4">Нажмите на кнопку ниже для безопасного входа:</p>
+        <div class="inline-block">
+            <script async src="https://telegram.org/js/telegram-widget.js?22"
+                    data-telegram-login="{{ bot_username }}"
+                    data-size="large"
+                    data-auth-url="{{ url_for('bot_portal.handle_login', _external=True) }}"
+                    data-request-access="write"></script>
+        </div>
     </div>
 
-    <!-- КОНЕЦ ИЗМЕНЕНИЙ -->
-
+    <div class="mt-12 text-center text-xs text-slate-600">
+        <p>
+            <a href="{{ github_url }}" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-400 transition">
+                Посмотреть исходный код на GitHub
+            </a>
+        </p>
+        <p class="mt-1 font-mono">
+            Версия сборки:
+            <a href="{{ github_url }}/commit/{{ commit_hash }}" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-400 transition">
+                {{ commit_hash }}
+            </a>
+        </p>
+    </div>
 </div>
 {% endblock %}

@@ -41,6 +41,9 @@ class AuthService:
         session['user_id'] = int(user_data['id'])
         session['username'] = user_data.get('username', 'N/A')
         session['first_name'] = user_data.get('first_name', 'N/A')
+        # --- НАЧАЛО ИЗМЕНЕНИЙ: Сохраняем фото профиля в сессию ---
+        session['photo_url'] = user_data.get('photo_url')
+        # --- КОНЕЦ ИЗМЕНЕНИЙ ---
         session['logged_in'] = True
         log.info(f"[AUTH_SESSION] УСПЕХ: Сессия создана для user_id={session['user_id']} (@{session['username']}).")
 
