@@ -3,7 +3,8 @@ from flask import render_template, request, redirect, url_for, session, current_
 from . import bot_portal_bp
 # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 from .services.auth_service import AuthService
-from .services.appeal_service import AppealService
+# ЗАМЕНА: импортируем модуль вместо несуществующего класса AppealService
+from .services import appeal_service
 from .services.gemini_service import GeminiService
 from .services.stats_service import StatsService
 from .models.rate_limit_model import RateLimitModel
@@ -41,7 +42,7 @@ def archive():
     sort_by = request.args.get('sort_by', 'created_at')
     order = request.args.get('order', 'desc')
 
-    appeals_list = AppealService.get_all_appeals_for_display(sort_by=sort_by, order=order)
+    appeals_list = appeal_service.get_all_appeals_for_display(sort_by=sort_by, order=order)
 
     return render_template(
         'archive.html',
@@ -58,7 +59,7 @@ def appeal_detail(case_id):
     if not session.get('logged_in'):
         return redirect(url_for('bot_portal.login'))
 
-    appeal_details = AppealService.get_appeal_details(case_id)
+    appeal_details = appeal_service.get_appeal_details(case_id)
 
     if not appeal_details:
         return "Дело не найдено", 404
