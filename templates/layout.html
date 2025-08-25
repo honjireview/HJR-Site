@@ -36,8 +36,15 @@
     {% block content %}{% endblock %}
 </main>
 
-<footer class="container mx-auto p-4 mt-8 border-t border-slate-800 text-center text-slate-500">
-    <p>&copy; 2025 Honji Review. Все права защищены.</p>
+<footer class="container mx-auto p-4 mt-8 border-t border-slate-800 text-sm text-slate-500">
+    <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-4">
+        <p>&copy; 2025 Honji Review. Все права защищены.</p>
+        <div class="flex items-center gap-x-6">
+            <a href="{{ url_for('main_site.about') }}" class="hover:text-indigo-400 transition">О нас</a>
+            <a href="mailto:honjireview.info@gmail.com" class="hover:text-indigo-400 transition">Связаться с нами</a>
+            <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.ru" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-400 transition">Лицензия CC-BY-SA 4.0</a>
+        </div>
+    </div>
 </footer>
 
 {% block body_js %}{% endblock %}

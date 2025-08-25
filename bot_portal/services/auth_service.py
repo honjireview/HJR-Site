@@ -38,6 +38,7 @@ class AuthService:
     @staticmethod
     def _create_user_session(user_data):
         session.clear()
+        session.permanent = True
         session['user_id'] = int(user_data['id'])
         session['username'] = user_data.get('username', 'N/A')
         session['first_name'] = user_data.get('first_name', 'N/A')

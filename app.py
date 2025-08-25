@@ -4,6 +4,7 @@ import db
 import telebot
 import logging
 import subprocess
+from datetime import timedelta
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -24,6 +25,8 @@ def create_app():
     app = Flask(__name__)
 
     app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'a_very_secret_key_for_local_development_only')
+
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=5)
 
     commit_hash = os.getenv('COMMIT_HASH') or get_git_commit_hash()
     app.config['COMMIT_HASH'] = commit_hash or 'local'
