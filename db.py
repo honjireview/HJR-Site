@@ -2,6 +2,7 @@
 import os
 import logging
 import sqlite3
+from flask import g  # <-- add import
 
 logger = logging.getLogger(__name__)
 
@@ -171,7 +172,8 @@ def get_db():
     Открывает новое соединение с БД, если его еще нет для текущего запроса.
     """
     if 'db' not in g:
-        g.db = psycopg2.connect(os.getenv("DATABASE_URL"))
+        conn, _backend = _connect()
+        g.db = conn
     return g.db
 
 def close_db(e=None):
