@@ -1,103 +1,122 @@
-<!-- /templates/bot_portal/logs.html -->
-<!doctype html>
-<html lang="ru">
-<head>
-    <meta charset="utf-8">
-    <title>Логи сообщений</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #ddd; padding: 6px; font-size: 14px; }
-        th { background: #f6f6f6; }
-        form.filters { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-bottom: 12px; }
-        .pager { margin-top: 10px; display: flex; gap: 8px; align-items: center; }
-        .nowrap { white-space: nowrap; }
-        .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
-    </style>
-</head>
-<body>
-<h1>Логи сообщений</h1>
+{% extends "layout.html" %}
 
-<form class="filters" method="get">
-    <input name="q" placeholder="Поиск в тексте/чатах" value="{{ filters.get('q','') }}">
-    <input name="chat_id" placeholder="chat_id" value="{{ filters.get('chat_id','') }}">
-    <input name="author_user_id" placeholder="author_user_id" value="{{ filters.get('author_user_id','') }}">
-    <select name="content_type">
-        <option value="">content_type (любой)</option>
-        {% for ct in ['text','photo','document','audio','video','voice','sticker','other'] %}
-        <option value="{{ ct }}" {% if filters.get('content_type')==ct %}selected{% endif %}>{{ ct }}</option>
-        {% endfor %}
-    </select>
-    <select name="has_file">
-        <option value="">файл? (любой)</option>
-        <option value="true" {% if filters.get('has_file') is sameas true %}selected{% endif %}>есть</option>
-        <option value="false" {% if filters.get('has_file') is sameas false %}selected{% endif %}>нет</option>
-    </select>
-    <input type="date" name="date_from" value="{{ filters.get('date_from','')|string }}">
-    <input type="date" name="date_to" value="{{ filters.get('date_to','')|string }}">
+{% block title %}Логи сообщений - Панель управления{% endblock %}
 
-    <select name="sort_by">
-        {% for col in ['logged_at','created_at','message_id','chat_id','author_user_id','content_type'] %}
-        <option value="{{ col }}" {% if sort_by==col %}selected{% endif %}>{{ col }}</option>
-        {% endfor %}
-    </select>
-    <select name="order">
-        {% for o in ['asc','desc'] %}
-        <option value="{{ o }}" {% if order==o %}selected{% endif %}>{{ o }}</option>
-        {% endfor %}
-    </select>
+{% block head_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bot_portal.css') }}">
+{% endblock %}
 
-    <input type="number" min="1" max="200" name="per_page" value="{{ per_page }}" placeholder="per_page">
-    <button type="submit">Применить</button>
-</form>
+{% block content %}
+<div class="py-12 max-w-7xl mx-auto">
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-4xl font-bold">Логи сообщений</h1>
+            <p class="text-slate-400 mt-2">Поиск и фильтрация всех сообщений, записанных ботом.</p>
+        </div>
+        <a href="{{ url_for('bot_portal.dashboard') }}" class="text-indigo-400 hover:underline text-sm">&larr; Назад в панель</a>
+    </div>
 
-<div>Всего: {{ total }} | Стр. {{ page }} из {{ pages }}</div>
+    <div class="card mb-6">
+        <form method="get" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <input type="text" name="q" placeholder="Поиск..." value="{{ filters.get('q','') }}" class="form-input">
+            <input type="text" name="chat_id" placeholder="Chat ID" value="{{ filters.get('chat_id','') }}" class="form-input">
+            <input type="text" name="author_user_id" placeholder="Author ID" value="{{ filters.get('author_user_id','') }}" class="form-input">
+            <input type="date" name="date_from" value="{{ filters.get('date_from','')|string }}" class="form-input">
+            <input type="date" name="date_to" value="{{ filters.get('date_to','')|string }}" class="form-input">
 
-<table>
-    <thead>
-    <tr>
-        <th>logged_at</th>
-        <th>chat</th>
-        <th>author</th>
-        <th>type</th>
-        <th class="nowrap">message_id</th>
-        <th>text</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for it in items %}
-    <tr>
-        <td class="nowrap">{{ it.logged_at }}</td>
-        <td class="mono">
-            {{ it.chat_type }} · {{ it.chat_id }}
-            <div>{{ it.chat_title }}</div>
-            {% if it.topic_id %}<div>topic: {{ it.topic_id }} · {{ it.topic_name }}</div>{% endif %}
-        </td>
-        <td class="mono">
-            id: {{ it.author_user_id }}
-            <div>@{{ it.author_username }} {{ it.author_first_name }}</div>
-            {% if it.author_is_bot %}<span>(bot)</span>{% endif %}
-        </td>
-        <td>{{ it.content_type }}</td>
-        <td class="mono">{{ it.message_id }}</td>
-        <td>
-            <div title="last edited: {{ it.last_edited_at }}">{{ it.text }}</div>
-            {% if it.file_id %}<div class="mono">file_id: {{ it.file_id }}</div>{% endif %}
-            <div><a href="{{ url_for('logs.logs_view', internal_id=it.internal_id) }}">подробно</a></div>
-        </td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
+            <select name="content_type" class="form-select">
+                <option value="">Тип контента (все)</option>
+                {% for ct in ['text','photo','document','audio','video','voice','sticker','other'] %}
+                <option value="{{ ct }}" {% if filters.get('content_type')==ct %}selected{% endif %}>{{ ct }}</option>
+                {% endfor %}
+            </select>
+            <select name="has_file" class="form-select">
+                <option value="">Файл (все)</option>
+                <option value="true" {% if filters.get('has_file') is sameas true %}selected{% endif %}>Есть</option>
+                <option value="false" {% if filters.get('has_file') is sameas false %}selected{% endif %}>Нет</option>
+            </select>
+            <select name="sort_by" class="form-select">
+                {% for col in ['logged_at','created_at','message_id','chat_id','author_user_id','content_type'] %}
+                <option value="{{ col }}" {% if sort_by==col %}selected{% endif %}>Сортировка: {{ col }}</option>
+                {% endfor %}
+            </select>
+            <select name="order" class="form-select">
+                {% for o in ['desc','asc'] %}
+                <option value="{{ o }}" {% if order==o %}selected{% endif %}>Порядок: {{ o }}</option>
+                {% endfor %}
+            </select>
 
-<div class="pager">
-    {% if prev_url %}
-    <a href="{{ prev_url }}">&larr; Предыдущая</a>
-    {% endif %}
-    <span>Страница {{ page }} / {{ pages }}</span>
-    {% if next_url %}
-    <a href="{{ next_url }}">Следующая &rarr;</a>
-    {% endif %}
+            <div class="flex items-center gap-2">
+                <input type="number" min="1" max="200" name="per_page" value="{{ per_page }}" class="form-input">
+                <button type="submit" class="btn w-full">Применить</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="data-table">
+            <thead>
+            <tr>
+                <th>Дата лога</th>
+                <th>Чат</th>
+                <th>Автор</th>
+                <th>Контент</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in items %}
+            <tr>
+                <td class="text-slate-500 font-mono">{{ item.logged_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                <td>
+                    <div class="font-semibold text-slate-300">{{ item.chat_title or 'N/A' }}</div>
+                    <div class="text-slate-500 font-mono">{{ item.chat_id }}</div>
+                </td>
+                <td>
+                    <div class="font-semibold text-slate-300">{{ item.author_first_name or 'N/A' }}</div>
+                    <div class="text-slate-500">@{{ item.author_username or 'no_username' }}</div>
+                </td>
+                <td class="text-slate-300">
+                    <div class="flex justify-between items-start">
+                        <div class="max-w-md truncate" title="{{ item.text }}">{{ item.text or 'Нет текста' }}</div>
+                        <a href="{{ url_for('logs.logs_view', internal_id=item.internal_id) }}" class="ml-4 text-indigo-400 hover:underline flex-shrink-0">Детали &rarr;</a>
+                    </div>
+                    <div class="text-xs text-slate-500 mt-1">
+                        <span class="inline-block bg-slate-700 px-2 py-0.5 rounded-full">{{ item.content_type }}</span>
+                        {% if item.file_id %}
+                        <span class="inline-block bg-slate-700 px-2 py-0.5 rounded-full">Есть файл</span>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4" class="text-center py-16 text-slate-500">
+                    <p class="text-lg">Записи не найдены</p>
+                    <p class="text-sm mt-1">Попробуйте изменить параметры фильтрации.</p>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-6 flex justify-between items-center text-sm">
+        <div class="text-slate-500">
+            Показано {{ items|length }} из {{ total }} записей. Страница {{ page }} из {{ pages }}.
+        </div>
+        <div class="flex gap-2">
+            {% if prev_url %}
+            <a href="{{ prev_url }}" class="px-4 py-2 bg-slate-700 rounded-md hover:bg-slate-600 transition">&larr; Предыдущая</a>
+            {% else %}
+            <span class="px-4 py-2 bg-slate-800 text-slate-600 rounded-md cursor-not-allowed">&larr; Предыдущая</span>
+            {% endif %}
+
+            {% if next_url %}
+            <a href="{{ next_url }}" class="px-4 py-2 bg-slate-700 rounded-md hover:bg-slate-600 transition">Следующая &rarr;</a>
+            {% else %}
+            <span class="px-4 py-2 bg-slate-800 text-slate-600 rounded-md cursor-not-allowed">Следующая &rarr;</span>
+            {% endif %}
+        </div>
+    </div>
 </div>
-</body>
-</html>
+{% endblock %}

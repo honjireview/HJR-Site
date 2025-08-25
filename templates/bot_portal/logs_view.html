@@ -1,38 +1,59 @@
-<!doctype html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8">
-  <title>Запись лога</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; }
-    dt { font-weight: bold; }
-    pre { background: #f6f6f6; padding: 8px; overflow: auto; }
-  </style>
-</head>
-<body>
-  <h1>Запись лога</h1>
+{% extends "layout.html" %}
 
-  {% if not item %}
-    <p>Запись не найдена.</p>
-  {% else %}
-    <dl>
-      {% for k,v in item.items() %}
-        {% if k != 'edit_history' %}
-          <dt>{{ k }}</dt>
-          <dd>{{ v }}</dd>
-        {% endif %}
-      {% endfor %}
-    </dl>
+{% block title %}Запись лога #{{ item.internal_id }}{% endblock %}
 
-    <h2>История правок (edit_history)</h2>
-    {% if item.edit_history %}
-      <pre>{{ item.edit_history | tojson(indent=2) }}</pre>
+{% block head_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bot_portal.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="py-12 max-w-4xl mx-auto">
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-4xl font-bold">Запись лога <span class="text-indigo-400">#{{ item.internal_id }}</span></h1>
+            <p class="text-slate-400 mt-2">Полная информация о сохраненном сообщении.</p>
+        </div>
+        <a href="{{ url_for('logs.logs_index') }}" class="text-indigo-400 hover:underline text-sm">&larr; Назад к списку</a>
+    </div>
+
+    {% if not item %}
+    <div class="text-center py-16 text-slate-500">
+        <p class="text-lg">Запись не найдена.</p>
+    </div>
     {% else %}
-      <p>Нет истории.</p>
-    {% endif %}
-  {% endif %}
+    <div class="space-y-8">
+        <div class="card">
+            <h2 class="text-2xl font-bold mb-4">Детали сообщения</h2>
+            <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-sm">
+                {% for k, v in item.items() %}
+                {% if k not in ['edit_history', 'text'] %}
+                <div class="py-2 border-b border-slate-800">
+                    <dt class="font-semibold text-slate-400">{{ k }}</dt>
+                    <dd class="text-slate-300 mt-1 font-mono break-all">{{ v or 'N/A' }}</dd>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </dl>
+        </div>
 
-  <p><a href="{{ url_for('logs.logs_index') }}">Назад к списку</a></p>
-</body>
-</html>
+        <div class="card">
+            <h2 class="text-2xl font-bold mb-4">Текст сообщения</h2>
+            {% if item.text %}
+            <div class="text-slate-300 bg-slate-900/50 p-4 rounded-md whitespace-pre-wrap font-mono text-sm">{{ item.text }}</div>
+            {% else %}
+            <p class="text-slate-500 text-sm">Сообщение не содержит текста.</p>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <h2 class="text-2xl font-bold mb-4">История правок (JSON)</h2>
+            {% if item.edit_history %}
+            <pre class="bg-slate-900/50 p-4 rounded-md overflow-x-auto text-xs text-slate-300">{{ item.edit_history | tojson(indent=2) }}</pre>
+            {% else %}
+            <p class="text-slate-500 text-sm">Нет истории правок.</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
