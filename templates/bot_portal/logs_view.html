@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Запись лога</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; }
+    dt { font-weight: bold; }
+    pre { background: #f6f6f6; padding: 8px; overflow: auto; }
+  </style>
+</head>
+<body>
+  <h1>Запись лога</h1>
+
+  {% if not item %}
+    <p>Запись не найдена.</p>
+  {% else %}
+    <dl>
+      {% for k,v in item.items() %}
+        {% if k != 'edit_history' %}
+          <dt>{{ k }}</dt>
+          <dd>{{ v }}</dd>
+        {% endif %}
+      {% endfor %}
+    </dl>
+
+    <h2>История правок (edit_history)</h2>
+    {% if item.edit_history %}
+      <pre>{{ item.edit_history | tojson(indent=2) }}</pre>
+    {% else %}
+      <p>Нет истории.</p>
+    {% endif %}
+  {% endif %}
+
+  <p><a href="{{ url_for('logs.logs_index') }}">Назад к списку</a></p>
+</body>
+</html>

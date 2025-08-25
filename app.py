@@ -40,9 +40,15 @@ def create_app():
 
     from main_site.routes import main_site_bp
     from bot_portal.routes import bot_portal_bp
+    # ... existing code ...
+    from bot_portal.logs_routes import logs_bp  # админ‑страницы логов
+    # ... existing code ...
 
     app.register_blueprint(main_site_bp)
     app.register_blueprint(bot_portal_bp, url_prefix='/bot')
+    # ... existing code ...
+    app.register_blueprint(logs_bp, url_prefix='/bot/admin')
+    # ... existing code ...
 
     return app
 
