@@ -18,6 +18,9 @@ def get_git_commit_hash():
         return None
 
 def create_app():
+    """
+    Создает и настраивает экземпляр приложения Flask (паттерн Application Factory).
+    """
     app = Flask(__name__)
 
     app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'a_very_secret_key_for_local_development_only')
@@ -42,28 +45,19 @@ def create_app():
 
     db.init_app(app)
 
-    # --- НАЧАЛО ИЗМЕНЕНИЙ: Структура импортов переработана ---
-
-    # 1. Сначала импортируем только блюпринты
+    # --- НАЧАЛО ИЗМЕНЕНИЙ: Возвращение к стандартной регистрации блюпринтов ---
     from main_site import main_site_bp
     from bot_portal import bot_portal_bp
     from bot_portal.logs_routes import logs_bp
 
-    # 2. Регистрируем их в приложении
     app.register_blueprint(main_site_bp)
     app.register_blueprint(bot_portal_bp, url_prefix='/bot')
     app.register_blueprint(logs_bp, url_prefix='/bot/admin')
-
-    # 3. И только теперь, когда все готово, импортируем роуты.
-    # Это гарантирует, что все зависимости (app, bp) уже существуют.
-    with app.app_context():
-        from main_site import routes
-        from bot_portal import routes
-
     # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
     return app
 
+# Эта часть нужна для Gunicorn на Railway
 app = create_app()
 
 if __name__ == '__main__':

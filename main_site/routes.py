@@ -1,14 +1,14 @@
 # /main_site/routes.py
 from flask import render_template
+# --- НАЧАЛО ИЗМЕНЕНИЙ: Импортируем блюпринт из __init__.py ---
 from . import main_site_bp
+# --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
 @main_site_bp.route('/')
 def index():
     """
     Обрабатывает главную страницу основного сайта.
     """
-    # Этот маршрут теперь будет отображать заглушку или главную страницу всего проекта,
-    # так как витрина бота была перенесена.
     return render_template('index.html')
 
 @main_site_bp.route('/contact')

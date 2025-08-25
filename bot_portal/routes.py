@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for, session, current_app, jsonify
-# --- НАЧАЛО ИЗМЕНЕНИЙ: Импорт блюпринта из __init__.py ---
+# --- НАЧАЛО ИЗМЕНЕНИЙ: Импортируем блюпринт из __init__.py ---
 from . import bot_portal_bp
 # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 from .services.auth_service import AuthService
