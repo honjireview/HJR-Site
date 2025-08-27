@@ -47,15 +47,16 @@ def create_app():
             '\'self\'',
             'https://fonts.gstatic.com'
         ],
-        # --- ИЗМЕНЕНИЕ ЗДЕСЬ ---
+        # --- ФИНАЛЬНОЕ ИСПРАВЛЕНИЕ ЗДЕСЬ ---
         'img-src': [
             '\'self\'',
             'data:',
             'https://*.telegram.org',
             'https://t.me',
-            'https://*.userapi.com'  # Разрешаем домен для аватарок
+            'https://*.userapi.com',
+            'https://*.telesco.pe'  # <-- Недостающий домен для аватарок
         ],
-        # --- КОНЕЦ ИЗМЕНЕНИЙ ---
+        # --- КОНЕЦ ИСПРАВЛЕНИЙ ---
         'frame-src': ['https://oauth.telegram.org', 'https://telegram.org']
     }
     Talisman(app, content_security_policy=csp)
