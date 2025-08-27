@@ -1,13 +1,11 @@
 from flask import Flask
+from flask_talisman import Talisman  # <-- Добавить импорт
 import os
 import db
 import telebot
 import logging
 import subprocess
 from datetime import timedelta
-from flask import Flask
-from flask_wtf.csrf import CSRFProtect
-import os
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -23,6 +21,9 @@ def get_git_commit_hash():
 
 def create_app():
     app = Flask(__name__)
+
+    Talisman(app)
+
     app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'a_very_secret_key_for_local_development_only')
 
     csrf = CSRFProtect(app) # <-- Инициализировать защиту
