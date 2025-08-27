@@ -48,15 +48,16 @@ def create_app():
             '\'self\'',
             'https://fonts.gstatic.com'
         ],
-        # Возвращаем правило для изображений со ВСЕМИ возможными доменами Telegram
+        # Добавляем все возможные CDN-домены Telegram для аватарок
         'img-src': [
             '\'self\'',
             'data:',
-            'https://*.telegram.org',
             'https://t.me',
-            'https://*.userapi.com',
-            'https://*.telesco.pe',
-            'https://*.telegram-cdn.org'
+            'https://cdn1.telesco.pe',
+            'https://cdn2.telesco.pe',
+            'https://cdn3.telesco.pe',
+            'https://cdn4.telesco.pe',
+            'https://cdn5.telesco.pe'
         ],
         'frame-src': ['https://oauth.telegram.org', 'https://telegram.org']
     }
