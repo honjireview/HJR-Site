@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     const toggleButtons = document.querySelectorAll('.status-toggle-btn');
 
     toggleButtons.forEach(button => {
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken // <-- Отправляем токен в заголовке
                     },
                     body: JSON.stringify({
                         user_id: userId,

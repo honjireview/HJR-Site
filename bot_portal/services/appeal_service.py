@@ -12,6 +12,7 @@ def get_all_appeals_for_display(sort_by='created_at', order='desc'):
 
     conn = get_db()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+
     query = f"SELECT case_id, decision_text, status, created_at FROM appeals ORDER BY {sort_column} {sort_order}"
     cur.execute(query)
     appeals = cur.fetchall()

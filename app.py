@@ -5,6 +5,9 @@ import telebot
 import logging
 import subprocess
 from datetime import timedelta
+from flask import Flask
+from flask_wtf.csrf import CSRFProtect
+import os
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -19,12 +22,10 @@ def get_git_commit_hash():
         return None
 
 def create_app():
-    """
-    Создает и настраивает экземпляр приложения Flask (паттерн Application Factory).
-    """
     app = Flask(__name__)
-
     app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'a_very_secret_key_for_local_development_only')
+
+    csrf = CSRFProtect(app) # <-- Инициализировать защиту
 
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=5)
 
@@ -48,7 +49,6 @@ def create_app():
 
     db.init_app(app)
 
-    # --- НАЧАЛО ИЗМЕНЕНИЙ: Возвращение к стандартной регистрации блюпринтов ---
     from main_site import main_site_bp
     from bot_portal import bot_portal_bp
     from bot_portal.logs_routes import logs_bp
@@ -56,7 +56,6 @@ def create_app():
     app.register_blueprint(main_site_bp)
     app.register_blueprint(bot_portal_bp, url_prefix='/bot')
     app.register_blueprint(logs_bp, url_prefix='/bot/admin')
-    # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
     return app
 
@@ -64,4 +63,6 @@ def create_app():
 app = create_app()
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    # Запускаем в режиме отладки только если установлена переменная окружения
+    is_debug = os.getenv('FLASK_DEBUG', 'false').lower() == 'true'
+    app.run(debug=is_debug, port=5000)

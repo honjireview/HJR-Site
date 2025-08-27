@@ -4,3 +4,4 @@ python-dotenv
 gunicorn
 pyTelegramBotAPI
 google-generativeai
+Flask-WTF 
