@@ -36,7 +36,7 @@
             </thead>
             <tbody class="divide-y divide-slate-700">
             {% for appeal in appeals %}
-            <tr class="hover:bg-slate-800 transition cursor-pointer" onclick="window.location.href='{{ url_for('bot_portal.appeal_detail', case_id=appeal.case_id) }}';">
+            <tr class="hover:bg-slate-800 transition cursor-pointer" data-href="{{ url_for('bot_portal.appeal_detail', case_id=appeal.case_id) }}">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">#{{ appeal.case_id }}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-400">{{ appeal.decision_text }}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm">
@@ -67,4 +67,8 @@
         </table>
     </div>
 </div>
+{% endblock %}
+
+{% block body_js %}
+<script src="{{ url_for('main_site.static', filename='js/archive.js') }}"></script>
 {% endblock %}
