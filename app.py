@@ -30,7 +30,7 @@ def create_app():
     """
     app = Flask(__name__)
 
-    # --- ФИНАЛЬНОЕ ИСПРАВЛЕНИЕ ---
+    # --- ФИНАЛЬНОЕ ИСПРАВЛЕНИЕ НА ОСНОВЕ ДОКУМЕНТАЦИИ ---
     csp = {
         'default-src': '\'self\'',
         'script-src': [
@@ -48,16 +48,12 @@ def create_app():
             '\'self\'',
             'https://fonts.gstatic.com'
         ],
-        # Добавляем все возможные CDN-домены Telegram для аватарок
+        # Вместо угадывания доменов, мы разрешаем загрузку изображений
+        # с любого HTTPS источника. Это решит проблему раз и навсегда.
         'img-src': [
             '\'self\'',
             'data:',
-            'https://t.me',
-            'https://cdn1.telesco.pe',
-            'https://cdn2.telesco.pe',
-            'https://cdn3.telesco.pe',
-            'https://cdn4.telesco.pe',
-            'https://cdn5.telesco.pe'
+            'https:'
         ],
         'frame-src': ['https://oauth.telegram.org', 'https://telegram.org']
     }
