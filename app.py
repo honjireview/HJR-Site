@@ -29,11 +29,11 @@ def create_app():
     # --- НАЧАЛО ИЗМЕНЕНИЙ ---
     # Настройка Content Security Policy (CSP) для Talisman
     csp = {
-        'default-src': '\'self\'',  # Разрешает загрузку со своего домена
+        'default-src': '\'self\'',
         'script-src': [
             '\'self\'',
-            'https://cdn.tailwindcss.com',    # Разрешает скрипты Tailwind
-            'https://telegram.org'            # Разрешает виджет Telegram
+            'https://cdn.tailwindcss.com',
+            'https://telegram.org'  # <-- РАЗРЕШАЕМ СКРИПТ ДЛЯ КНОПКИ TG
         ],
         'style-src': [
             '\'self\'',
@@ -44,13 +44,17 @@ def create_app():
         'font-src': [
             '\'self\'',
             'https://fonts.gstatic.com'
+        ],
+        'img-src': [
+            '\'self\'',
+            'data:',
+            'https://*.telegram.org' # Разрешаем аватарки пользователей
         ]
     }
     Talisman(app, content_security_policy=csp)
     # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
     csrf = CSRFProtect(app)
-
     app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'a_very_secret_key_for_local_development_only')
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=5)
     commit_hash = os.getenv('COMMIT_HASH') or get_git_commit_hash()

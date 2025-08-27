@@ -210,12 +210,15 @@
                 <p class="text-slate-300">&copy; 2025 Honji Review. Все права защищены.</p>
                 <p class="text-sm text-slate-500 mt-2">Создано для повышения эффективности и справедливости в сообществе Honji Review.</p>
             </div>
-            <div class="text-sm text-slate-500">
-                <p>Связаться с нами: <a href="mailto:honjireview.info@gmail.com" class="underline hover:text-indigo-400 transition">honjireview.info@gmail.com</a></p>
+            <div class="text-sm text-slate-500 flex items-center gap-x-6">
+                <a href="{{ url_for('main_site.about') }}" class="hover:text-indigo-400 transition">О нас</a>
+                <a href="{{ url_for('main_site.privacy_policy') }}" class="hover:text-indigo-400 transition">Политика конфиденциальности</a>
+                <a href="mailto:honjireview.info@gmail.com" class="hover:text-indigo-400 transition">Связаться с нами</a>
             </div>
         </div>
     </div>
 </footer>
+
 
 <!-- Scroll to Top Button -->
 <button id="scroll-to-top" class="hidden fixed bottom-8 right-8 bg-indigo-600 text-white w-12 h-12 rounded-full shadow-lg hover:bg-indigo-500 transition duration-300 z-50 flex items-center justify-center">

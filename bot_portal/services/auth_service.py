@@ -6,6 +6,7 @@ import time
 import logging
 from flask import session
 from ..models.editor_model import EditorModel
+from ..models.auth_log_model import AuthLogModel # <-- Импорт новой модели
 
 log = logging.getLogger(__name__)
 
@@ -71,6 +72,18 @@ class AuthService:
         log.info(f"[AUTH_PERMISSIONS] УСПЕХ: Пользователь user_id={user_id} является активным редактором.")
 
         AuthService._create_user_session(auth_data, editor)
+
+        # --- ДОБАВЛЕНО ЛОГИРОВАНИЕ ВХОДА ---
+        try:
+            AuthLogModel.log_login(
+                user_id=user_id,
+                username=auth_data.get('username'),
+                first_name=auth_data.get('first_name')
+            )
+            log.info(f"[AUTH_LOG] Успешный вход для user_id={user_id} был залогирован.")
+        except Exception as e:
+            log.error(f"[AUTH_LOG] Не удалось залогировать вход для user_id={user_id}: {e}")
+        # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
         log.info(f"--- [AUTH_END] Аутентификация для user_id={user_id} завершена успешно. ---")
         return True, "Аутентификация прошла успешно."
