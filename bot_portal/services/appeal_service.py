@@ -1,6 +1,22 @@
-# /bot_portal/models/appeal_model.py
+# /bot_portal/services/appeal_service.py
 from db import get_db
 import psycopg2.extras
+
+# --- НАЧАЛО ИЗМЕНЕНИЙ ---
+def _map_status(status_string):
+    """
+    Преобразует текстовый статус в объект с текстом и цветом для фронтенда.
+    """
+    status_map = {
+        'closed': {'text': 'Закрыто', 'color': 'green'},
+        'closed_after_review': {'text': 'Закрыто после пересмотра', 'color': 'yellow'},
+        'reviewing': {'text': 'На рассмотрении', 'color': 'blue'},
+        'pending_council': {'text': 'Ожидает Совет', 'color': 'purple'},
+        'pending_ai_verdict': {'text': 'Ожидает вердикт ИИ', 'color': 'indigo'}
+    }
+    return status_map.get(status_string, {'text': status_string, 'color': 'slate'})
+# --- КОНЕЦ ИЗМЕНЕНИЙ ---
+
 
 # Получение списка апелляций с сортировкой для отображения в архиве
 def get_all_appeals_for_display(sort_by='created_at', order='desc'):
@@ -12,12 +28,21 @@ def get_all_appeals_for_display(sort_by='created_at', order='desc'):
 
     conn = get_db()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-
     query = f"SELECT case_id, decision_text, status, created_at FROM appeals ORDER BY {sort_column} {sort_order}"
     cur.execute(query)
-    appeals = cur.fetchall()
+    appeals_raw = cur.fetchall()
     cur.close()
-    return appeals
+
+    # --- НАЧАЛО ИЗМЕНЕНИЙ ---
+    # Преобразуем "сырые" данные из БД в удобный для шаблона формат
+    appeals_processed = []
+    for appeal in appeals_raw:
+        processed_appeal = dict(appeal)  # Преобразуем DictRow в обычный словарь
+        processed_appeal['status'] = _map_status(appeal['status'])
+        appeals_processed.append(processed_appeal)
+
+    return appeals_processed
+    # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
 # Получение детальной информации по одному делу
 def get_appeal_details(case_id):
@@ -33,13 +58,13 @@ def get_appeals_stats():
     conn = get_db()
     cur = conn.cursor()
     cur.execute("""
-        SELECT
-            COUNT(*) AS total,
-            COUNT(CASE WHEN status = 'closed' THEN 1 END) AS closed,
-            COUNT(CASE WHEN status = 'closed_after_review' THEN 1 END) AS closed_after_review,
-            COUNT(CASE WHEN status = 'reviewing' THEN 1 END) AS reviewing
-        FROM appeals;
-    """)
+                SELECT
+                    COUNT(*) AS total,
+                    COUNT(CASE WHEN status = 'closed' THEN 1 END) AS closed,
+                    COUNT(CASE WHEN status = 'closed_after_review' THEN 1 END) AS closed_after_review,
+                    COUNT(CASE WHEN status = 'reviewing' THEN 1 END) AS reviewing
+                FROM appeals;
+                """)
     total, closed, closed_after_review, reviewing = cur.fetchone()
     cur.close()
     return {
