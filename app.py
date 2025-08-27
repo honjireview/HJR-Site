@@ -1,6 +1,6 @@
 from flask import Flask
-from flask_talisman import Talisman  # <-- Добавить импорт
-from flask_wtf.csrf import CSRFProtect  # <-- ДОБАВЬТЕ ЭТУ СТРОКУ
+from flask_talisman import Talisman
+from flask_wtf.csrf import CSRFProtect
 import os
 import db
 import telebot
@@ -21,16 +21,38 @@ def get_git_commit_hash():
         return None
 
 def create_app():
+    """
+    Создает и настраивает экземпляр приложения Flask (паттерн Application Factory).
+    """
     app = Flask(__name__)
 
-    Talisman(app)
+    # --- НАЧАЛО ИЗМЕНЕНИЙ ---
+    # Настройка Content Security Policy (CSP) для Talisman
+    csp = {
+        'default-src': '\'self\'',  # Разрешает загрузку со своего домена
+        'script-src': [
+            '\'self\'',
+            'https://cdn.tailwindcss.com',    # Разрешает скрипты Tailwind
+            'https://telegram.org'            # Разрешает виджет Telegram
+        ],
+        'style-src': [
+            '\'self\'',
+            '\'unsafe-inline\'',
+            'https://cdn.tailwindcss.com',
+            'https://fonts.googleapis.com'
+        ],
+        'font-src': [
+            '\'self\'',
+            'https://fonts.gstatic.com'
+        ]
+    }
+    Talisman(app, content_security_policy=csp)
+    # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
     csrf = CSRFProtect(app)
 
     app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'a_very_secret_key_for_local_development_only')
-
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=5)
-
     commit_hash = os.getenv('COMMIT_HASH') or get_git_commit_hash()
     app.config['COMMIT_HASH'] = commit_hash or 'local'
 
@@ -51,7 +73,6 @@ def create_app():
 
     db.init_app(app)
 
-
     from main_site import main_site_bp
     from bot_portal import bot_portal_bp
     from bot_portal.logs_routes import logs_bp
@@ -66,6 +87,4 @@ def create_app():
 app = create_app()
 
 if __name__ == '__main__':
-    # Запускаем в режиме отладки только если установлена переменная окружения
-    is_debug = os.getenv('FLASK_DEBUG', 'false').lower() == 'true'
-    app.run(debug=is_debug, port=5000)
+    app.run(debug=True, port=5000)
