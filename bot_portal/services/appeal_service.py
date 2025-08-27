@@ -5,6 +5,7 @@ import psycopg2.extras
 def _map_status(status_string):
     """
     Преобразует текстовый статус в объект с текстом и цветом для фронтенда.
+    Надежно обрабатывает отсутствующие статусы.
     """
     status_map = {
         'closed': {'text': 'Закрыто', 'color': 'green'},
@@ -13,7 +14,11 @@ def _map_status(status_string):
         'pending_council': {'text': 'Ожидает Совет', 'color': 'purple'},
         'pending_ai_verdict': {'text': 'Ожидает вердикт ИИ', 'color': 'indigo'}
     }
-    return status_map.get(status_string, {'text': status_string or 'Неизвестно', 'color': 'slate'})
+    # --- ИЗМЕНЕНИЕ ЗДЕСЬ ---
+    # Если status_string пустой или None, возвращаем заглушку.
+    if not status_string:
+        return {'text': 'Статус не задан', 'color': 'slate'}
+    return status_map.get(status_string, {'text': status_string, 'color': 'slate'})
 
 # Получение списка апелляций с сортировкой для отображения в архиве
 def get_all_appeals_for_display(sort_by='created_at', order='desc'):
@@ -30,10 +35,12 @@ def get_all_appeals_for_display(sort_by='created_at', order='desc'):
     appeals_raw = cur.fetchall()
     cur.close()
 
-    # Преобразуем "сырые" данные из БД в удобный для шаблона формат
     appeals_processed = []
     for appeal in appeals_raw:
-        processed_appeal = dict(appeal)  # Преобразуем DictRow в обычный словарь
+        processed_appeal = dict(appeal)
+        # --- ИЗМЕНЕНИЕ ЗДЕСЬ ---
+        # Если decision_text пустой или None, ставим заглушку.
+        processed_appeal['decision_text'] = appeal['decision_text'] or '[Предмет спора не указан]'
         processed_appeal['status'] = _map_status(appeal['status'])
         appeals_processed.append(processed_appeal)
 
