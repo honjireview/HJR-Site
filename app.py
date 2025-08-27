@@ -15,16 +15,12 @@ logging.basicConfig(
 
 def get_git_commit_hash():
     try:
-        # --- НАЧАЛО ИЗМЕНЕНИЙ (Версия сборки) ---
-        # Сначала проверяем переменную Railway, потом стандартную, потом git
         commit_hash = os.getenv('RAILWAY_GIT_COMMIT_SHA') or os.getenv('COMMIT_HASH')
         if commit_hash:
-            return commit_hash[:7] # Обрезаем до 7 символов для краткости
+            return commit_hash[:7]
 
-        # Если переменных нет, пробуем через git (для локальной разработки)
         commit_hash = subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD']).strip().decode('utf-8')
         return commit_hash
-        # --- КОНЕЦ ИЗМЕНЕНИЙ ---
     except (subprocess.CalledProcessError, FileNotFoundError):
         return None
 
@@ -34,7 +30,6 @@ def create_app():
     """
     app = Flask(__name__)
 
-    # --- НАЧАЛО ИЗМЕНЕНИЙ (Кнопка входа) ---
     csp = {
         'default-src': '\'self\'',
         'script-src': [
@@ -52,24 +47,22 @@ def create_app():
             '\'self\'',
             'https://fonts.gstatic.com'
         ],
+        # --- ИЗМЕНЕНИЕ ЗДЕСЬ ---
         'img-src': [
             '\'self\'',
             'data:',
-            'https://*.telegram.org'
+            'https://*.telegram.org', # Разрешаем домены вида cdn.telegram.org
+            'https://t.me'            # Разрешаем домен t.me для аватарок
         ],
-        # Добавляем разрешение для iframe виджета Telegram
+        # --- КОНЕЦ ИЗМЕНЕНИЙ ---
         'frame-src': ['https://oauth.telegram.org', 'https://telegram.org']
     }
     Talisman(app, content_security_policy=csp)
-    # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
     csrf = CSRFProtect(app)
     app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'a_very_secret_key_for_local_development_only')
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=5)
-
-    # --- НАЧАЛО ИЗМЕНЕНИЙ (Версия сборки) ---
     app.config['COMMIT_HASH'] = get_git_commit_hash() or 'local'
-    # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
     HJRBOT_TELEGRAM_TOKEN = os.getenv('HJRBOT_TELEGRAM_TOKEN')
     if HJRBOT_TELEGRAM_TOKEN:
