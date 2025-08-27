@@ -54,7 +54,8 @@ def create_app():
             'https://*.telegram.org',
             'https://t.me',
             'https://*.userapi.com',
-            'https://*.telesco.pe'  # <-- Недостающий домен для аватарок
+            'https://*.telesco.pe',
+            'https://*.telegram-cdn.org'  # <-- Недостающий домен для CDN аватарок
         ],
         # --- КОНЕЦ ИСПРАВЛЕНИЙ ---
         'frame-src': ['https://oauth.telegram.org', 'https://telegram.org']
