@@ -11,12 +11,21 @@
         <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
             <h2 class="text-2xl font-bold text-indigo-400 mb-4">Кто вы?</h2>
             <p class="mb-4">Мы — группа молодых и заинтересованных в книгах людей. Как правило, мы любим читать, но в последнее время у нас не так много на это времени. Мы пишем отзывы на книги и делимся личными мнениями.</p>
-            <h3 class="font-semibold text-slate-200 mb-2">Наша команда:</h3>
+
+            {% if executor %}
+            <h3 class="font-semibold text-slate-200 mb-2 mt-4">Исполнитель:</h3>
             <ul class="list-disc list-inside text-slate-400">
-                <li>Spinarik (Nariman)</li>
-                <li>Hellou! (Ozodbek)</li>
-                <li>dastermaf (рисовый колонизатор)</li>
-                <li>virtualfleks (Abduqodir)</li>
+                <li>{{ executor.first_name }} (@{{ executor.username }})</li>
+            </ul>
+            {% endif %}
+
+            <h3 class="font-semibold text-slate-200 mb-2 mt-4">Совет редакторов:</h3>
+            <ul class="list-disc list-inside text-slate-400">
+                {% for editor in editors %}
+                <li>{{ editor.first_name }} (@{{ editor.username }})</li>
+                {% else %}
+                <li>Список редакторов пуст.</li>
+                {% endfor %}
             </ul>
         </div>
 
@@ -28,7 +37,7 @@
 
         <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
             <h2 class="text-2xl font-bold text-indigo-400 mb-4">Зачем? Какой смысл?</h2>
-            <p>Вдохновившись репутацией Википедии, мы хотим развить проект до совершенства и сделать из этого авторитетный источник. Также, мы хотим улучшить свои писательские качества и лучше запоминать прочитанные книги. Наша цель проста - дать людям возможность поделиться своими впечатлениями на счет своих любимых книг/учебников, или наоборот, почитать чужие мнения, чтобы открыть для себя другую точку зрения.</p>
+            <p>Вдохновившись репутацией Википедии, мы хотим развить проект до совершенства и сделать из этого авторитетный источник. Также, мы хотим улучшить свои писательские качества и лучше запоминаar прочитанные книги. Наша цель проста - дать людям возможность поделиться своими впечатлениями на счет своих любимых книг/учебников, или наоборот, почитать чужие мнения, чтобы открыть для себя другую точку зрения.</p>
         </div>
 
         <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
