@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_talisman import Talisman  # <-- Добавить импорт
+from flask_wtf.csrf import CSRFProtect  # <-- ДОБАВЬТЕ ЭТУ СТРОКУ
 import os
 import db
 import telebot
@@ -24,9 +25,9 @@ def create_app():
 
     Talisman(app)
 
-    app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'a_very_secret_key_for_local_development_only')
+    csrf = CSRFProtect(app)
 
-    csrf = CSRFProtect(app) # <-- Инициализировать защиту
+    app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'a_very_secret_key_for_local_development_only')
 
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=5)
 
@@ -49,6 +50,7 @@ def create_app():
         db.init_db_schema()
 
     db.init_app(app)
+
 
     from main_site import main_site_bp
     from bot_portal import bot_portal_bp
