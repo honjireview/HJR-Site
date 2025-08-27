@@ -51,8 +51,9 @@ def create_app():
         'img-src': [
             '\'self\'',
             'data:',
-            'https://*.telegram.org', # Разрешаем домены вида cdn.telegram.org
-            'https://t.me'            # Разрешаем домен t.me для аватарок
+            'https://*.telegram.org',
+            'https://t.me',
+            'https://*.userapi.com'  # Разрешаем домен для аватарок
         ],
         # --- КОНЕЦ ИЗМЕНЕНИЙ ---
         'frame-src': ['https://oauth.telegram.org', 'https://telegram.org']
