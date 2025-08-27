@@ -31,8 +31,6 @@ def create_app():
     app = Flask(__name__)
 
     # --- ФИНАЛЬНОЕ ИСПРАВЛЕНИЕ ---
-    # Мы убираем 'img-src' из политики. Talisman применит менее строгие,
-    # но всё ещё безопасные настройки по умолчанию, которые не будут блокировать аватарки.
     csp = {
         'default-src': '\'self\'',
         'script-src': [
@@ -49,6 +47,16 @@ def create_app():
         'font-src': [
             '\'self\'',
             'https://fonts.gstatic.com'
+        ],
+        # Возвращаем правило для изображений со ВСЕМИ возможными доменами Telegram
+        'img-src': [
+            '\'self\'',
+            'data:',
+            'https://*.telegram.org',
+            'https://t.me',
+            'https://*.userapi.com',
+            'https://*.telesco.pe',
+            'https://*.telegram-cdn.org'
         ],
         'frame-src': ['https://oauth.telegram.org', 'https://telegram.org']
     }
