@@ -1,19 +1,30 @@
 {% extends "layout.html" %}
-{% block title %}Панель управления{% endblock %}
+{% block title %}Панель управления (ДИАГНОСТИКА){% endblock %}
 
 {% block content %}
 <div class="py-12 max-w-6xl mx-auto">
+
+    <div class="mb-4">
+        <pre class="text-xs text-white bg-red-800/50 p-4 whitespace-pre-wrap font-mono">
+### ДАННЫЕ СЕССИИ ПОЛЬЗОВАТЕЛЯ ###
+{{ session | tojson(indent=2) }}
+        </pre>
+    </div>
     <div class="flex justify-between items-center mb-8">
         <h1 class="text-4xl font-bold">Панель управления</h1>
     </div>
 
     <div class="mb-12 bg-slate-800/50 border border-slate-700 rounded-lg p-6 flex items-center">
-        {% if user.photo_url %}
-        <img src="{{ user.photo_url }}" alt="Фото профиля" class="w-16 h-16 rounded-full mr-6 border-2 border-indigo-400">
+        {% if session.photo_url %}
+        <img src="{{ session.photo_url }}" alt="Фото профиля" class="w-16 h-16 rounded-full mr-6 border-2 border-indigo-400">
+        {% else %}
+        <div class="w-16 h-16 rounded-full mr-6 border-2 border-slate-700 bg-slate-800 flex items-center justify-center">
+            <span class="text-xs text-slate-500">Нет фото</span>
+        </div>
         {% endif %}
         <div>
-            <h2 class="text-2xl font-bold text-slate-200">Добро пожаловать, {{ user.first_name }}!</h2>
-            <p class="text-sm text-slate-400 mt-1">Вы вошли как <span class="font-mono bg-slate-700/50 px-1.5 py-0.5 rounded">@{{ user.username }}</span> с ID <span class="font-mono bg-slate-700/50 px-1.5 py-0.5 rounded">{{ user.user_id }}</span></p>
+            <h2 class="text-2xl font-bold text-slate-200">Добро пожаловать, {{ session.first_name }}!</h2>
+            <p class="text-sm text-slate-400 mt-1">Вы вошли как <span class="font-mono bg-slate-700/50 px-1.5 py-0.5 rounded">@{{ session.username }}</span> с ID <span class="font-mono bg-slate-700/50 px-1.5 py-0.5 rounded">{{ session.user_id }}</span></p>
         </div>
     </div>
     <div class="mb-12">
