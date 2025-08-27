@@ -40,17 +40,16 @@
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">#{{ appeal.case_id }}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-400">{{ appeal.decision_text }}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm">
-                    {% set status_text = appeal.status.text %}
-                    {% set status_color = appeal.status.color %}
+                    {% set status_obj = appeal.status_obj %}
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
-                        {% if status_color == 'green' %} bg-green-500/20 text-green-300
-                        {% elif status_color == 'yellow' %} bg-yellow-500/20 text-yellow-300
-                        {% elif status_color == 'blue' %} bg-blue-500/20 text-blue-300
-                        {% elif status_color == 'purple' %} bg-purple-500/20 text-purple-300
-                        {% elif status_color == 'indigo' %} bg-indigo-500/20 text-indigo-300
+                        {% if status_obj.color == 'green' %} bg-green-500/20 text-green-300
+                        {% elif status_obj.color == 'yellow' %} bg-yellow-500/20 text-yellow-300
+                        {% elif status_obj.color == 'blue' %} bg-blue-500/20 text-blue-300
+                        {% elif status_obj.color == 'purple' %} bg-purple-500/20 text-purple-300
+                        {% elif status_obj.color == 'indigo' %} bg-indigo-500/20 text-indigo-300
                         {% else %} bg-slate-500/20 text-slate-300
                         {% endif %}">
-                        {{ status_text }}
+                        {{ status_obj.text }}
                     </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">{{ appeal.created_at }}</td>

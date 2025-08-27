@@ -5,7 +5,6 @@ import psycopg2.extras
 def _map_status(status_string):
     """
     Преобразует текстовый статус в объект с текстом и цветом для фронтенда.
-    Надежно обрабатывает отсутствующие статусы.
     """
     status_map = {
         'closed': {'text': 'Закрыто', 'color': 'green'},
@@ -14,11 +13,32 @@ def _map_status(status_string):
         'pending_council': {'text': 'Ожидает Совет', 'color': 'purple'},
         'pending_ai_verdict': {'text': 'Ожидает вердикт ИИ', 'color': 'indigo'}
     }
-    # --- ИЗМЕНЕНИЕ ЗДЕСЬ ---
-    # Если status_string пустой или None, возвращаем заглушку.
     if not status_string:
         return {'text': 'Статус не задан', 'color': 'slate'}
     return status_map.get(status_string, {'text': status_string, 'color': 'slate'})
+
+def _process_appeal_for_display(appeal_row):
+    """
+    Централизованная функция для обработки одной записи апелляции для отображения.
+    """
+    if not appeal_row:
+        return None
+
+    processed_appeal = dict(appeal_row)
+    processed_appeal['status_obj'] = _map_status(processed_appeal.get('status'))
+
+    # Добавляем заглушки для пустых, но важных полей
+    if not processed_appeal.get('decision_text'):
+        processed_appeal['decision_text'] = '[Предмет спора не указан]'
+    if not processed_appeal.get('applicant_answers'):
+        processed_appeal['applicant_answers'] = {
+            'main_arguments': '[Аргументы не предоставлены]',
+            'violated_rule': '[Пункт не указан]',
+            'desired_outcome': '[Результат не указан]',
+            'context': '[Контекст не предоставлен]'
+        }
+
+    return processed_appeal
 
 # Получение списка апелляций с сортировкой для отображения в архиве
 def get_all_appeals_for_display(sort_by='created_at', order='desc'):
@@ -35,25 +55,17 @@ def get_all_appeals_for_display(sort_by='created_at', order='desc'):
     appeals_raw = cur.fetchall()
     cur.close()
 
-    appeals_processed = []
-    for appeal in appeals_raw:
-        processed_appeal = dict(appeal)
-        # --- ИЗМЕНЕНИЕ ЗДЕСЬ ---
-        # Если decision_text пустой или None, ставим заглушку.
-        processed_appeal['decision_text'] = appeal['decision_text'] or '[Предмет спора не указан]'
-        processed_appeal['status'] = _map_status(appeal['status'])
-        appeals_processed.append(processed_appeal)
-
-    return appeals_processed
+    return [_process_appeal_for_display(appeal) for appeal in appeals_raw]
 
 # Получение детальной информации по одному делу
 def get_appeal_details(case_id):
     conn = get_db()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     cur.execute("SELECT * FROM appeals WHERE case_id = %s", (case_id,))
-    appeal = cur.fetchone()
+    appeal_raw = cur.fetchone()
     cur.close()
-    return appeal
+
+    return _process_appeal_for_display(appeal_raw)
 
 # Статистика по апелляциям для дашборда
 def get_appeals_stats():

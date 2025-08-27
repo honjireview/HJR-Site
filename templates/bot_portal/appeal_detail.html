@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block title %}Дело №{{ appeal.case_id }}—Архив{% endblock %}
+{% block title %}Дело №{{ appeal.case_id }} - Архив{% endblock %}
 
 {% block content %}
 <div class="py-12 max-w-4xl mx-auto">
@@ -13,6 +13,21 @@
     </div>
 
     <div class="space-y-8">
+        <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h2 class="text-2xl font-bold mb-4">Статус дела</h2>
+            {% set status_obj = appeal.status_obj %}
+            <span class="px-3 py-1 text-sm leading-5 font-semibold rounded-full
+                {% if status_obj.color == 'green' %} bg-green-500/20 text-green-300
+                {% elif status_obj.color == 'yellow' %} bg-yellow-500/20 text-yellow-300
+                {% elif status_obj.color == 'blue' %} bg-blue-500/20 text-blue-300
+                {% elif status_obj.color == 'purple' %} bg-purple-500/20 text-purple-300
+                {% elif status_obj.color == 'indigo' %} bg-indigo-500/20 text-indigo-300
+                {% else %} bg-slate-500/20 text-slate-300
+                {% endif %}">
+                {{ status_obj.text }}
+            </span>
+        </div>
+
         <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
             <h2 class="text-2xl font-bold mb-4">Предмет спора</h2>
             <div class="text-slate-300 bg-slate-900/50 p-4 rounded-md whitespace-pre-wrap font-mono text-sm">{{ appeal.decision_text }}</div>
@@ -69,7 +84,7 @@
 
         <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
             <h2 class="text-2xl font-bold mb-4 text-indigo-400">Вердикт ИИ</h2>
-            <div class="prose prose-invert max-w-none text-slate-300 whitespace-pre-wrap">{{ appeal.ai_verdict }}</div>
+            <div class="prose prose-invert max-w-none text-slate-300 whitespace-pre-wrap">{{ appeal.ai_verdict or '[Вердикт ИИ еще не вынесен]' }}</div>
         </div>
     </div>
 </div>
