@@ -2,7 +2,6 @@
 from db import get_db
 import psycopg2.extras
 
-# --- НАЧАЛО ИЗМЕНЕНИЙ ---
 def _map_status(status_string):
     """
     Преобразует текстовый статус в объект с текстом и цветом для фронтенда.
@@ -14,9 +13,7 @@ def _map_status(status_string):
         'pending_council': {'text': 'Ожидает Совет', 'color': 'purple'},
         'pending_ai_verdict': {'text': 'Ожидает вердикт ИИ', 'color': 'indigo'}
     }
-    return status_map.get(status_string, {'text': status_string, 'color': 'slate'})
-# --- КОНЕЦ ИЗМЕНЕНИЙ ---
-
+    return status_map.get(status_string, {'text': status_string or 'Неизвестно', 'color': 'slate'})
 
 # Получение списка апелляций с сортировкой для отображения в архиве
 def get_all_appeals_for_display(sort_by='created_at', order='desc'):
@@ -33,7 +30,6 @@ def get_all_appeals_for_display(sort_by='created_at', order='desc'):
     appeals_raw = cur.fetchall()
     cur.close()
 
-    # --- НАЧАЛО ИЗМЕНЕНИЙ ---
     # Преобразуем "сырые" данные из БД в удобный для шаблона формат
     appeals_processed = []
     for appeal in appeals_raw:
@@ -42,7 +38,6 @@ def get_all_appeals_for_display(sort_by='created_at', order='desc'):
         appeals_processed.append(processed_appeal)
 
     return appeals_processed
-    # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
 # Получение детальной информации по одному делу
 def get_appeal_details(case_id):
