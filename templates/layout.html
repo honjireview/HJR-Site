@@ -1,51 +1,65 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Honji Review{% endblock %}</title>
-    <link rel="icon" href="{{ url_for('main_site.static', filename='images/favicon.png') }}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{ url_for('main_site.static', filename='images/favicon.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main_site.css') }}">
     {% block head_css %}{% endblock %}
 </head>
-<body class="bg-slate-900 text-slate-300">
+<body class="bg-[#0E0E10] text-[#EAEAEA]">
 
-<header>
-    <nav class="container mx-auto p-4 flex justify-between items-center">
-        <a href="{{ url_for('main_site.index') }}" class="text-xl font-bold text-indigo-400">Honji Review</a>
-        <div>
-            <a href="{{ url_for('main_site.index') }}" class="px-4 py-2 hover:text-indigo-300">Основной сайт</a>
-
-            <!-- --- НАЧАЛО ИЗМЕНЕНИЙ --- -->
-            <!-- Логика теперь разделена: ссылка на портал и кнопка выхода -->
-
-            <a href="{{ url_for('bot_portal.showcase') }}" class="px-4 py-2 hover:text-indigo-300">Портал Бота</a>
-
-            <!-- Кнопка "Выход" появляется только если мы находимся внутри блюпринта 'bot_portal' И пользователь авторизован -->
-            {% if request.blueprint == 'bot_portal' and session.get('logged_in') %}
-            <a href="{{ url_for('bot_portal.logout') }}" class="px-4 py-2 text-slate-500 hover:text-indigo-300">[Выход]</a>
+<header class="py-6">
+    <div class="hjr-container flex justify-between items-center">
+        <a href="{{ url_for('main_site.index') }}" class="text-2xl font-bold text-white tracking-wider">HJR</a>
+        <nav class="hidden md:flex items-center space-x-8 text-slate-300">
+            <a href="#" class="hover:text-white transition-colors">Новые</a>
+            <a href="#" class="hover:text-white transition-colors">О нас</a>
+            <a href="#" class="hover:text-white transition-colors">Обсуждаемое</a>
+            <a href="#" class="hover:text-white transition-colors">Рецензии</a>
+        </nav>
+        <div class="flex items-center space-x-4">
+            {% if session.get('logged_in') and request.blueprint != 'bot_portal' %}
+            <a href="{{ url_for('bot_portal.dashboard') }}" title="Панель управления" class="text-slate-400 hover:text-white transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M12 6V3m0 18v-3m6-9h3m-3 6h3M9 6h6M9 18h6" /></svg>
+            </a>
             {% endif %}
-            <!-- --- КОНЕЦ ИЗМЕНЕНИЙ --- -->
-
+            <a href="#" class="text-slate-300 hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+            </a>
         </div>
-    </nav>
+    </div>
 </header>
 
-<main class="container mx-auto p-4">
+
+<main>
     {% block content %}{% endblock %}
 </main>
 
-<footer class="container mx-auto p-4 mt-8 border-t border-slate-800 text-sm text-slate-500">
-    <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-4">
-        <p>&copy; 2025 Honji Review.</p>
-        <div class="flex items-center gap-x-6">
-            <a href="{{ url_for('main_site.about') }}" class="hover:text-indigo-400 transition">О нас</a>
-            <a href="{{ url_for('main_site.privacy_policy') }}" class="hover:text-indigo-400 transition">Политика конфиденциальности</a>
-            <a href="mailto:info@honjireview.uz" class="hover:text-indigo-400 transition">Связаться с нами</a>
-            <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.ru" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-400 transition">Лицензия CC-BY-SA 4.0</a>
+<footer class="mt-24 py-12 border-t border-slate-800">
+    <div class="hjr-container">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+            <a href="{{ url_for('main_site.index') }}" class="text-2xl font-bold text-white tracking-wider">HJR</a>
+            <div class="flex items-center space-x-8 text-slate-400">
+                <a href="#" class="hover:text-white transition-colors">Новые</a>
+                <a href="#" class="hover:text-white transition-colors">Обсуждаемое</a>
+                <a href="#" class="hover:text-white transition-colors">Рецензии</a>
+                <a href="#" class="hover:text-white transition-colors">О нас</a>
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="#" class="text-slate-400 hover:text-white"><svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c-4.42 0-7.995 3.576-7.995 7.995 0 2.29.96 4.364 2.53 5.843-.24.96-.804 2.8-1.015 3.59-.21.788.465 1.464 1.25.992 1.55-.93 3.19-2.02 4.23-3.1.58.08 1.17.12 1.77.12 4.42 0 7.995-3.575 7.995-7.995S16.734 2 12.315 2zM12 16.005c-4.42 0-8-3.576-8-7.995S7.58 0 12 0s8 3.576 8 7.995c0 4.42-3.58 8.01-8 8.01z" clip-rule="evenodd" /></svg></a>
+                <a href="#" class="text-slate-400 hover:text-white"><svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg></a>
+                <a href="#" class="text-slate-400 hover:text-white"><svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.582 6.186a2.016 2.016 0 0 0-1.423-1.423C18.428 4.5 12 4.5 12 4.5s-6.428 0-8.159.263a2.016 2.016 0 0 0-1.423 1.423C2 7.914 2 12 2 12s0 4.086.263 5.814a2.016 2.016 0 0 0 1.423 1.423C5.572 19.5 12 19.5 12 19.5s6.428 0 8.159-.263a2.016 2.016 0 0 0 1.423-1.423C22 16.086 22 12 22 12s0-4.086-.418-5.814zM10 15.5v-7l6 3.5-6 3.5z" /></svg></a>
+            </div>
+        </div>
+        <div class="mt-8 pt-8 border-t border-slate-800 text-sm text-slate-500 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p>&copy; 2025 Honji Review</p>
+            <p><a href="#" class="hover:text-white">Privacy Policy</a></p>
         </div>
     </div>
 </footer>

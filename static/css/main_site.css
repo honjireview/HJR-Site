@@ -1,4 +1,23 @@
-/* Стили, которые применяются только к основному сайту */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap');
+
 body {
-    /* Пример уникального стиля */
+    font-family: 'Manrope', sans-serif;
+    background-color: #0E0E10;
+    color: #EAEAEA;
+}
+
+.hjr-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.btn-primary {
+    @apply bg-slate-100 text-slate-900 font-bold py-3 px-8 rounded-full hover:bg-slate-200 transition-colors duration-300;
+}
+
+.btn-secondary {
+    @apply border border-slate-700 text-slate-300 font-bold py-3 px-8 rounded-full hover:bg-slate-800 transition-colors duration-300;
+}
+
+.section-title {
+    @apply text-4xl md:text-5xl font-extrabold text-white;
 }
