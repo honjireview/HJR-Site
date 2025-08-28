@@ -12,9 +12,9 @@
 </head>
 <body class="bg-[#0E0E10] text-[#EAEAEA]">
 
-<header class="py-6">
-    <div class="hjr-container flex justify-between items-center">
-        <a href="{{ url_for('main_site.index') }}" class="text-2xl font-bold text-white tracking-wider ml-0 md:ml-0">HJR</a> {# Убран лишний отступ #}
+<div class="hjr-container">
+    <header class="py-6 flex justify-between items-center">
+        <a href="{{ url_for('main_site.index') }}" class="text-2xl font-bold text-white tracking-wider">HJR</a>
         <nav class="hidden md:flex items-center space-x-8 text-slate-300">
             <a href="#" class="hover:text-white transition-colors">Новые</a>
             <a href="#" class="hover:text-white transition-colors">О нас</a>
@@ -22,24 +22,18 @@
             <a href="#" class="hover:text-white transition-colors">Рецензии</a>
         </nav>
         <div class="flex items-center space-x-4">
-            {% if session.get('logged_in') and request.blueprint != 'bot_portal' %}
-            <a href="{{ url_for('bot_portal.dashboard') }}" title="Панель управления" class="text-slate-400 hover:text-white transition">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M12 6V3m0 18v-3m6-9h3m-3 6h3M9 6h6M9 18h6" /></svg>
-            </a>
-            {% endif %}
             <a href="#" class="text-slate-300 hover:text-white transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
             </a>
         </div>
-    </div>
-</header>
+    </header>
 
-
-<main>
-    {% block content %}{% endblock %}
-</main>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</div>
 
 <footer class="mt-24 py-12 border-t border-slate-800">
     <div class="hjr-container">
@@ -52,9 +46,9 @@
                 <a href="#" class="hover:text-white transition-colors">О нас</a>
             </div>
             <div class="flex items-center space-x-6">
-                <a href="#" class="text-slate-400 hover:text-white"><svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c-4.42 0-7.995 3.576-7.995 7.995 0 2.29.96 4.364 2.53 5.843-.24.96-.804 2.8-1.015 3.59-.21.788.465 1.464 1.25.992 1.55-.93 3.19-2.02 4.23-3.1.58.08 1.17.12 1.77.12 4.42 0 7.995-3.575 7.995-7.995S16.734 2 12.315 2zM12 16.005c-4.42 0-8-3.576-8-7.995S7.58 0 12 0s8 3.576 8 7.995c0 4.42-3.58 8.01-8 8.01z" clip-rule="evenodd" /></svg></a>
-                <a href="#" class="text-slate-400 hover:text-white"><svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg></a>
-                <a href="#" class="text-slate-400 hover:text-white"><svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.582 6.186a2.016 2.016 0 0 0-1.423-1.423C18.428 4.5 12 4.5 12 4.5s-6.428 0-8.159.263a2.016 2.016 0 0 0-1.423 1.423C2 7.914 2 12 2 12s0 4.086.263 5.814a2.016 2.016 0 0 0 1.423 1.423C5.572 19.5 12 19.5 12 19.5s6.428 0 8.159-.263a2.016 2.016 0 0 0 1.423-1.423C22 16.086 22 12 22 12s0-4.086-.418-5.814zM10 15.5v-7l6 3.5-6 3.5z" /></svg></a>
+                <a href="#" class="text-slate-400 hover:text-white"><svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" fill="#888" /></svg></a>
+                <a href="#" class="text-slate-400 hover:text-white"><svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" fill="#888" /></svg></a>
+                <a href="#" class="text-slate-400 hover:text-white"><svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" fill="#888" /></svg></a>
             </div>
         </div>
         <div class="mt-8 pt-8 border-t border-slate-800 text-sm text-slate-500 flex flex-col md:flex-row justify-between items-center gap-4">
