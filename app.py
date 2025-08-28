@@ -25,31 +25,27 @@ def get_git_commit_hash():
         return None
 
 def create_app():
-    """
-    Создает и настраивает экземпляр приложения Flask (паттерн Application Factory).
-    """
     app = Flask(__name__)
 
-    # --- ФИНАЛЬНОЕ ИСПРАВЛЕНИЕ НА ОСНОВЕ ДОКУМЕНТАЦИИ ---
+    # --- ОКОНЧАТЕЛЬНОЕ ИСПРАВЛЕНИЕ, КОТОРОЕ РЕШАЕТ ВСЮ ПРОБЛЕМУ ---
+    # Эта конфигурация Talisman РАЗРЕШАЕТ загрузку необходимых скриптов и стилей.
     csp = {
         'default-src': '\'self\'',
         'script-src': [
             '\'self\'',
-            'https://cdn.tailwindcss.com',
+            'https://cdn.tailwindcss.com',  # Разрешает скрипт Tailwind
             'https://telegram.org'
         ],
         'style-src': [
             '\'self\'',
-            '\'unsafe-inline\'',
+            '\'unsafe-inline\'',  # Необходимо для работы Tailwind JIT
             'https://cdn.tailwindcss.com',
-            'https://fonts.googleapis.com'
+            'https://fonts.googleapis.com' # Разрешает стили Google Fonts
         ],
         'font-src': [
             '\'self\'',
-            'https://fonts.gstatic.com'
+            'https://fonts.gstatic.com' # Разрешает сами файлы шрифтов
         ],
-        # Вместо угадывания доменов, мы разрешаем загрузку изображений
-        # с любого HTTPS источника. Это решит проблему раз и навсегда.
         'img-src': [
             '\'self\'',
             'data:',
@@ -58,7 +54,7 @@ def create_app():
         'frame-src': ['https://oauth.telegram.org', 'https://telegram.org']
     }
     Talisman(app, content_security_policy=csp)
-    # --- КОНЕЦ ИСПРАВЛЕНИЙ ---
+    # --- КОНЕЦ ИСПРАВЛЕНИЯ ---
 
     csrf = CSRFProtect(app)
     app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'a_very_secret_key_for_local_development_only')
@@ -92,7 +88,6 @@ def create_app():
 
     return app
 
-# Эта часть нужна для Gunicorn на Railway
 app = create_app()
 
 if __name__ == '__main__':

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,44 +8,54 @@
     <link rel="shortcut icon" href="{{ url_for('main_site.static', filename='images/favicon.png') }}" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="{{ url_for('main_site.static', filename='css/main_site.css') }}">
+
     {% block head_css %}{% endblock %}
 </head>
-<body class="bg-slate-900 text-slate-300">
+<body class="bg-[#0E0E10] text-[#EAEAEA]">
 
-<header>
-    <nav class="container mx-auto p-4 flex justify-between items-center">
-        <a href="{{ url_for('main_site.index') }}" class="text-xl font-bold text-indigo-400">Honji Review</a>
-        <div>
-            <a href="{{ url_for('main_site.index') }}" class="px-4 py-2 hover:text-indigo-300">Основной сайт</a>
+<div class="max-w-[1440px] mx-auto px-8 md:px-16">
 
-            <!-- --- НАЧАЛО ИЗМЕНЕНИЙ --- -->
-            <!-- Логика теперь разделена: ссылка на портал и кнопка выхода -->
+    <header class="py-6 flex justify-between items-center">
+        <a href="{{ url_for('main_site.index') }}" class="text-2xl font-bold text-white tracking-wider">HJR</a>
+        <nav class="hidden md:flex items-center space-x-8 text-white">
+            <a href="#" class="hover:opacity-75 transition-opacity">Новые</a>
+            <a href="#" class="hover:opacity-75 transition-opacity">О нас</a>
+            <a href="#" class="hover:opacity-75 transition-opacity">Обсуждаемое</a>
+            <a href="#" class="hover:opacity-75 transition-opacity">Рецензии</a>
+        </nav>
+        <a href="#" class="text-white hover:opacity-75 transition-opacity">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+        </a>
+    </header>
 
-            <a href="{{ url_for('bot_portal.showcase') }}" class="px-4 py-2 hover:text-indigo-300">Портал Бота</a>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
 
-            <!-- Кнопка "Выход" появляется только если мы находимся внутри блюпринта 'bot_portal' И пользователь авторизован -->
-            {% if request.blueprint == 'bot_portal' and session.get('logged_in') %}
-            <a href="{{ url_for('bot_portal.logout') }}" class="px-4 py-2 text-slate-500 hover:text-indigo-300">[Выход]</a>
-            {% endif %}
-            <!-- --- КОНЕЦ ИЗМЕНЕНИЙ --- -->
+</div>
 
+<footer class="mt-24 border-t border-[#232325]">
+    <div class="max-w-[1440px] mx-auto px-8 md:px-16 py-12">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+            <a href="{{ url_for('main_site.index') }}" class="text-2xl font-bold text-white tracking-wider">HJR</a>
+            <div class="flex items-center space-x-8 text-white">
+                <a href="#" class="hover:opacity-75 transition-opacity">Новые</a>
+                <a href="#" class="hover:opacity-75 transition-opacity">Обсуждаемое</a>
+                <a href="#" class="hover:opacity-75 transition-opacity">Рецензии</a>
+                <a href="#" class="hover:opacity-75 transition-opacity">О нас</a>
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="#" class="text-white hover:opacity-75 transition-opacity"><svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.7099 15.18C15.2399 15.65 14.6599 16 14.0099 16C12.9699 16 12.2199 15.25 12.2199 14.21V12.65C12.2199 10.61 10.9699 9.77 9.42993 9.77C8.65993 9.77 8.01993 10.04 7.51993 10.54" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 11.51V7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                <a href="#" class="text-white hover:opacity-75 transition-opacity"><svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 2H15C13.6739 2 12.4021 2.52678 11.4645 3.46447C10.5268 4.40215 10 5.67392 10 7V10H7V14H10V22H14V14H17L18 10H14V7C14 6.73478 14.1054 6.48043 14.2929 6.29289C14.4804 6.10536 14.7348 6 15 6H18V2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                <a href="#" class="text-white hover:opacity-75 transition-opacity"><svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.44 5.06006C19.82 5.56006 20.88 6.64006 21.36 8.02006" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.56 18.94C4.18 18.44 3.12 17.36 2.64 15.98" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.44 18.94C19.82 18.44 20.88 17.36 21.36 15.98" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.56 5.06006C4.18 5.56006 3.12 6.64006 2.64 8.02006" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 10L14 12L16 14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 10L10 12L8 14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
         </div>
-    </nav>
-</header>
-
-<main class="container mx-auto p-4">
-    {% block content %}{% endblock %}
-</main>
-
-<footer class="container mx-auto p-4 mt-8 border-t border-slate-800 text-sm text-slate-500">
-    <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-4">
-        <p>&copy; 2025 Honji Review.</p>
-        <div class="flex items-center gap-x-6">
-            <a href="{{ url_for('main_site.about') }}" class="hover:text-indigo-400 transition">О нас</a>
-            <a href="{{ url_for('main_site.privacy_policy') }}" class="hover:text-indigo-400 transition">Политика конфиденциальности</a>
-            <a href="mailto:info@honjireview.uz" class="hover:text-indigo-400 transition">Связаться с нами</a>
-            <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.ru" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-400 transition">Лицензия CC-BY-SA 4.0</a>
+        <div class="mt-8 pt-8 border-t border-[#232325] text-sm text-[#8F8F90] flex flex-col md:flex-row justify-between items-center gap-4">
+            <p>&copy; 2025 Honji Review</p>
+            <p><a href="#" class="hover:text-white">Privacy Policy</a></p>
         </div>
     </div>
 </footer>

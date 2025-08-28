@@ -1,14 +1,95 @@
 {% extends "layout.html" %}
 {% block title %}Главная - Honji Review{% endblock %}
-{% block head_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/main_site.css') }}">
-{% endblock %}
+
 {% block content %}
-<div class="text-center py-16">
-    <h1 class="text-4xl font-bold">Главная страница основного сайта</h1>
-    <p class="text-slate-400 mt-4">Здесь будет форум, отзывы и т.д.</p>
-</div>
-{% endblock %}
-{% block body_js %}
-<script src="{{ url_for('static', filename='js/main_site.js') }}"></script>
+<section class="pt-20 pb-28">
+    <p class="text-lg text-center text-white mb-10">«Чтение — это способ взглянуть на мир чужими глазами.»</p>
+    <div class="max-w-4xl">
+        <h1 class="text-7xl md:text-[96px] font-extrabold text-white leading-none tracking-tighter">
+            Некоторые книги<br>не заканчиваются<br>с последней страницей
+        </h1>
+        <p class="mt-8 text-xl text-[#EAEAEA] max-w-lg">
+            Мы делимся историями, что продолжаются внутри. 30+ отзывов уже здесь.
+        </p>
+        <div class="mt-12">
+            <a href="#" class="bg-white text-[#0E0E10] font-bold py-3 px-8 rounded-full hover:bg-gray-200 transition-colors duration-300 inline-flex items-center justify-center">Читать</a>
+        </div>
+    </div>
+</section>
+
+<section class="py-24">
+    <div class="text-center max-w-4xl mx-auto">
+        <h2 class="text-5xl md:text-[64px] font-extrabold text-[#EAEAEA] leading-none">Honji Review</h2>
+        <p class="mt-6 text-[#EAEAEA] text-lg leading-relaxed">
+            Чтение помогает найти тишину внутри, и мы с радостью делимся этим с тобой.
+        </p>
+        <p class="mt-8 text-lg leading-relaxed max-w-3xl mx-auto text-[#EAEAEA]">
+            <span class="text-white font-bold">Наша цель.</span><br>
+            Создать пространство, где каждое слово о книге будет <span class="font-bold text-white">честным</span> и <span class="font-bold text-white">искренним</span>. Мы стремимся, чтобы наши рецензии были не просто гидом для читателя, а <span class="font-bold text-white">надежным ориентиром</span>, чтобы каждый мог почувствовать правду, скрытую в историях. Наш проект — это место, где личное мнение <span class="font-bold text-white">ценится</span>. О книги — это не просто слова, а <span class="font-bold text-white">миры</span>, которые мы открываем и делимся с другими.
+        </p>
+    </div>
+</section>
+
+<section class="py-12">
+    <h2 class="text-5xl md:text-[64px] font-extrabold text-[#EAEAEA] leading-none mb-12">Новые</h2>
+    <div class="space-y-1">
+        {% for review in latest_reviews %}
+        <div class="flex flex-col md:flex-row items-center justify-between gap-8 py-6 border-b border-[#232325]">
+            <p class="text-[#8F8F90] font-mono text-sm w-full md:w-auto md:flex-shrink-0">{{ review.date }}</p>
+            <div class="flex-1 text-left w-full">
+                <h3 class="text-3xl font-bold text-white mb-2">{{ review.title }}</h3>
+                <p class="text-[#EAEAEA] max-w-xl">{{ review.description }}</p>
+            </div>
+            <a href="#" class="bg-white text-[#0E0E10] font-bold py-3 px-8 rounded-full hover:bg-gray-200 transition-colors duration-300 inline-flex items-center justify-center">Подробнее</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="py-24">
+    <h2 class="text-5xl md:text-[64px] font-extrabold text-[#EAEAEA] leading-none text-center mb-16">Жанры</h2>
+    <div class="max-w-md mx-auto">
+        <div class="border-y border-[#232325]">
+            <a href="#" class="flex items-center space-x-6 p-4 hover:bg-slate-900/50 transition-colors">
+                <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#18181A]">
+                    </span>
+                <span class="text-2xl font-bold tracking-widest text-white">ФЭНТЕЗИ</span>
+            </a>
+            <div class="border-t border-[#232325]"></div>
+            <a href="#" class="flex items-center space-x-6 p-4 hover:bg-slate-900/50 transition-colors">
+                <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#18181A]">
+                    </span>
+                <span class="text-2xl font-bold tracking-widest text-white">РОМАНТИКА</span>
+            </a>
+            <div class="border-t border-[#232325]"></div>
+            <a href="#" class="flex items-center space-x-6 p-4 hover:bg-slate-900/50 transition-colors">
+                <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#18181A]">
+                    </span>
+                <span class="text-2xl font-bold tracking-widest text-white">ДЕТЕКТИВ</span>
+            </a>
+            <div class="border-t border-[#232325]"></div>
+            <a href="#" class="flex items-center space-x-6 p-4 hover:bg-slate-900/50 transition-colors">
+                <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#18181A]">
+                   </span>
+                <span class="text-2xl font-bold tracking-widest text-white">НАУЧНАЯ ЛИТЕРАТУРА</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="py-12">
+    <div class="bg-black rounded-2xl p-12 text-center">
+        <h2 class="text-5xl md:text-[64px] font-extrabold text-[#EAEAEA] leading-none">Начать продвижение</h2>
+        <p class="mt-4 text-[#8F8F90]">Напишем рецензию на вашу работу, чтобы она вышла за пределы парти-занского маркетинга.</p>
+        <form class="mt-10 max-w-3xl mx-auto flex flex-col md:flex-row gap-6 items-center">
+            <input type="text" name="name" placeholder="Name *" class="bg-transparent border-b border-[#313134] w-full py-3 px-1 text-white placeholder-slate-500 focus:outline-none focus:border-white transition">
+            <input type="email" name="email" placeholder="Email *" class="bg-transparent border-b border-[#313134] w-full py-3 px-1 text-white placeholder-slate-500 focus:outline-none focus:border-white transition">
+            <button type="submit" class="bg-white text-[#0E0E10] font-bold py-3 px-8 rounded-full hover:bg-gray-200 transition-colors duration-300 inline-flex items-center justify-center w-full md:w-auto flex-shrink-0">Оставить заявку</button>
+        </form>
+        <div class="mt-6 text-sm text-[#8F8F90] flex justify-center items-center">
+            <input type="checkbox" id="agree" class="h-4 w-4 rounded border-gray-600 bg-black text-indigo-600 focus:ring-0 mr-2">
+            <label for="agree">Соглашаюсь на обработку Персональных данных</label>
+        </div>
+    </div>
+</section>
 {% endblock %}
