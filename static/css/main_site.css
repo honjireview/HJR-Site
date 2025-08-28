@@ -1,18 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap');
 
 body {
-    /* Стиль из Figma: фон #0E0E10, шрифт Manrope */
     font-family: 'Manrope', sans-serif;
     background-color: #0E0E10;
     color: #EAEAEA;
 }
 
-/* КНОПКИ ИЗ FIGMA: БЕЛЫЙ ФОН, ЧЕРНЫЙ ТЕКСТ */
+/* КНОПКИ С БЕЛЫМ ФОНОМ ИЗ FIGMA */
 .btn {
     @apply bg-white text-[#0E0E10] font-bold py-3 px-8 rounded-full hover:bg-gray-200 transition-colors duration-300 inline-flex items-center justify-center;
 }
 
-/* ЗАГОЛОВКИ СЕКЦИЙ ИЗ FIGMA: 64px, ExtraBold */
+/* БОЛЬШИЕ ЗАГОЛОВКИ (64px) ИЗ FIGMA */
 .section-title {
     @apply text-5xl md:text-[64px] font-extrabold text-[#EAEAEA] leading-none;
 }
