@@ -4,40 +4,15 @@ body {
     font-family: 'Manrope', sans-serif;
     background-color: #0E0E10;
     color: #EAEAEA;
-    --hjr-container-padding-x: 1rem; /* 16px */
 }
 
-@media (min-width: 640px) {
-    body { --hjr-container-padding-x: 1.5rem; } /* 24px */
-}
-
-@media (min-width: 1024px) {
-    body { --hjr-container-padding-x: 2rem; } /* 32px */
-}
-
-
-.hjr-container {
-    max-width: 90rem; /* 1440px */
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: var(--hjr-container-padding-x);
-    padding-right: var(--hjr-container-padding-x);
-}
-
-/* Основная кнопка: белый фон, черный текст */
+/* ЕДИНЫЙ СТИЛЬ ДЛЯ ВСЕХ КНОПОК */
 .btn-primary {
-    @apply bg-white text-black font-semibold py-3 px-8 rounded-full hover:bg-gray-200 transition-colors duration-300 inline-block;
+    @apply bg-white text-black font-semibold py-3 px-8 rounded-full hover:bg-gray-200 transition-colors duration-300 inline-flex items-center justify-center;
 }
 
-/* Второстепенная кнопка: без фона, белая рамка */
-.btn-secondary {
-    @apply border border-gray-300 text-white font-semibold py-2 px-6 rounded-full hover:bg-white hover:text-black transition-colors duration-300 inline-block;
-}
+/* Старый стиль удален, чтобы не было путаницы */
 
 .section-title {
     @apply text-4xl md:text-5xl font-extrabold text-white;
-}
-
-.content-wrapper {
-    @apply max-w-7xl mx-auto;
 }
