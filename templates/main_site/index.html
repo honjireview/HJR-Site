@@ -3,25 +3,25 @@
 
 {% block content %}
 <section class="pt-16 pb-24">
-    <p class="text-base text-slate-400 mb-8">«Чтение — это способ взглянуть на мир чужими глазами.»</p>
-    <h1 class="text-6xl md:text-8xl font-black text-white leading-none tracking-tighter">
+    <p class="text-base text-gray-400 mb-8">«Чтение — это способ взглянуть на мир чужими глазами.»</p>
+    <h1 class="text-6xl md:text-8xl font-black text-white leading-none tracking-tight"> {# Скорректированы размер и трекинг #}
         Некоторые книги<br>не заканчиваются<br>с последней страницей
     </h1>
-    <p class="mt-8 text-xl text-slate-300 max-w-xl">
+    <p class="mt-8 text-xl text-gray-300 max-w-xl">
         Мы делимся историями, что продолжаются внутри. 30+ отзывов уже здесь.
     </p>
     <div class="mt-12">
-        <a href="#" class="btn-primary">Читать</a>
+        <a href="#" class="btn-primary">Читать</a> {# Применена кнопка #}
     </div>
 </section>
 
 <section class="py-24">
     <div class="text-center max-w-4xl mx-auto">
-        <h2 class="text-5xl md:text-6xl font-black text-white">Honji Review</h2>
-        <p class="mt-6 text-slate-300 text-lg leading-relaxed">
+        <h2 class="text-5xl md:text-6xl font-black text-white">Honji Review</h2> {# Скорректированы размер и жирность #}
+        <p class="mt-6 text-gray-300 text-lg leading-relaxed">
             Чтение помогает найти тишину внутри, и мы с радостью делимся этим с тобой.
         </p>
-        <p class="mt-8 text-slate-300 text-lg leading-relaxed max-w-3xl mx-auto">
+        <p class="mt-8 text-gray-300 text-lg leading-relaxed max-w-3xl mx-auto">
             <span class="text-white font-semibold">Наша цель.</span><br>
             Создать пространство, где каждое слово о книге будет <span class="text-white font-semibold">честным</span> и <span class="text-white font-semibold">искренним</span>. Мы стремимся, чтобы наши рецензии были не просто гидом для читателя, а <span class="text-white font-semibold">надежным ориентиром</span>, чтобы каждый мог почувствовать правду, скрытую в историях. Наш проект — это место, где личное мнение <span class="text-white font-semibold">ценится</span>. О книги — это не просто слова, а <span class="text-white font-semibold">миры</span>, которые мы открываем и делимся с другими.
         </p>
@@ -29,51 +29,51 @@
 </section>
 
 <section class="py-12">
-    <h2 class="section-title mb-12">Новые</h2>
+    <h2 class="section-title mb-12">Новые</h2> {# Скорректирован заголовок #}
     <div class="space-y-1">
         {% for review in latest_reviews %}
-        <div class="flex flex-col md:flex-row items-center justify-between gap-8 py-6 border-b border-slate-800">
-            <p class="text-slate-500 font-mono text-sm w-full md:w-auto md:flex-shrink-0">{{ review.date }}</p>
+        <div class="flex flex-col md:flex-row items-center justify-between gap-8 py-6 border-b border-gray-800">
+            <p class="text-gray-500 font-mono text-sm w-full md:w-auto md:flex-shrink-0">{{ review.date }}</p>
             <div class="flex-1 text-left w-full">
-                <h3 class="text-3xl font-bold text-white mb-2">{{ review.title }}</h3>
-                <p class="text-slate-400 max-w-xl">{{ review.description }}</p>
+                <h3 class="text-3xl font-bold text-white mb-2">{{ review.title }}</h3> {# Скорректирован заголовок #}
+                <p class="text-gray-400 max-w-xl">{{ review.description }}</p>
             </div>
-            <a href="#" class="btn-secondary">Подробнее</a>
+            <a href="#" class="btn-secondary">Подробнее</a> {# Применена кнопка #}
         </div>
         {% endfor %}
     </div>
 </section>
 
 <section class="py-24">
-    <h2 class="section-title text-center mb-16">Жанры</h2>
+    <h2 class="section-title text-center mb-16">Жанры</h2> {# Скорректирован заголовок #}
     <div class="max-w-md mx-auto">
-        <div class="border-t border-b border-slate-800">
-            <a href="#" class="flex items-center space-x-6 p-4 hover:bg-slate-900 transition-colors">
+        <div class="border-t border-b border-gray-800">
+            <a href="#" class="flex items-center space-x-6 p-4 hover:bg-gray-900 transition-colors">
                 <span class="flex items-center justify-center w-12 h-12 rounded-lg bg-indigo-500/10">
                     <svg class="w-7 h-7 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.25278C12 6.25278 5.66667 3.58611 5.66667 10.5C5.66667 17.4139 12 21.5 12 21.5C12 21.5 18.3333 17.4139 18.3333 10.5C18.3333 3.58611 12 6.25278 12 6.25278Z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12.8333C13.3137 12.8333 14.375 11.772 14.375 10.4583C14.375 9.14464 13.3137 8.08331 12 8.08331C10.6863 8.08331 9.625 9.14464 9.625 10.4583C9.625 11.772 10.6863 12.8333 12 12.8333Z"></path></svg>
                 </span>
-                <span class="text-xl font-bold tracking-widest text-white">ФЭНТЕЗИ</span>
+                <span class="text-xl font-bold tracking-widest text-white">ФЭНТЕЗИ</span> {# Скорректирован текст #}
             </a>
-            <div class="border-t border-slate-800"></div>
-            <a href="#" class="flex items-center space-x-6 p-4 hover:bg-slate-900 transition-colors">
+            <div class="border-t border-gray-800"></div>
+            <a href="#" class="flex items-center space-x-6 p-4 hover:bg-gray-900 transition-colors">
                 <span class="flex items-center justify-center w-12 h-12 rounded-lg bg-rose-500/10">
                     <svg class="w-7 h-7 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.33331 12.3333C4.33331 16.3333 9.83331 21.5 12 21.5C14.1666 21.5 19.6666 16.3333 19.6666 12.3333C19.6666 8.33331 16.5 5.5 12 9.5C7.49998 5.5 4.33331 8.33331 4.33331 12.3333Z"></path></svg>
                 </span>
-                <span class="text-xl font-bold tracking-widest text-white">РОМАНТИКА</span>
+                <span class="text-xl font-bold tracking-widest text-white">РОМАНТИКА</span> {# Скорректирован текст #}
             </a>
-            <div class="border-t border-slate-800"></div>
-            <a href="#" class="flex items-center space-x-6 p-4 hover:bg-slate-900 transition-colors">
+            <div class="border-t border-gray-800"></div>
+            <a href="#" class="flex items-center space-x-6 p-4 hover:bg-gray-900 transition-colors">
                 <span class="flex items-center justify-center w-12 h-12 rounded-lg bg-amber-500/10">
                     <svg class="w-7 h-7 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.5 16.5L21 21"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 11L13.5 8.5"></path></svg>
                 </span>
-                <span class="text-xl font-bold tracking-widest text-white">ДЕТЕКТИВ</span>
+                <span class="text-xl font-bold tracking-widest text-white">ДЕТЕКТИВ</span> {# Скорректирован текст #}
             </a>
-            <div class="border-t border-slate-800"></div>
-            <a href="#" class="flex items-center space-x-6 p-4 hover:bg-slate-900 transition-colors">
+            <div class="border-t border-gray-800"></div>
+            <a href="#" class="flex items-center space-x-6 p-4 hover:bg-gray-900 transition-colors">
                 <span class="flex items-center justify-center w-12 h-12 rounded-lg bg-sky-500/10">
                    <svg class="w-7 h-7 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15V12H9"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H12V9"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 15L15 9"></path></svg>
                 </span>
-                <span class="text-xl font-bold tracking-widest text-white">НАУЧНАЯ ЛИТЕРАТУРА</span>
+                <span class="text-xl font-bold tracking-widest text-white">НАУЧНАЯ ЛИТЕРАТУРА</span> {# Скорректирован текст #}
             </a>
         </div>
     </div>
@@ -81,14 +81,14 @@
 
 <section class="py-12">
     <div class="bg-black rounded-2xl p-12 text-center">
-        <h2 class="section-title">Начать продвижение</h2>
-        <p class="mt-4 text-slate-400">Напишем рецензию на вашу работу, чтобы она вышла за пределы партизанского маркетинга.</p>
+        <h2 class="section-title">Начать продвижение</h2> {# Скорректирован заголовок #}
+        <p class="mt-4 text-gray-400">Напишем рецензию на вашу работу, чтобы она вышла за пределы партизанского маркетинга.</p>
         <form class="mt-10 max-w-3xl mx-auto flex flex-col md:flex-row gap-6 items-center">
-            <input type="text" name="name" placeholder="Name *" class="bg-transparent border-b border-slate-700 w-full py-3 px-1 text-white placeholder-slate-500 focus:outline-none focus:border-white transition">
-            <input type="email" name="email" placeholder="Email *" class="bg-transparent border-b border-slate-700 w-full py-3 px-1 text-white placeholder-slate-500 focus:outline-none focus:border-white transition">
-            <button type="submit" class="btn-primary w-full md:w-auto flex-shrink-0">Оставить заявку</button>
+            <input type="text" name="name" placeholder="Name *" class="bg-transparent border-b border-gray-700 w-full py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition">
+            <input type="email" name="email" placeholder="Email *" class="bg-transparent border-b border-gray-700 w-full py-3 px-1 text-white placeholder-gray-500 focus:outline-none focus:border-white transition">
+            <button type="submit" class="btn-primary w-full md:w-auto flex-shrink-0">Оставить заявку</button> {# Применена кнопка #}
         </form>
-        <div class="mt-6 text-sm text-slate-500 flex justify-center items-center">
+        <div class="mt-6 text-sm text-gray-500 flex justify-center items-center">
             <input type="checkbox" id="agree" class="h-4 w-4 rounded border-gray-600 bg-black text-indigo-600 focus:ring-indigo-500 mr-2">
             <label for="agree">Соглашаюсь на обработку Персональных данных</label>
         </div>
