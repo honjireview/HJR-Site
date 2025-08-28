@@ -30,30 +30,28 @@ def create_app():
     """
     app = Flask(__name__)
 
-    # --- ФИНАЛЬНОЕ ИСПРАВЛЕНИЕ НА ОСНОВЕ ДОКУМЕНТАЦИИ ---
+    # --- ИСПРАВЛЕНИЕ ПОЛИТИКИ БЕЗОПАСНОСТИ (CSP) ---
     csp = {
         'default-src': '\'self\'',
         'script-src': [
             '\'self\'',
             'https://cdn.tailwindcss.com',
-            'https://telegram.org'
+            'https://telegram.org'  # Для виджета логина
         ],
         'style-src': [
             '\'self\'',
-            '\'unsafe-inline\'',
+            '\'unsafe-inline\'',      # Необходимо для работы Tailwind CDN
             'https://cdn.tailwindcss.com',
             'https://fonts.googleapis.com'
         ],
         'font-src': [
             '\'self\'',
-            'https://fonts.gstatic.com'
+            'https://fonts.gstatic.com' # Необходимо для загрузки шрифтов Google
         ],
-        # Вместо угадывания доменов, мы разрешаем загрузку изображений
-        # с любого HTTPS источника. Это решит проблему раз и навсегда.
         'img-src': [
             '\'self\'',
             'data:',
-            'https:'
+            'https:' # Разрешает изображения с любых HTTPS источников
         ],
         'frame-src': ['https://oauth.telegram.org', 'https://telegram.org']
     }
