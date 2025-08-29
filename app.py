@@ -27,9 +27,14 @@ def get_git_commit_hash():
     except (subprocess.CalledProcessError, FileNotFoundError):
         return None
 
+# --- ИЗМЕНЕНИЕ: Эта функция теперь будет выбирать язык ---
 def get_locale():
-    # Эта функция теперь просто возвращает язык, который мы уже определили
-    return g.get('lang_code', 'ru')
+    # 1. Пытаемся взять язык из URL
+    lang = request.view_args.get('lang_code')
+    if lang and lang in LANGUAGES:
+        return lang
+    # 2. Если в URL его нет, используем "умное" определение
+    return request.accept_languages.best_match(LANGUAGES) or 'ru'
 
 def create_app():
     app = Flask(__name__)
@@ -76,27 +81,19 @@ def create_app():
     app.register_blueprint(bot_portal_bp, url_prefix='/bot')
     app.register_blueprint(logs_bp, url_prefix='/bot/admin')
 
-    # --- ИЗМЕНЕНИЕ: Полностью переписанная и упрощенная логика обработки URL ---
-    @app.url_defaults
-    def add_language_code(endpoint, values):
-        if 'lang_code' in values or not g.get('lang_code'):
-            return
-        if endpoint.startswith('main_site.'):
-            values['lang_code'] = g.lang_code
+    # --- ИЗМЕНЕНИЕ: Упрощенная и корректная логика ---
+    @app.url_value_preprocessor
+    def pull_lang_code(endpoint, values):
+        g.lang_code = values.pop('lang_code', None)
 
     @app.before_request
     def before_request():
-        # Эта функция теперь ЕДИНСТВЕННАЯ отвечает за установку языка
-        lang_code = request.view_args.get('lang_code')
-        if lang_code and lang_code in LANGUAGES:
-            g.lang_code = lang_code
-        else:
-            # Если в URL нет языка, мы его не угадываем, а используем язык по умолчанию
-            g.lang_code = app.config['BABEL_DEFAULT_LOCALE']
+        if g.lang_code is None:
+            g.lang_code = get_locale()
 
     @app.route('/')
     def root_redirect():
-        # Сохраняем "умный" редирект для первого захода
+        # Редирект на основе "умного" определения
         best_lang = request.accept_languages.best_match(LANGUAGES) or 'ru'
         return redirect(url_for('main_site.index', lang_code=best_lang))
     # --- КОНЕЦ ИЗМЕНЕНИЙ ---
