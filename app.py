@@ -28,7 +28,7 @@ def get_git_commit_hash():
         return None
 
 def get_locale():
-    # Теперь эта функция определяет язык на основе g.lang_code, который будет установлен раньше
+    # Эта функция теперь просто возвращает язык, который мы уже определили в g
     return g.get('lang_code', request.accept_languages.best_match(LANGUAGES) or 'ru')
 
 def create_app():
@@ -52,6 +52,7 @@ def create_app():
     babel.init_app(app, locale_selector=get_locale)
 
     HJRBOT_TELEGRAM_TOKEN = os.getenv('HJRBOT_TELEGRAM_TOKEN')
+    # ... (остальной код инициализации TG бота, DB и т.д. остается без изменений) ...
     if HJRBOT_TELEGRAM_TOKEN:
         try:
             temp_bot = telebot.TeleBot(HJRBOT_TELEGRAM_TOKEN)
@@ -72,12 +73,16 @@ def create_app():
     from bot_portal import bot_portal_bp
     from bot_portal.logs_routes import logs_bp
 
-    # --- ИЗМЕНЕНИЕ: Убираем url_prefix отсюда, он будет внутри блюпринта ---
     app.register_blueprint(main_site_bp)
     app.register_blueprint(bot_portal_bp, url_prefix='/bot')
     app.register_blueprint(logs_bp, url_prefix='/bot/admin')
 
-    # --- ИЗМЕНЕНИЕ: Вся сложная логика отсюда удалена ---
+    @app.before_request
+    def before_request():
+        # Устанавливаем язык по умолчанию, если он не был определен блюпринтом
+        if not hasattr(g, 'lang_code'):
+            g.lang_code = get_locale()
+
     @app.route('/')
     def root_redirect():
         best_lang = request.accept_languages.best_match(LANGUAGES) or 'ru'
