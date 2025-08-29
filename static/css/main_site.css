@@ -7,7 +7,6 @@ body {
     color: #EAEAEA;
 }
 
-/* ИЗМЕНЕНИЕ: Кнопка сделана еще тоньше и длиннее */
 .btn {
     background-color: white;
     color: #0E0E10;
@@ -23,13 +22,21 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* ИЗМЕНЕНИЕ: Более подходящий цвет при наведении */
 .btn:hover {
     background-color: #EAEAEA;
     color: #0E0E10;
 }
 
-/* БОЛЬШИЕ ЗАГОЛОВКИ (64px) ИЗ FIGMA */
+/* ИСПРАВЛЕНИЕ: Возвращаем стандартный CSS для заголовков */
 .section-title {
-    @apply text-5xl md:text-[64px] font-extrabold text-[#EAEAEA] leading-none;
+    font-size: 3rem; /* 48px */
+    font-weight: 800; /* extrabold */
+    color: #EAEAEA;
+    line-height: 1;
+}
+
+@media (min-width: 768px) {
+    .section-title {
+        font-size: 64px;
+    }
 }
