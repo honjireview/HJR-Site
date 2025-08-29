@@ -1,7 +1,7 @@
 from flask import Flask, redirect, url_for, request, g, session
 from flask_talisman import Talisman
 from flask_wtf.csrf import CSRFProtect
-from flask_babel import Babel, get_locale as get_babel_locale
+from flask_babel import Babel
 import os
 import db
 import telebot
@@ -27,12 +27,9 @@ def get_git_commit_hash():
     except (subprocess.CalledProcessError, FileNotFoundError):
         return None
 
-# --- ИЗМЕНЕНИЕ: Функция get_locale теперь не является декоратором ---
 def get_locale():
-    # Язык теперь всегда берется из URL
     if g.get('lang_code') in LANGUAGES:
         return g.lang_code
-    # Если в URL нет валидного языка, используем язык браузера или по умолчанию
     return request.accept_languages.best_match(LANGUAGES) or 'ru'
 
 def create_app():
@@ -53,8 +50,6 @@ def create_app():
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=5)
     app.config['COMMIT_HASH'] = get_git_commit_hash() or 'local'
     app.config['BABEL_DEFAULT_LOCALE'] = 'ru'
-
-    # --- ИЗМЕНЕНИЕ: Передаем функцию get_locale как аргумент при инициализации ---
     babel.init_app(app, locale_selector=get_locale)
 
     HJRBOT_TELEGRAM_TOKEN = os.getenv('HJRBOT_TELEGRAM_TOKEN')
@@ -84,17 +79,22 @@ def create_app():
 
     @app.url_defaults
     def add_language_code(endpoint, values):
-        if 'lang_code' not in values and g.get('lang_code'):
-            if app.url_map.is_endpoint_prefixed(endpoint, 'main_site'):
-                values['lang_code'] = g.lang_code
+        # --- ИЗМЕНЕНИЕ: Заменена устаревшая функция ---
+        # Проверяем, относится ли endpoint к блюпринту 'main_site'
+        if 'lang_code' not in values and g.get('lang_code') and endpoint.startswith('main_site.'):
+            values['lang_code'] = g.lang_code
+        # --- КОНЕЦ ИЗМЕНЕНИЯ ---
 
     @app.url_value_preprocessor
     def pull_lang_code(endpoint, values):
-        g.lang_code = values.pop('lang_code', None) if values else get_locale()
+        g.lang_code = values.pop('lang_code', None) if values else None
 
     @app.before_request
     def before_request_locale():
-        g.lang_code = get_locale()
+        if 'lang_code' in request.view_args and request.view_args['lang_code'] in LANGUAGES:
+            g.lang_code = request.view_args['lang_code']
+        else:
+            g.lang_code = get_locale()
 
     @app.route('/')
     def root_redirect():
