@@ -27,14 +27,9 @@ def get_git_commit_hash():
     except (subprocess.CalledProcessError, FileNotFoundError):
         return None
 
-# --- ИЗМЕНЕНИЕ: Эта функция теперь будет выбирать язык ---
 def get_locale():
-    # 1. Пытаемся взять язык из URL
-    lang = request.view_args.get('lang_code')
-    if lang and lang in LANGUAGES:
-        return lang
-    # 2. Если в URL его нет, используем "умное" определение
-    return request.accept_languages.best_match(LANGUAGES) or 'ru'
+    # Эта функция теперь просто возвращает язык, который мы уже определили в g
+    return g.get('lang_code', 'ru')
 
 def create_app():
     app = Flask(__name__)
@@ -81,15 +76,27 @@ def create_app():
     app.register_blueprint(bot_portal_bp, url_prefix='/bot')
     app.register_blueprint(logs_bp, url_prefix='/bot/admin')
 
-    # --- ИЗМЕНЕНИЕ: Упрощенная и корректная логика ---
+    # --- ИЗМЕНЕНИЕ: Полностью переписанная и надежная логика обработки URL ---
+    @app.url_defaults
+    def add_language_code(endpoint, values):
+        # Автоматически добавляем 'lang_code' ко всем URL-адресам 'main_site',
+        # КРОМЕ эндпоинта 'static'
+        if 'lang_code' in values or not g.get('lang_code'):
+            return
+        if endpoint.startswith('main_site.') and endpoint != 'main_site.static':
+            values['lang_code'] = g.lang_code
+
     @app.url_value_preprocessor
     def pull_lang_code(endpoint, values):
+        # Извлекаем lang_code из URL и сохраняем его в g для текущего запроса
         g.lang_code = values.pop('lang_code', None)
 
     @app.before_request
     def before_request():
-        if g.lang_code is None:
-            g.lang_code = get_locale()
+        # Если lang_code не был извлечен (например, для страниц без префикса),
+        # устанавливаем его на основе "умного" определения или по умолчанию
+        if g.lang_code is None or g.lang_code not in LANGUAGES:
+            g.lang_code = request.accept_languages.best_match(LANGUAGES) or 'ru'
 
     @app.route('/')
     def root_redirect():
