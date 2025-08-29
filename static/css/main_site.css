@@ -12,10 +12,10 @@ body {
     background-color: white;
     color: #0E0E10;
     font-weight: 700; /* bold */
-    padding-top: 0.5rem;    /* py-2, еще тоньше */
-    padding-bottom: 0.5rem; /* py-2, еще тоньше */
-    padding-left: 6rem;      /* px-24, еще длиннее */
-    padding-right: 6rem;     /* px-24, еще длиннее */
+    padding-top: 0.5rem;    /* py-2, тонкая */
+    padding-bottom: 0.5rem; /* py-2, тонкая */
+    padding-left: 7rem;      /* px-28, очень длинная */
+    padding-right: 7rem;     /* px-28, очень длинная */
     border-radius: 9999px; /* rounded-full */
     display: inline-flex;
     align-items: center;
@@ -26,11 +26,6 @@ body {
 .btn:hover {
     background-color: #D1D5DB; /* gray-300 - более заметный оттенок */
 }
-
-/* Стили для блока "ЖАНРЫ" (возвращено к исходному варианту) */
-/* Эти стили больше не используются, так как HTML-структура блока Жанры изменена обратно */
-/* .genre-item, .genre-icon-wrapper, .genre-text, .genre-separator и т.д. - УДАЛЕНЫ */
-
 
 /* БОЛЬШИЕ ЗАГОЛОВКИ (64px) ИЗ FIGMA */
 .section-title {

@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+\{% extends "layout.html" %}
 {% block title %}Главная - Honji Review{% endblock %}
 
 {% block content %}
@@ -23,7 +23,7 @@
         <p class="mt-6 text-[#EAEAEA] text-lg leading-relaxed">
             Чтение помогает найти тишину внутри, и мы с радостью делимся этим с тобой.
         </p>
-        <p class="mt-8 text-base leading-relaxed max-w-3xl mx-auto text-[#EAEAEA]">
+        <p class="mt-8 text-sm leading-relaxed max-w-3xl mx-auto text-[#EAEAEA]">
             <span class="text-white font-bold">Наша цель.</span><br>
             Создать пространство, где каждое слово о книге будет <span class="font-bold text-white">честным</span> и <span class="font-bold text-white">искренним</span>. Мы стремимся, чтобы наши рецензии были не просто гидом для читателя, а <span class="font-bold text-white">надежным ориентиром</span>, чтобы каждый мог почувствовать правду, скрытую в историях. Наш проект — это место, где личное мнение <span class="font-bold text-white">ценится</span>. О книги — это не просто слова, а <span class="font-bold text-white">миры</span>, которые мы открываем и делимся с другими.
         </p>
@@ -48,35 +48,43 @@
 
 <section class="py-24">
     <h2 class="text-4xl sm:text-5xl md:text-[64px] font-extrabold text-[#EAEAEA] leading-none text-center mb-16">Жанры</h2>
-    <div class="max-w-md mx-auto">
+    <div class="max-w-lg mx-auto">
         <div class="border-y border-[#232325]">
-            <a href="#" class="flex items-center space-x-6 p-4 hover:bg-slate-900/50 transition-colors">
-                <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#18181A]">
-                    <img src="https://img.icons8.com/ios/50/a9a9a9/magical-scroll.png" alt="Фэнтези" class="w-10 h-10"/>
-                </span>
-                <span class="text-2xl font-bold tracking-widest text-white">ФЭНТЕЗИ</span>
-            </a>
+            <div class="pl-0">
+                <a href="#" class="flex items-center space-x-6 p-4 hover:bg-slate-800/60 transition-colors rounded-lg">
+                    <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#18181A] flex-shrink-0">
+                        <img src="https://img.icons8.com/ios/50/a9a9a9/magical-scroll.png" alt="Фэнтези" class="w-10 h-10"/>
+                    </span>
+                    <span class="text-2xl font-bold tracking-widest text-white">ФЭНТЕЗИ</span>
+                </a>
+            </div>
             <div class="border-t border-[#232325]"></div>
-            <a href="#" class="flex items-center space-x-6 p-4 hover:bg-slate-900/50 transition-colors">
-                <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#18181A]">
-                    <img src="https://img.icons8.com/ios/50/a9a9a9/like--v1.png" alt="Романтика" class="w-10 h-10"/>
-                </span>
-                <span class="text-2xl font-bold tracking-widest text-white">РОМАНТИКА</span>
-            </a>
+            <div class="pl-8">
+                <a href="#" class="flex items-center space-x-6 p-4 hover:bg-slate-800/60 transition-colors rounded-lg">
+                    <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#18181A] flex-shrink-0">
+                        <img src="https://img.icons8.com/ios/50/a9a9a9/like--v1.png" alt="Романтика" class="w-10 h-10"/>
+                    </span>
+                    <span class="text-2xl font-bold tracking-widest text-white">РОМАНТИКА</span>
+                </a>
+            </div>
             <div class="border-t border-[#232325]"></div>
-            <a href="#" class="flex items-center space-x-6 p-4 hover:bg-slate-900/50 transition-colors">
-                <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#18181A]">
-                    <img src="https://img.icons8.com/ios/50/a9a9a9/search--v1.png" alt="Детектив" class="w-10 h-10"/>
-                </span>
-                <span class="text-2xl font-bold tracking-widest text-white">ДЕТЕКТИВ</span>
-            </a>
+            <div class="pl-16">
+                <a href="#" class="flex items-center space-x-6 p-4 hover:bg-slate-800/60 transition-colors rounded-lg">
+                    <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#18181A] flex-shrink-0">
+                        <img src="https://img.icons8.com/ios/50/a9a9a9/search--v1.png" alt="Детектив" class="w-10 h-10"/>
+                    </span>
+                    <span class="text-2xl font-bold tracking-widest text-white">ДЕТЕКТИВ</span>
+                </a>
+            </div>
             <div class="border-t border-[#232325]"></div>
-            <a href="#" class="flex items-center space-x-6 p-4 hover:bg-slate-900/50 transition-colors">
-                <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#18181A]">
-                   <img src="https://img.icons8.com/ios/50/a9a9a9/test-tube.png" alt="Научная литература" class="w-10 h-10"/>
-                </span>
-                <span class="text-2xl font-bold tracking-widest text-white">НАУЧНАЯ ЛИТЕРАТУРА</span>
-            </a>
+            <div class="pl-12">
+                <a href="#" class="flex items-center space-x-6 p-4 hover:bg-slate-800/60 transition-colors rounded-lg">
+                   <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#18181A] flex-shrink-0">
+                       <img src="https://img.icons8.com/ios/50/a9a9a9/test-tube.png" alt="Научная литература" class="w-10 h-10"/>
+                   </span>
+                    <span class="text-2xl font-bold tracking-widest text-white">НАУЧНАЯ ЛИТЕРАТУРА</span>
+                </a>
+            </div>
         </div>
     </div>
 </section>
