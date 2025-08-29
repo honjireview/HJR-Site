@@ -3,7 +3,8 @@ from . import main_site_bp
 from bot_portal.models.editor_model import EditorModel
 
 
-@main_site_bp.route('/')
+# ИЗМЕНЕН МАРШРУТ
+@main_site_bp.route('/main/')
 def index():
     """
     Обрабатывает главную страницу основного сайта.
@@ -29,8 +30,8 @@ def index():
     return render_template('index.html', latest_reviews=latest_reviews)
 
 
-# --- НОВЫЙ МАРШРУТ ДЛЯ СТРАНИЦЫ "ОБСУЖДАЕМОЕ" ---
-@main_site_bp.route('/discussed')
+# ИЗМЕНЕН МАРШРУТ
+@main_site_bp.route('/community/')
 def discussed():
     """
     Обрабатывает страницу каталога "Обсуждаемое".
@@ -62,7 +63,6 @@ def discussed():
     return render_template('catalog.html',
                            page_title="Обсуждаемое",
                            reviews=discussed_reviews)
-# --- КОНЕЦ НОВОГО МАРШРУТА ---
 
 
 @main_site_bp.route('/contact')
