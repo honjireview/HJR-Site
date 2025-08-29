@@ -18,9 +18,10 @@
         <a href="{{ url_for('main_site.index') }}" class="text-2xl font-bold text-white tracking-wider">HJR</a>
         <nav class="hidden md:flex items-center space-x-8 text-white">
             <a href="{{ url_for('main_site.new_reviews') }}" class="hover:opacity-75 transition-opacity">Новые</a>
-            <a href="#" class="hover:opacity-75 transition-opacity">О нас</a>
+            <a href="{{ url_for('main_site.about') }}" class="hover:opacity-75 transition-opacity">О нас</a>
             <a href="{{ url_for('main_site.discussed') }}" class="hover:opacity-75 transition-opacity">Обсуждаемое</a>
             <a href="{{ url_for('main_site.reviews') }}" class="hover:opacity-75 transition-opacity">Рецензии</a>
+            <a href="{{ url_for('bot_portal.showcase') }}" class="text-indigo-400 hover:opacity-75 transition-opacity">Портал бота</a>
         </nav>
         <a href="#" class="text-white hover:opacity-75 transition-opacity">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -43,7 +44,7 @@
                 <a href="{{ url_for('main_site.new_reviews') }}" class="hover:opacity-75 transition-opacity">Новые</a>
                 <a href="{{ url_for('main_site.discussed') }}" class="hover:opacity-75 transition-opacity">Обсуждаемое</a>
                 <a href="{{ url_for('main_site.reviews') }}" class="hover:opacity-75 transition-opacity">Рецензии</a>
-                <a href="#" class="hover:opacity-75 transition-opacity">О нас</a>
+                <a href="{{ url_for('main_site.about') }}" class="hover:opacity-75 transition-opacity">О нас</a>
             </div>
             <div class="flex items-center space-x-6">
             </div>

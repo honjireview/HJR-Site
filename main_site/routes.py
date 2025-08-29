@@ -135,7 +135,7 @@ def contact():
     return render_template('contact.html')
 
 
-@main_site_bp.route('/about')
+@main_site_bp.route('/main/about/')
 def about():
     """
     Обрабатывает страницу "О нас", загружая список редакторов из БД.
