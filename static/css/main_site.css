@@ -27,16 +27,55 @@ body {
     color: #0E0E10;
 }
 
-/* ИСПРАВЛЕНИЕ: Возвращаем стандартный CSS для заголовков */
 .section-title {
     font-size: 3rem; /* 48px */
     font-weight: 800; /* extrabold */
     color: #EAEAEA;
     line-height: 1;
+    text-align: center;
 }
 
 @media (min-width: 768px) {
     .section-title {
         font-size: 64px;
+        text-align: left;
     }
 }
+
+.page-title {
+    font-size: 3rem; /* 48px */
+    font-weight: 800; /* extrabold */
+    color: #EAEAEA;
+    line-height: 1;
+    text-align: center;
+    tracking-tighter: -0.025em; /* tracking-tighter */
+}
+
+@media (min-width: 640px) {
+    .page-title {
+        font-size: 4.5rem; /* 72px */
+    }
+}
+@media (min-width: 768px) {
+    .page-title {
+        font-size: 6rem; /* 96px */
+    }
+}
+
+
+/* Цвета для жанров */
+.genre-icon-bg {
+    transition: background-color 0.3s ease;
+}
+
+.genre-fantasy .genre-icon-bg { background-color: #2c2a4a; }
+.genre-fantasy:hover .genre-icon-bg { background-color: #3e3b6d; }
+
+.genre-romance .genre-icon-bg { background-color: #4a2a3a; }
+.genre-romance:hover .genre-icon-bg { background-color: #6d3b55; }
+
+.genre-detective .genre-icon-bg { background-color: #2a3f4a; }
+.genre-detective:hover .genre-icon-bg { background-color: #3b5a6d; }
+
+.genre-scifi .genre-icon-bg { background-color: #2a4a3b; }
+.genre-scifi:hover .genre-icon-bg { background-color: #3b6d53; }

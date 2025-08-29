@@ -19,7 +19,7 @@
 
 <section class="py-24">
     <div class="text-center max-w-4xl mx-auto">
-        <h2 class="section-title">Honji Review</h2>
+        <h2 class="section-title text-center">Honji Review</h2>
         <p class="mt-6 text-[#EAEAEA] text-lg leading-relaxed">
             Чтение помогает найти тишину внутри, и мы с радостью делимся этим с тобой.
         </p>
@@ -31,7 +31,7 @@
 </section>
 
 <section class="py-12">
-    <h2 class="section-title mb-12 text-center md:text-left">Новые</h2>
+    <h2 class="section-title mb-12">Новые</h2>
     <div class="space-y-1">
         {% for review in latest_reviews %}
         <div class="flex flex-col md:flex-row items-center justify-between gap-8 py-6 border-b border-[#232325]">
@@ -51,8 +51,8 @@
     <div class="max-w-lg mx-auto">
         <div class="border-y border-[#232325]">
             <div class="pl-0">
-                <a href="#" class="flex items-center space-x-6 p-4 hover:bg-white/10 transition-colors rounded-lg">
-                    <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#18181A] flex-shrink-0">
+                <a href="#" class="genre-fantasy flex items-center space-x-6 p-4 hover:bg-white/5 transition-colors rounded-lg">
+                    <span class="genre-icon-bg flex items-center justify-center w-16 h-16 rounded-full flex-shrink-0">
                         <img src="https://img.icons8.com/ios/50/a9a9a9/magical-scroll.png" alt="Фэнтези" class="w-10 h-10"/>
                     </span>
                     <span class="text-2xl font-bold tracking-widest text-white">ФЭНТЕЗИ</span>
@@ -60,8 +60,8 @@
             </div>
             <div class="border-t border-[#232325]"></div>
             <div class="pl-8">
-                <a href="#" class="flex items-center space-x-6 p-4 hover:bg-white/10 transition-colors rounded-lg">
-                    <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#18181A] flex-shrink-0">
+                <a href="#" class="genre-romance flex items-center space-x-6 p-4 hover:bg-white/5 transition-colors rounded-lg">
+                    <span class="genre-icon-bg flex items-center justify-center w-16 h-16 rounded-full flex-shrink-0">
                         <img src="https://img.icons8.com/ios/50/a9a9a9/like--v1.png" alt="Романтика" class="w-10 h-10"/>
                     </span>
                     <span class="text-2xl font-bold tracking-widest text-white">РОМАНТИКА</span>
@@ -69,8 +69,8 @@
             </div>
             <div class="border-t border-[#232325]"></div>
             <div class="pl-16">
-                <a href="#" class="flex items-center space-x-6 p-4 hover:bg-white/10 transition-colors rounded-lg">
-                    <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#18181A] flex-shrink-0">
+                <a href="#" class="genre-detective flex items-center space-x-6 p-4 hover:bg-white/5 transition-colors rounded-lg">
+                    <span class="genre-icon-bg flex items-center justify-center w-16 h-16 rounded-full flex-shrink-0">
                         <img src="https://img.icons8.com/ios/50/a9a9a9/search--v1.png" alt="Детектив" class="w-10 h-10"/>
                     </span>
                     <span class="text-2xl font-bold tracking-widest text-white">ДЕТЕКТИВ</span>
@@ -78,8 +78,8 @@
             </div>
             <div class="border-t border-[#232325]"></div>
             <div class="pl-12">
-                <a href="#" class="flex items-center space-x-6 p-4 hover:bg-white/10 transition-colors rounded-lg">
-                   <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#18181A] flex-shrink-0">
+                <a href="#" class="genre-scifi flex items-center space-x-6 p-4 hover:bg-white/5 transition-colors rounded-lg">
+                   <span class="genre-icon-bg flex items-center justify-center w-16 h-16 rounded-full flex-shrink-0">
                        <img src="https://img.icons8.com/ios/50/a9a9a9/test-tube.png" alt="Научная литература" class="w-10 h-10"/>
                    </span>
                     <span class="text-2xl font-bold tracking-widest text-white">НАУЧНАЯ ЛИТЕРАТУРА</span>
@@ -91,7 +91,7 @@
 
 <section class="py-12">
     <div class="bg-white/5 backdrop-blur-md rounded-2xl p-6 sm:p-12 text-center border border-white/10">
-        <h2 class="section-title">Начать продвижение</h2>
+        <h2 class="section-title text-center">Начать продвижение</h2>
         <p class="mt-4 text-[#8F8F90]">Напишем рецензию на вашу работу, чтобы она вышла за пределы парти-занского маркетинга.</p>
         <form class="mt-10 max-w-3xl mx-auto flex flex-col md:flex-row gap-6 items-center">
             <input type="text" name="name" placeholder="Name *" class="bg-transparent border-b border-[#313134] w-full py-3 px-1 text-white placeholder-slate-500 focus:outline-none focus:border-white transition">
