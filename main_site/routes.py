@@ -141,14 +141,23 @@ def privacy_policy():
     """
     return render_template('main_site/privacy_policy.html')
 
-# --- НОВЫЙ МАРШРУТ ДЛЯ УСТРАНЕНИЯ ОШИБКИ ---
+@main_site_bp.route('/main/licenses')
+def licenses():
+    """
+    Отображает страницу с информацией о лицензиях и благодарностями.
+    """
+    return render_template('main_site/licenses.html')
+
+@main_site_bp.route('/main/disclaimer')
+def disclaimer():
+    """
+    Отображает страницу "Отказ от ответственности".
+    """
+    return render_template('main_site/disclaimer.html')
+
 @main_site_bp.route('/main/login')
 def login():
     """
     Резервный маршрут для страницы входа.
-    Он просто отображает главную страницу, на которой уже есть
-    HTML-код и JS-логика для модального окна.
     """
-    # Мы можем просто перенаправить на главную, т.к. модал есть везде
     return redirect(url_for('main_site.index'))
-# --- КОНЕЦ ИСПРАВЛЕНИЯ ---

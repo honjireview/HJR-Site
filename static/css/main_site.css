@@ -27,22 +27,17 @@ body {
     color: #0E0E10;
 }
 
-/* ИЗМЕНЕНИЕ: hero-секция теперь занимает минимум 100% высоты экрана */
+/* ИЗМЕНЕНИЕ: Управляем отступом секции для центрирования */
 #hero-section {
-    min-height: 100vh; /* Минимальная высота - полный экран */
-    display: flex; /* Для выравнивания содержимого по центру */
-    flex-direction: column;
-    justify-content: center; /* Центрируем содержимое по вертикали */
-    padding-top: 4rem; /* Оставляем верхний отступ */
-    padding-bottom: 4rem; /* Оставляем нижний отступ */
+    padding-top: 10vh;
+    padding-bottom: 25vh;
 }
 
-/* ИЗМЕНЕНИЕ: Уменьшаем базовый размер заголовков и корректируем для адаптивности */
 .section-title {
     font-size: 2.5rem; /* 40px */
     font-weight: 800; /* extrabold */
     color: #EAEAEA;
-    line-height: 1.1; /* Немного увеличен line-height для лучшей читаемости */
+    line-height: 1.1;
     text-align: center;
 }
 
@@ -58,12 +53,11 @@ body {
     }
 }
 
-
 .page-title {
     font-size: 2.5rem; /* 40px */
     font-weight: 800; /* extrabold */
     color: #EAEAEA;
-    line-height: 1.1; /* Немного увеличен line-height */
+    line-height: 1.1;
     text-align: center;
     letter-spacing: -0.025em; /* tracking-tighter */
 }
@@ -101,15 +95,12 @@ body {
 .genre-scifi .genre-icon-bg { background-color: #2a4a3b; }
 .genre-scifi:hover .genre-icon-bg { background-color: #3b6d53; }
 
-
-/* ИЗМЕНЕНИЕ: Увеличена ширина списка жанров на десктопе */
 @media (min-width: 1024px) {
     #genres-section .max-w-lg {
         max-width: 42rem; /* 672px */
     }
 }
 
-/* ИЗМЕНЕНИЕ: Адаптивный размер для заголовка "Начать продвижение" */
 .promotion-title {
     font-size: 2.5rem; /* 40px */
 }
@@ -127,4 +118,33 @@ body {
     .promotion-title {
         font-size: 4rem; /* 64px */
     }
+}
+
+/* Стили для обновленной страницы "О нас" */
+.about-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem; /* 16px */
+    padding: 2rem; /* 32px */
+    margin-bottom: 2rem; /* 32px */
+}
+
+.about-card h2 {
+    font-size: 1.875rem; /* 30px */
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.about-card p, .about-card ul {
+    color: #EAEAEA;
+    opacity: 0.9;
+}
+
+.about-card h3 {
+    font-size: 1.125rem; /* 18px */
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #EAEAEA;
 }
