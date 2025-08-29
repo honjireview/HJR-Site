@@ -29,6 +29,42 @@ def index():
     return render_template('index.html', latest_reviews=latest_reviews)
 
 
+# --- НОВЫЙ МАРШРУТ ДЛЯ СТРАНИЦЫ "ОБСУЖДАЕМОЕ" ---
+@main_site_bp.route('/discussed')
+def discussed():
+    """
+    Обрабатывает страницу каталога "Обсуждаемое".
+    """
+    # Временные данные из скриншота
+    discussed_reviews = [
+        {
+            "tag": "Популярное",
+            "title": "“Злой король” — трон из лжи, корона из яда",
+            "description": "Мрачная и увлекательная история о магии, борьбе за власть и сложных отношениях, где каждая сила имеет свою цену.",
+            "date": "24.04.2025",
+            "image": "https://cv2.litres.ru/pub/c/pdf-kniga/pages/66710427/p1000.jpg"
+        },
+        {
+            "tag": "Популярное",
+            "title": "«Вкус корней» — зов земли, горечь памяти и шепот прошлого",
+            "description": "Сборник изящных афоризмов о добродетели, страстях и природе человека, в котором древняя мудрость прорастает сквозь повседневность, как корни сквозь камень.",
+            "date": "12.04.2025",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_p_G5ECI2429i2LpB-4daAUNq2oQZ-3G7-A&s"
+        },
+        {
+            "tag": "Популярное",
+            "title": "«Магическая битва» — проклятие в крови, воля сильнее смерти",
+            "description": "Мир, где магия питается болью, чудовища живут в людях, а выживают только те, кто смотрит страху прямо в глаза.",
+            "date": "22.04.2025",
+            "image": "https://m.media-amazon.com/images/I/815uG5t4YVL._AC_UF1000,1000_QL80_.jpg"
+        }
+    ]
+    return render_template('catalog.html',
+                           page_title="Обсуждаемое",
+                           reviews=discussed_reviews)
+# --- КОНЕЦ НОВОГО МАРШРУТА ---
+
+
 @main_site_bp.route('/contact')
 def contact():
     """
