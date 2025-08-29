@@ -3,7 +3,7 @@ from . import main_site_bp
 from bot_portal.models.editor_model import EditorModel
 
 
-@main_site_bp.route('/main/')
+@main_site_bp.route('/main')
 def index():
     """
     Обрабатывает главную страницу основного сайта.
@@ -29,8 +29,7 @@ def index():
     return render_template('index.html', latest_reviews=latest_reviews)
 
 
-# ИЗМЕНЕН МАРШРУТ
-@main_site_bp.route('/main/community/')
+@main_site_bp.route('/main/community')
 def discussed():
     """
     Обрабатывает страницу каталога "Обсуждаемое".
@@ -67,8 +66,7 @@ def discussed():
                            reviews=discussed_reviews)
 
 
-# ИЗМЕНЕН МАРШРУТ
-@main_site_bp.route('/main/reviews/')
+@main_site_bp.route('/main/reviews')
 def reviews():
     """
     Обрабатывает страницу каталога "Рецензии".
@@ -88,9 +86,7 @@ def reviews():
                            reviews=reviews_data)
 
 
-
-# --- НОВЫЙ МАРШРУТ ДЛЯ СТРАНИЦЫ "НОВЫЕ" ---
-@main_site_bp.route('/main/new/')
+@main_site_bp.route('/main/new')
 def new_reviews():
     """
     Обрабатывает страницу каталога "Новые".
@@ -124,18 +120,9 @@ def new_reviews():
     return render_template('catalog.html',
                            page_title="Новые",
                            reviews=new_reviews_data)
-# --- КОНЕЦ НОВОГО МАРШРУТА ---
 
 
-@main_site_bp.route('/contact')
-def contact():
-    """
-    Обрабатывает страницу контактов.
-    """
-    return render_template('contact.html')
-
-
-@main_site_bp.route('/main/about/')
+@main_site_bp.route('/main/about')
 def about():
     """
     Обрабатывает страницу "О нас", загружая список редакторов из БД.
@@ -146,7 +133,7 @@ def about():
     return render_template('about.html', executor=executor, editors=editors)
 
 
-@main_site_bp.route('/privacy-policy')
+@main_site_bp.route('/main/privacy-policy')
 def privacy_policy():
     """
     Обрабатывает страницу политики конфиденциальности.
