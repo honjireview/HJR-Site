@@ -12,7 +12,7 @@
 </head>
 <body class="bg-[#0E0E10] text-[#EAEAEA]">
 
-<div class="max-w-[1440px] mx-auto px-8 md:px-16">
+<div class="max-w-[1440px] mx-auto px-6 sm:px-8 md:px-16">
 
     <header class="py-6 flex justify-between items-center">
         <a href="{{ url_for('main_site.index') }}" class="text-2xl font-bold text-white tracking-wider">HJR</a>
@@ -37,18 +37,17 @@
 </div>
 
 <footer class="mt-24 border-t border-[#232325]">
-    <div class="max-w-[1440px] mx-auto px-8 md:px-16 py-12">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-8">
-            <a href="{{ url_for('main_site.index') }}" class="text-2xl font-bold text-white tracking-wider">HJR</a>
-            <div class="flex items-center space-x-8 text-white">
-                <a href="{{ url_for('main_site.new_reviews') }}" class="hover:opacity-75 transition-opacity">Новые</a>
-                <a href="{{ url_for('main_site.discussed') }}" class="hover:opacity-75 transition-opacity">Обсуждаемое</a>
-                <a href="{{ url_for('main_site.reviews') }}" class="hover:opacity-75 transition-opacity">Рецензии</a>
-                <a href="{{ url_for('main_site.about') }}" class="hover:opacity-75 transition-opacity">О нас</a>
-            </div>
-            <div class="flex items-center space-x-6">
-            </div>
+    <div class="max-w-[1440px] mx-auto px-6 sm:px-8 md:px-16 py-12"> <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+        <a href="{{ url_for('main_site.index') }}" class="text-2xl font-bold text-white tracking-wider">HJR</a>
+        <div class="flex items-center space-x-8 text-white">
+            <a href="{{ url_for('main_site.new_reviews') }}" class="hover:opacity-75 transition-opacity">Новые</a>
+            <a href="{{ url_for('main_site.discussed') }}" class="hover:opacity-75 transition-opacity">Обсуждаемое</a>
+            <a href="{{ url_for('main_site.reviews') }}" class="hover:opacity-75 transition-opacity">Рецензии</a>
+            <a href="{{ url_for('main_site.about') }}" class="hover:opacity-75 transition-opacity">О нас</a>
         </div>
+        <div class="flex items-center space-x-6">
+        </div>
+    </div>
         <div class="mt-8 pt-8 border-t border-[#232325] text-sm text-[#8F8F90] flex flex-col md:flex-row justify-between items-center gap-4">
             <p>&copy; 2025 Honji Review</p>
             <p><a href="{{ url_for('main_site.privacy_policy') }}" class="hover:text-white">Privacy Policy</a></p>

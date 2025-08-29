@@ -10,7 +10,7 @@
             </svg>
             <span>Назад</span>
         </a>
-        <h1 class="text-7xl md:text-8xl font-extrabold text-white tracking-tighter text-center">{{ page_title }}</h1>
+        <h1 class="text-5xl sm:text-7xl md:text-8xl font-extrabold text-white tracking-tighter text-center">{{ page_title }}</h1>
     </div>
 
     <div class="flex items-center space-x-6 mb-12">
@@ -18,7 +18,7 @@
 
     <div class="space-y-12">
         {% for review in reviews %}
-        <div class="flex flex-col md:flex-row gap-8 items-start">
+        <div class="flex flex-col-reverse md:flex-row gap-8 items-start">
             <div class="flex-1 order-2 md:order-1">
                 {% if review.tag_style == 'purple' %}
                 <span class="inline-block text-sm font-bold text-white py-1 px-3 rounded-full bg-purple-600 mb-4">{{ review.tag }}</span>
@@ -37,7 +37,6 @@
     </div>
 
     <div class="text-center mt-16">
-        <button class="bg-white text-[#0E0E10] font-bold py-3 px-8 rounded-full hover:bg-gray-200 transition-colors duration-300 inline-flex items-center justify-center">Загрузить ещё</button>
-    </div>
+        <button class="btn">Загрузить ещё</button> </div>
 </section>
 {% endblock %}
