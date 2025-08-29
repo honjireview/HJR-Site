@@ -3,7 +3,6 @@ from . import main_site_bp
 from bot_portal.models.editor_model import EditorModel
 
 
-# ИЗМЕНЕН МАРШРУТ
 @main_site_bp.route('/main/')
 def index():
     """
@@ -29,8 +28,9 @@ def index():
     ]
     return render_template('index.html', latest_reviews=latest_reviews)
 
+
 # ИЗМЕНЕН МАРШРУТ
-@main_site_bp.route('/community/')
+@main_site_bp.route('/main/community/')
 def discussed():
     """
     Обрабатывает страницу каталога "Обсуждаемое".
@@ -39,6 +39,7 @@ def discussed():
     discussed_reviews = [
         {
             "tag": "Популярное",
+            "tag_style": "gradient", # Стиль для тега
             "title": "“Злой король” — трон из лжи, корона из яда",
             "description": "Мрачная и увлекательная история о магии, борьбе за власть и сложных отношениях, где каждая сила имеет свою цену.",
             "date": "24.04.2025",
@@ -46,6 +47,7 @@ def discussed():
         },
         {
             "tag": "Популярное",
+            "tag_style": "gradient",
             "title": "«Вкус корней» — зов земли, горечь памяти и шепот прошлого",
             "description": "Сборник изящных афоризмов о добродетели, страстях и природе человека, в котором древняя мудрость прорастает сквозь повседневность, как корни сквозь камень.",
             "date": "12.04.2025",
@@ -53,6 +55,7 @@ def discussed():
         },
         {
             "tag": "Популярное",
+            "tag_style": "gradient",
             "title": "«Магическая битва» — проклятие в крови, воля сильнее смерти",
             "description": "Мир, где магия питается болью, чудовища живут в людях, а выживают только те, кто смотрит страху прямо в глаза.",
             "date": "22.04.2025",
@@ -63,7 +66,9 @@ def discussed():
                            page_title="Обсуждаемое",
                            reviews=discussed_reviews)
 
-@main_site_bp.route('/reviews/')
+
+# ИЗМЕНЕН МАРШРУТ
+@main_site_bp.route('/main/reviews/')
 def reviews():
     """
     Обрабатывает страницу каталога "Рецензии".
@@ -81,6 +86,7 @@ def reviews():
     return render_template('catalog.html',
                            page_title="Рецензии",
                            reviews=reviews_data)
+
 
 @main_site_bp.route('/contact')
 def contact():
