@@ -28,8 +28,8 @@ def get_git_commit_hash():
         return None
 
 def get_locale():
-    # Эта функция теперь просто возвращает язык, который мы уже определили в g
-    return g.get('lang_code', 'ru')
+    # Теперь эта функция определяет язык на основе g.lang_code, который будет установлен раньше
+    return g.get('lang_code', request.accept_languages.best_match(LANGUAGES) or 'ru')
 
 def create_app():
     app = Flask(__name__)
@@ -72,38 +72,16 @@ def create_app():
     from bot_portal import bot_portal_bp
     from bot_portal.logs_routes import logs_bp
 
-    app.register_blueprint(main_site_bp, url_prefix='/<lang_code>')
+    # --- ИЗМЕНЕНИЕ: Убираем url_prefix отсюда, он будет внутри блюпринта ---
+    app.register_blueprint(main_site_bp)
     app.register_blueprint(bot_portal_bp, url_prefix='/bot')
     app.register_blueprint(logs_bp, url_prefix='/bot/admin')
 
-    # --- ИЗМЕНЕНИЕ: Полностью переписанная и надежная логика обработки URL ---
-    @app.url_defaults
-    def add_language_code(endpoint, values):
-        # Автоматически добавляем 'lang_code' ко всем URL-адресам 'main_site',
-        # КРОМЕ эндпоинта 'static'
-        if 'lang_code' in values or not g.get('lang_code'):
-            return
-        if endpoint.startswith('main_site.') and endpoint != 'main_site.static':
-            values['lang_code'] = g.lang_code
-
-    @app.url_value_preprocessor
-    def pull_lang_code(endpoint, values):
-        # Извлекаем lang_code из URL и сохраняем его в g для текущего запроса
-        g.lang_code = values.pop('lang_code', None)
-
-    @app.before_request
-    def before_request():
-        # Если lang_code не был извлечен (например, для страниц без префикса),
-        # устанавливаем его на основе "умного" определения или по умолчанию
-        if g.lang_code is None or g.lang_code not in LANGUAGES:
-            g.lang_code = request.accept_languages.best_match(LANGUAGES) or 'ru'
-
+    # --- ИЗМЕНЕНИЕ: Вся сложная логика отсюда удалена ---
     @app.route('/')
     def root_redirect():
-        # Редирект на основе "умного" определения
         best_lang = request.accept_languages.best_match(LANGUAGES) or 'ru'
         return redirect(url_for('main_site.index', lang_code=best_lang))
-    # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
     return app
 
