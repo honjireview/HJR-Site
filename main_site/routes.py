@@ -1,3 +1,4 @@
+# main_site/routes.py
 from flask import render_template
 from . import main_site_bp
 from bot_portal.models.editor_model import EditorModel
@@ -26,7 +27,7 @@ def index():
             "description": "Роман о границах морали, страхе, вине и пути к искуплению в мире, где истина не всегда светла."
         }
     ]
-    return render_template('index.html', latest_reviews=latest_reviews)
+    return render_template('main_site/index.html', latest_reviews=latest_reviews)
 
 
 @main_site_bp.route('/main/community')
@@ -61,7 +62,7 @@ def discussed():
             "image": "https://m.media-amazon.com/images/I/815uG5t4YVL._AC_UF1000,1000_QL80_.jpg"
         }
     ]
-    return render_template('catalog.html',
+    return render_template('main_site/catalog.html',
                            page_title="Обсуждаемое",
                            reviews=discussed_reviews)
 
@@ -81,7 +82,7 @@ def reviews():
             "image": "https://m.media-amazon.com/images/I/815uG5t4YVL._AC_UF1000,1000_QL80_.jpg"
         }
     ]
-    return render_template('catalog.html',
+    return render_template('main_site/catalog.html',
                            page_title="Рецензии",
                            reviews=reviews_data)
 
@@ -117,7 +118,7 @@ def new_reviews():
             "image": "https://img4.labirint.ru/rc/6dc2a118e3322123512e0964205a1e75/220x340/books29/281358/cover.jpg?1563544474"
         }
     ]
-    return render_template('catalog.html',
+    return render_template('main_site/catalog.html',
                            page_title="Новые",
                            reviews=new_reviews_data)
 
@@ -130,7 +131,7 @@ def about():
     all_editors = EditorModel.get_all_editors()
     executor = next((editor for editor in all_editors if editor.get('role') == 'executor'), None)
     editors = [editor for editor in all_editors if editor.get('role') != 'executor']
-    return render_template('about.html', executor=executor, editors=editors)
+    return render_template('main_site/about.html', executor=executor, editors=editors)
 
 
 @main_site_bp.route('/main/privacy-policy')
@@ -138,4 +139,16 @@ def privacy_policy():
     """
     Обрабатывает страницу политики конфиденциальности.
     """
-    return render_template('privacy_policy.html')
+    return render_template('main_site/privacy_policy.html')
+
+# --- НОВЫЙ МАРШРУТ ДЛЯ УСТРАНЕНИЯ ОШИБКИ ---
+@main_site_bp.route('/main/login')
+def login():
+    """
+    Резервный маршрут для страницы входа.
+    Он просто отображает главную страницу, на которой уже есть
+    HTML-код и JS-логика для модального окна.
+    """
+    # Мы можем просто перенаправить на главную, т.к. модал есть везде
+    return redirect(url_for('main_site.index'))
+# --- КОНЕЦ ИСПРАВЛЕНИЯ ---
