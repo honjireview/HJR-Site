@@ -29,7 +29,6 @@ def index():
     ]
     return render_template('index.html', latest_reviews=latest_reviews)
 
-
 # ИЗМЕНЕН МАРШРУТ
 @main_site_bp.route('/community/')
 def discussed():
@@ -64,6 +63,24 @@ def discussed():
                            page_title="Обсуждаемое",
                            reviews=discussed_reviews)
 
+@main_site_bp.route('/reviews/')
+def reviews():
+    """
+    Обрабатывает страницу каталога "Рецензии".
+    """
+    reviews_data = [
+        {
+            "tag": "Новая рецензия",
+            "tag_style": "purple", # Другой стиль для тега
+            "title": "«Магическая битва» — проклятие в крови, воля сильнее смерти",
+            "description": "Мир, где магия питается болью, чудовища живут в людях, а выживают только те, кто смотрит страху прямо в глаза.",
+            "date": "22.04.2025",
+            "image": "https://m.media-amazon.com/images/I/815uG5t4YVL._AC_UF1000,1000_QL80_.jpg"
+        }
+    ]
+    return render_template('catalog.html',
+                           page_title="Рецензии",
+                           reviews=reviews_data)
 
 @main_site_bp.route('/contact')
 def contact():
