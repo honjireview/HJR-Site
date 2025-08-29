@@ -7,10 +7,144 @@ body {
     color: #EAEAEA;
 }
 
-/* УДАЛЕНО НЕРАБОЧЕЕ ПРАВИЛО .btn
-*/
+.btn {
+    background-color: white;
+    color: #0E0E10;
+    font-weight: 700; /* bold */
+    padding-top: 0.6rem;    /* py-2.5, тоньше */
+    padding-bottom: 0.6rem; /* py-2.5, тоньше */
+    padding-left: 8rem;      /* px-32, длиннее */
+    padding-right: 8rem;     /* px-32, длиннее */
+    border-radius: 9999px; /* rounded-full */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
 
-/* БОЛЬШИЕ ЗАГОЛОВКИ (64px) ИЗ FIGMA */
+.btn:hover {
+    background-color: #EAEAEA;
+    color: #0E0E10;
+}
+
+/* ИЗМЕНЕНИЕ: Управляем отступом секции для центрирования */
+#hero-section {
+    padding-top: 10vh;
+    padding-bottom: 25vh;
+}
+
 .section-title {
-    @apply text-5xl md:text-[64px] font-extrabold text-[#EAEAEA] leading-none;
+    font-size: 2.5rem; /* 40px */
+    font-weight: 800; /* extrabold */
+    color: #EAEAEA;
+    line-height: 1.1;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .section-title {
+        font-size: 3.5rem; /* 56px */
+        text-align: left;
+    }
+}
+@media (min-width: 1024px) {
+    .section-title {
+        font-size: 4rem; /* 64px */
+    }
+}
+
+.page-title {
+    font-size: 2.5rem; /* 40px */
+    font-weight: 800; /* extrabold */
+    color: #EAEAEA;
+    line-height: 1.1;
+    text-align: center;
+    letter-spacing: -0.025em; /* tracking-tighter */
+}
+
+@media (min-width: 640px) {
+    .page-title {
+        font-size: 3.5rem; /* 56px */
+    }
+}
+@media (min-width: 768px) {
+    .page-title {
+        font-size: 4.5rem; /* 72px */
+    }
+}
+@media (min-width: 1024px) {
+    .page-title {
+        font-size: 5rem; /* 80px */
+    }
+}
+
+/* Цвета для жанров */
+.genre-icon-bg {
+    transition: background-color 0.3s ease;
+}
+
+.genre-fantasy .genre-icon-bg { background-color: #2c2a4a; }
+.genre-fantasy:hover .genre-icon-bg { background-color: #3e3b6d; }
+
+.genre-romance .genre-icon-bg { background-color: #4a2a3a; }
+.genre-romance:hover .genre-icon-bg { background-color: #6d3b55; }
+
+.genre-detective .genre-icon-bg { background-color: #2a3f4a; }
+.genre-detective:hover .genre-icon-bg { background-color: #3b5a6d; }
+
+.genre-scifi .genre-icon-bg { background-color: #2a4a3b; }
+.genre-scifi:hover .genre-icon-bg { background-color: #3b6d53; }
+
+@media (min-width: 1024px) {
+    #genres-section .max-w-lg {
+        max-width: 42rem; /* 672px */
+    }
+}
+
+.promotion-title {
+    font-size: 2.5rem; /* 40px */
+}
+@media (min-width: 640px) {
+    .promotion-title {
+        font-size: 3rem; /* 48px */
+    }
+}
+@media (min-width: 768px) {
+    .promotion-title {
+        font-size: 3.5rem; /* 56px */
+    }
+}
+@media (min-width: 1024px) {
+    .promotion-title {
+        font-size: 4rem; /* 64px */
+    }
+}
+
+/* Стили для обновленной страницы "О нас" */
+.about-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem; /* 16px */
+    padding: 2rem; /* 32px */
+    margin-bottom: 2rem; /* 32px */
+}
+
+.about-card h2 {
+    font-size: 1.875rem; /* 30px */
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.about-card p, .about-card ul {
+    color: #EAEAEA;
+    opacity: 0.9;
+}
+
+.about-card h3 {
+    font-size: 1.125rem; /* 18px */
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #EAEAEA;
 }

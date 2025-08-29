@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for # ДОБАВЛЕНЫ redirect и url_for
+from flask import Flask, redirect, url_for
 from flask_talisman import Talisman
 from flask_wtf.csrf import CSRFProtect
 import os
@@ -27,8 +27,12 @@ def get_git_commit_hash():
 def create_app():
     app = Flask(__name__)
 
+    # --- ИЗМЕНЕНИЕ: Добавлен URL для SVG в default-src ---
     csp = {
-        'default-src': '\'self\'',
+        'default-src': [
+            '\'self\'',
+            'http://www.w3.org/2000/svg' # Разрешает неймспейс SVG
+        ],
         'script-src': [
             '\'self\'',
             'https://cdn.tailwindcss.com',
@@ -83,11 +87,9 @@ def create_app():
     app.register_blueprint(bot_portal_bp, url_prefix='/bot')
     app.register_blueprint(logs_bp, url_prefix='/bot/admin')
 
-    # --- ДОБАВЛЕНО ПЕРЕНАПРАВЛЕНИЕ ---
     @app.route('/')
     def root_redirect():
         return redirect(url_for('main_site.index'))
-    # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
     return app
 
