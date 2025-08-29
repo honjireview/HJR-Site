@@ -1,6 +1,5 @@
 from flask import Blueprint
 
-# --- ИЗМЕНЕНИЕ: Возвращаемся к стандартному Blueprint ---
 main_site_bp = Blueprint(
     'main_site',
     __name__,
@@ -8,5 +7,4 @@ main_site_bp = Blueprint(
     static_folder='../static'
 )
 
-# Импортируем роуты в самом конце
 from . import routes

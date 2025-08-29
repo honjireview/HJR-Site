@@ -28,7 +28,6 @@ def get_git_commit_hash():
         return None
 
 def get_locale():
-    # This function now correctly prioritizes the URL language code
     if g.get('lang_code') in LANGUAGES:
         return g.lang_code
     return request.accept_languages.best_match(LANGUAGES) or 'ru'
@@ -36,7 +35,6 @@ def get_locale():
 def create_app():
     app = Flask(__name__)
 
-    # --- CSP and other configs remain the same ---
     csp = {
         'default-src': ['\'self\'', 'http://www.w3.org/2000/svg'],
         'script-src': ['\'self\'', 'https://cdn.tailwindcss.com', 'https://telegram.org', '//unpkg.com/alpinejs'],
@@ -46,8 +44,9 @@ def create_app():
         'frame-src': ['https://oauth.telegram.org', 'https://telegram.org']
     }
     Talisman(app, content_security_policy=csp)
+
     csrf = CSRFProtect(app)
-    app.config.update(
+    app.config.from_mapping(
         SECRET_KEY=os.getenv('FLASK_SECRET_KEY', 'a_very_secret_key_for_local_development_only'),
         PERMANENT_SESSION_LIFETIME=timedelta(hours=5),
         COMMIT_HASH=get_git_commit_hash() or 'local',
@@ -55,7 +54,6 @@ def create_app():
     )
     babel.init_app(app, locale_selector=get_locale)
 
-    # --- Telegram Bot and DB init remain the same ---
     HJRBOT_TELEGRAM_TOKEN = os.getenv('HJRBOT_TELEGRAM_TOKEN')
     if HJRBOT_TELEGRAM_TOKEN:
         try:
@@ -72,7 +70,6 @@ def create_app():
         db.init_db_schema()
     db.init_app(app)
 
-    # --- Blueprint registration remains the same ---
     from main_site import main_site_bp
     from bot_portal import bot_portal_bp
     from bot_portal.logs_routes import logs_bp
@@ -81,13 +78,10 @@ def create_app():
     app.register_blueprint(bot_portal_bp, url_prefix='/bot')
     app.register_blueprint(logs_bp, url_prefix='/bot/admin')
 
-
-    # --- ИЗМЕНЕНИЕ: Самая простая и надежная реализация ---
     @app.url_defaults
     def add_language_code(endpoint, values):
         if 'lang_code' in values or not g.get('lang_code'):
             return
-        # If the endpoint is part of the 'main_site' blueprint and not 'static'
         if endpoint.startswith('main_site.') and endpoint != 'main_site.static':
             values['lang_code'] = g.lang_code
 
@@ -97,14 +91,13 @@ def create_app():
 
     @app.before_request
     def before_request():
-        if g.get('lang_code') is None:
+        if g.get('lang_code') not in LANGUAGES:
             g.lang_code = request.accept_languages.best_match(LANGUAGES) or 'ru'
 
     @app.route('/')
     def root_redirect():
         best_lang = request.accept_languages.best_match(LANGUAGES) or 'ru'
         return redirect(url_for('main_site.index', lang_code=best_lang))
-    # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
     return app
 
