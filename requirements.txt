@@ -6,3 +6,4 @@ pyTelegramBotAPI
 google-generativeai
 Flask-WTF
 flask-talisman
+Flask-Babel

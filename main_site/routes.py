@@ -4,7 +4,7 @@ from . import main_site_bp
 from bot_portal.models.editor_model import EditorModel
 
 
-@main_site_bp.route('/main')
+@main_site_bp.route('/')
 def index():
     """
     Обрабатывает главную страницу основного сайта.
@@ -30,7 +30,7 @@ def index():
     return render_template('main_site/index.html', latest_reviews=latest_reviews)
 
 
-@main_site_bp.route('/main/community')
+@main_site_bp.route('/community')
 def discussed():
     """
     Обрабатывает страницу каталога "Обсуждаемое".
@@ -67,7 +67,7 @@ def discussed():
                            reviews=discussed_reviews)
 
 
-@main_site_bp.route('/main/reviews')
+@main_site_bp.route('/reviews')
 def reviews():
     """
     Обрабатывает страницу каталога "Рецензии".
@@ -87,7 +87,7 @@ def reviews():
                            reviews=reviews_data)
 
 
-@main_site_bp.route('/main/new')
+@main_site_bp.route('/new')
 def new_reviews():
     """
     Обрабатывает страницу каталога "Новые".
@@ -123,7 +123,7 @@ def new_reviews():
                            reviews=new_reviews_data)
 
 
-@main_site_bp.route('/main/about')
+@main_site_bp.route('/about')
 def about():
     """
     Обрабатывает страницу "О нас", загружая список редакторов из БД.
@@ -134,37 +134,35 @@ def about():
     return render_template('main_site/about.html', executor=executor, editors=editors)
 
 
-@main_site_bp.route('/main/privacy-policy')
+@main_site_bp.route('/privacy-policy')
 def privacy_policy():
     """
     Обрабатывает страницу политики конфиденциальности.
     """
     return render_template('main_site/privacy_policy.html')
 
-@main_site_bp.route('/main/licenses')
+@main_site_bp.route('/licenses')
 def licenses():
     """
     Отображает страницу с информацией о лицензиях и благодарностями.
     """
     return render_template('main_site/licenses.html')
 
-@main_site_bp.route('/main/disclaimer')
+@main_site_bp.route('/disclaimer')
 def disclaimer():
     """
     Отображает страницу "Отказ от ответственности".
     """
     return render_template('main_site/disclaimer.html')
 
-# --- НАЧАЛО ИЗМЕНЕНИЙ: Новый маршрут для страницы "Правила сообщества" ---
-@main_site_bp.route('/main/community-rules')
+@main_site_bp.route('/community-rules')
 def community_rules():
     """
     Отображает страницу "Правила сообщества".
     """
     return render_template('main_site/community_rules.html')
-# --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
-@main_site_bp.route('/main/login')
+@main_site_bp.route('/login')
 def login():
     """
     Резервный маршрут для страницы входа.

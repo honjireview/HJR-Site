@@ -2,50 +2,50 @@
 
 <div id="auth-modal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#18181A] p-10 rounded-2xl w-full max-w-md z-50 hidden text-center">
     <div id="login-view">
-        <h2 class="text-5xl font-bold text-white mb-8">Вход</h2>
+        <h2 class="text-5xl font-bold text-white mb-8">{{ _('Вход') }}</h2>
         <div class="space-y-4">
             <button class="w-full flex items-center justify-center gap-3 py-3 px-4 bg-[#232325] rounded-lg hover:bg-slate-700 transition">
                 <svg class="w-6 h-6" fill="#FFFFFF" viewBox="0 0 24 24"><path d="M22,12c0-5.52-4.48-10-10-10S2,6.48,2,12c0,4.99,3.66,9.13,8.44,9.88v-7.01H7.89v-2.87h2.55V9.95c0-2.52,1.5-3.92,3.81-3.92c1.1,0,2.24,0.2,2.24,0.2v2.46h-1.29c-1.25,0-1.66,0.78-1.66,1.59v1.88h2.78l-0.45,2.87h-2.33v7.01C18.34,21.13,22,16.99,22,12z"/></svg>
-                <span>Войти через Facebook</span>
+                <span>{{ _('Войти через Facebook') }}</span>
             </button>
             <button class="w-full flex items-center justify-center gap-3 py-3 px-4 bg-[#232325] rounded-lg hover:bg-slate-700 transition">
                 <svg class="w-6 h-6" fill="#FFFFFF" viewBox="0 0 48 48"><path d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/></svg>
-                <span>Войти через Google</span>
+                <span>{{ _('Войти через Google') }}</span>
             </button>
         </div>
-        <p class="my-6 text-slate-400">или</p>
+        <p class="my-6 text-slate-400">{{ _('или') }}</p>
         <form action="#" class="space-y-6">
-            <input type="email" placeholder="Электронная почта" class="w-full py-3 px-4 bg-[#232325] rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-            <input type="password" placeholder="Пароль" class="w-full py-3 px-4 bg-[#232325] rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-            <button type="submit" class="w-full py-3 px-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition">Войти</button>
+            <input type="email" placeholder="{{ _('Электронная почта') }}" class="w-full py-3 px-4 bg-[#232325] rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+            <input type="password" placeholder="{{ _('Пароль') }}" class="w-full py-3 px-4 bg-[#232325] rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+            <button type="submit" class="w-full py-3 px-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition">{{ _('Войти') }}</button>
         </form>
         <div class="mt-6 text-sm text-slate-400">
-            <a href="#" class="hover:text-white transition">Забыли пароль?</a>
-            <p class="mt-2">Ещё нет аккаунта? <a href="#" id="show-register-view" class="font-bold text-white hover:underline">Зарегистрироваться</a></p>
+            <a href="#" class="hover:text-white transition">{{ _('Забыли пароль?') }}</a>
+            <p class="mt-2">{{ _('Ещё нет аккаунта?') }} <a href="#" id="show-register-view" class="font-bold text-white hover:underline">{{ _('Зарегистрироваться') }}</a></p>
         </div>
     </div>
 
     <div id="register-view" class="hidden">
-        <h2 class="text-5xl font-bold text-white mb-8">Регистрация</h2>
+        <h2 class="text-5xl font-bold text-white mb-8">{{ _('Регистрация') }}</h2>
         <div class="space-y-4">
             <button class="w-full flex items-center justify-center gap-3 py-3 px-4 bg-[#232325] rounded-lg hover:bg-slate-700 transition">
                 <svg class="w-6 h-6" fill="#FFFFFF" viewBox="0 0 24 24"><path d="M22,12c0-5.52-4.48-10-10-10S2,6.48,2,12c0,4.99,3.66,9.13,8.44,9.88v-7.01H7.89v-2.87h2.55V9.95c0-2.52,1.5-3.92,3.81-3.92c1.1,0,2.24,0.2,2.24,0.2v2.46h-1.29c-1.25,0-1.66,0.78-1.66,1.59v1.88h2.78l-0.45,2.87h-2.33v7.01C18.34,21.13,22,16.99,22,12z"/></svg>
-                <span>Войти через Facebook</span>
+                <span>{{ _('Войти через Facebook') }}</span>
             </button>
             <button class="w-full flex items-center justify-center gap-3 py-3 px-4 bg-[#232325] rounded-lg hover:bg-slate-700 transition">
                 <svg class="w-6 h-6" fill="#FFFFFF" viewBox="0 0 48 48"><path d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/></svg>
-                <span>Войти через Google</span>
+                <span>{{ _('Войти через Google') }}</span>
             </button>
         </div>
-        <p class="my-6 text-slate-400">или</p>
+        <p class="my-6 text-slate-400">{{ _('или') }}</p>
         <form action="#" class="space-y-6">
-            <input type="email" placeholder="Электронная почта" class="w-full py-3 px-4 bg-[#232325] rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-            <input type="password" placeholder="Пароль" class="w-full py-3 px-4 bg-[#232325] rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-            <input type="password" placeholder="Подтвердить пароль" class="w-full py-3 px-4 bg-[#232325] rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-            <button type="submit" class="w-full py-3 px-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition">Войти</button>
+            <input type="email" placeholder="{{ _('Электронная почта') }}" class="w-full py-3 px-4 bg-[#232325] rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+            <input type="password" placeholder="{{ _('Пароль') }}" class="w-full py-3 px-4 bg-[#232325] rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+            <input type="password" placeholder="{{ _('Подтвердить пароль') }}" class="w-full py-3 px-4 bg-[#232325] rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+            <button type="submit" class="w-full py-3 px-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition">{{ _('Войти') }}</button>
         </form>
         <div class="mt-6 text-sm text-slate-400">
-            <p class="mt-2">Уже есть аккаунт? <a href="#" id="show-login-view" class="font-bold text-white hover:underline">Войти</a></p>
+            <p class="mt-2">{{ _('Уже есть аккаунт?') }} <a href="#" id="show-login-view" class="font-bold text-white hover:underline">{{ _('Войти') }}</a></p>
         </div>
     </div>
 </div>
