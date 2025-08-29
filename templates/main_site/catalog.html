@@ -4,13 +4,13 @@
 {% block content %}
 <section class="py-12">
     <div class="mb-12">
-        <a href="{{ url_for('main_site.index') }}" class="flex items-center space-x-2 text-[#8F8F90] hover:text-white transition-colors mb-6">
+        <a href="{{ url_for('main_site.index') }}" class="flex items-center space-x-2 text-[#8F8F90] hover:text-white transition-colors mb-6 w-fit">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
             </svg>
             <span>Назад</span>
         </a>
-        <h1 class="text-7xl md:text-8xl font-extrabold text-white tracking-tighter">{{ page_title }}</h1>
+        <h1 class="text-7xl md:text-8xl font-extrabold text-white tracking-tighter text-center">{{ page_title }}</h1>
     </div>
 
     <div class="flex items-center space-x-6 mb-12">
@@ -32,7 +32,7 @@
         {% for review in reviews %}
         <div class="flex flex-col md:flex-row gap-8 items-start">
             <div class="flex-1 order-2 md:order-1">
-                <span class="inline-block text-sm font-bold text-white py-1 px-3 rounded-full bg-gradient-to-r from-purple-500 to-indigo-600 mb-4">{{ review.tag }}</span>
+                <span class="inline-block text-sm font-bold text-pink-100 py-1 px-3 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 mb-4">{{ review.tag }}</span>
                 <h2 class="text-4xl font-bold text-white mb-4">{{ review.title }}</h2>
                 <p class="text-[#EAEAEA] mb-8 max-w-xl">{{ review.description }}</p>
                 <p class="text-[#8F8F90] font-mono text-sm">{{ review.date }}</p>
