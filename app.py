@@ -28,11 +28,8 @@ def get_git_commit_hash():
         return None
 
 def get_locale():
-    # Эта функция определяет язык для текущего запроса.
-    # Она приоритезирует код языка из URL.
-    if 'lang_code' in g and g.lang_code in LANGUAGES:
+    if g.get('lang_code') in LANGUAGES:
         return g.lang_code
-    # В противном случае, использует настройки браузера или язык по умолчанию.
     return request.accept_languages.best_match(LANGUAGES) or 'ru'
 
 def create_app():
@@ -77,7 +74,8 @@ def create_app():
     from bot_portal import bot_portal_bp
     from bot_portal.logs_routes import logs_bp
 
-    app.register_blueprint(main_site_bp, url_prefix='/<lang_code>')
+    # --- ИЗМЕНЕНИЕ: Добавляем /main к префиксу URL ---
+    app.register_blueprint(main_site_bp, url_prefix='/<lang_code>/main')
     app.register_blueprint(static_bp)
     app.register_blueprint(bot_portal_bp, url_prefix='/bot')
     app.register_blueprint(logs_bp, url_prefix='/bot/admin')
@@ -94,6 +92,7 @@ def create_app():
     @app.route('/')
     def root_redirect():
         best_lang = request.accept_languages.best_match(LANGUAGES) or 'ru'
+        # Эта функция автоматически сгенерирует правильный URL: /<best_lang>/main/
         return redirect(url_for('main_site.index', lang_code=best_lang))
 
     return app

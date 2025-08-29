@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Honji Review{% endblock %}</title>
-    <!-- ИЗМЕНЕНИЕ: Используем новый эндпоинт 'main_site_static.static' -->
     <link rel="icon" href="{{ url_for('main_site_static.static', filename='images/favicon.png') }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ url_for('main_site_static.static', filename='images/favicon.png') }}" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,7 +15,7 @@
 <div class="max-w-[1440px] mx-auto px-6 sm:px-8 md:px-16">
 
     <header class="py-6 flex justify-between items-center">
-        <a href="{{ url_for('main_site.index', lang_code=g.lang_code) }}" class="texat-2xl font-bold text-white tracking-wider">HJR</a>
+        <a href="{{ url_for('main_site.index', lang_code=g.lang_code) }}" class="text-2xl font-bold text-white tracking-wider">HJR</a>
 
         <div class="flex items-center gap-x-8">
             <nav class="hidden md:flex items-center space-x-8 text-white">
@@ -82,9 +81,7 @@
 {% include 'main_site/main_login.html' %}
 
 {% block body_js %}{% endblock %}
-<!-- AlpineJS для работы переключателя языков -->
 <script src="//unpkg.com/alpinejs" defer></script>
-<!-- ИЗМЕНЕНИЕ: Используем новый эндпоинт для статики -->
 <script src="{{ url_for('main_site_static.static', filename='js/main_login.js') }}"></script>
 </body>
 </html>
