@@ -27,6 +27,12 @@ body {
     color: #0E0E10;
 }
 
+/* ИЗМЕНЕНИЕ: Увеличен отступ снизу для hero-секции */
+#hero-section {
+    padding-bottom: 12rem; /* 192px */
+}
+
+
 .section-title {
     font-size: 3rem; /* 48px */
     font-weight: 800; /* extrabold */
@@ -48,7 +54,7 @@ body {
     color: #EAEAEA;
     line-height: 1;
     text-align: center;
-    tracking-tighter: -0.025em; /* tracking-tighter */
+    letter-spacing: -0.025em; /* tracking-tighter */
 }
 
 @media (min-width: 640px) {
@@ -79,3 +85,26 @@ body {
 
 .genre-scifi .genre-icon-bg { background-color: #2a4a3b; }
 .genre-scifi:hover .genre-icon-bg { background-color: #3b6d53; }
+
+
+/* ИЗМЕНЕНИЕ: Увеличена ширина списка жанров на десктопе */
+@media (min-width: 1024px) {
+    #genres-section .max-w-lg {
+        max-width: 42rem; /* 672px */
+    }
+}
+
+/* ИЗМЕНЕНИЕ: Адаптивный размер для заголовка "Начать продвижение" */
+.promotion-title {
+    font-size: 2.5rem; /* 40px */
+}
+@media (min-width: 640px) {
+    .promotion-title {
+        font-size: 3rem; /* 48px */
+    }
+}
+@media (min-width: 768px) {
+    .promotion-title {
+        font-size: 64px;
+    }
+}
