@@ -7,10 +7,28 @@ body {
     color: #EAEAEA;
 }
 
-/* УДАЛЕНО НЕРАБОЧЕЕ ПРАВИЛО .btn
-*/
+/* ИЗМЕНЕНИЕ: Стиль для кнопок, чтобы они были длиннее и с более заметным ховером */
+.btn {
+    background-color: white;
+    color: #0E0E10;
+    font-weight: 700; /* bold */
+    padding-top: 0.75rem; /* py-3 */
+    padding-bottom: 0.75rem; /* py-3 */
+    padding-left: 3rem; /* px-12 - длиннее */
+    padding-right: 3rem; /* px-12 - длиннее */
+    border-radius: 9999px; /* rounded-full */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
 
-/* БОЛЬШИЕ ЗАГОЛОВКИ (64px) ИЗ FIGMA */
+.btn:hover {
+    background-color: #D1D5DB; /* gray-300 - более заметный оттенок */
+}
+
+
+/* БОЛЬШШИЕ ЗАГОЛОВКИ (64px) ИЗ FIGMA */
 .section-title {
     @apply text-5xl md:text-[64px] font-extrabold text-[#EAEAEA] leading-none;
 }
