@@ -28,8 +28,11 @@ def get_git_commit_hash():
         return None
 
 def get_locale():
+    # Эта функция определяет язык для текущего запроса.
+    # Она приоритезирует код языка из URL.
     if g.get('lang_code') in LANGUAGES:
         return g.lang_code
+    # В противном случае, использует настройки браузера или язык по умолчанию.
     return request.accept_languages.best_match(LANGUAGES) or 'ru'
 
 def create_app():
@@ -82,20 +85,25 @@ def create_app():
     def add_language_code(endpoint, values):
         if 'lang_code' in values or not g.get('lang_code'):
             return
+        # Эта проверка является КЛЮЧЕВОЙ. Она добавляет язык ко всем ссылкам main_site,
+        # но ЯВНО ИСКЛЮЧАЕТ ссылки на статические файлы.
         if endpoint.startswith('main_site.') and endpoint != 'main_site.static':
             values['lang_code'] = g.lang_code
 
     @app.url_value_preprocessor
     def pull_lang_code(endpoint, values):
+        # Извлекаем язык из URL и сохраняем его для этого запроса.
         g.lang_code = values.pop('lang_code', None) if values else None
 
     @app.before_request
     def before_request():
+        # Убеждаемся, что язык определен для каждого запроса.
         if g.get('lang_code') not in LANGUAGES:
             g.lang_code = request.accept_languages.best_match(LANGUAGES) or 'ru'
 
     @app.route('/')
     def root_redirect():
+        # Перенаправляем на главную страницу с языком браузера.
         best_lang = request.accept_languages.best_match(LANGUAGES) or 'ru'
         return redirect(url_for('main_site.index', lang_code=best_lang))
 
