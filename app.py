@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, request, g, session
+from flask import Flask, redirect, url_for, request, g
 from flask_talisman import Talisman
 from flask_wtf.csrf import CSRFProtect
 from flask_babel import Babel
@@ -28,11 +28,15 @@ def get_git_commit_hash():
         return None
 
 def get_locale():
-    return g.get('lang_code', 'ru')
+    # This function now correctly prioritizes the URL language code
+    if g.get('lang_code') in LANGUAGES:
+        return g.lang_code
+    return request.accept_languages.best_match(LANGUAGES) or 'ru'
 
 def create_app():
     app = Flask(__name__)
 
+    # --- CSP and other configs remain the same ---
     csp = {
         'default-src': ['\'self\'', 'http://www.w3.org/2000/svg'],
         'script-src': ['\'self\'', 'https://cdn.tailwindcss.com', 'https://telegram.org', '//unpkg.com/alpinejs'],
@@ -42,14 +46,16 @@ def create_app():
         'frame-src': ['https://oauth.telegram.org', 'https://telegram.org']
     }
     Talisman(app, content_security_policy=csp)
-
     csrf = CSRFProtect(app)
-    app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'a_very_secret_key_for_local_development_only')
-    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=5)
-    app.config['COMMIT_HASH'] = get_git_commit_hash() or 'local'
-    app.config['BABEL_DEFAULT_LOCALE'] = 'ru'
+    app.config.update(
+        SECRET_KEY=os.getenv('FLASK_SECRET_KEY', 'a_very_secret_key_for_local_development_only'),
+        PERMANENT_SESSION_LIFETIME=timedelta(hours=5),
+        COMMIT_HASH=get_git_commit_hash() or 'local',
+        BABEL_DEFAULT_LOCALE='ru'
+    )
     babel.init_app(app, locale_selector=get_locale)
 
+    # --- Telegram Bot and DB init remain the same ---
     HJRBOT_TELEGRAM_TOKEN = os.getenv('HJRBOT_TELEGRAM_TOKEN')
     if HJRBOT_TELEGRAM_TOKEN:
         try:
@@ -64,33 +70,34 @@ def create_app():
 
     with app.app_context():
         db.init_db_schema()
-
     db.init_app(app)
 
+    # --- Blueprint registration remains the same ---
     from main_site import main_site_bp
     from bot_portal import bot_portal_bp
     from bot_portal.logs_routes import logs_bp
 
-    # --- ИЗМЕНЕНИЕ: Регистрируем блюпринт с префиксом ---
     app.register_blueprint(main_site_bp, url_prefix='/<lang_code>')
     app.register_blueprint(bot_portal_bp, url_prefix='/bot')
     app.register_blueprint(logs_bp, url_prefix='/bot/admin')
 
-    # --- ИЗМЕНЕНИЕ: Упрощенная и корректная логика ---
+
+    # --- ИЗМЕНЕНИЕ: Самая простая и надежная реализация ---
     @app.url_defaults
     def add_language_code(endpoint, values):
         if 'lang_code' in values or not g.get('lang_code'):
             return
-        if app.url_map.is_endpoint_prefixed(endpoint, 'main_site'):
+        # If the endpoint is part of the 'main_site' blueprint and not 'static'
+        if endpoint.startswith('main_site.') and endpoint != 'main_site.static':
             values['lang_code'] = g.lang_code
 
     @app.url_value_preprocessor
     def pull_lang_code(endpoint, values):
-        g.lang_code = values.pop('lang_code', None)
+        g.lang_code = values.pop('lang_code', None) if values else None
 
     @app.before_request
     def before_request():
-        if g.get('lang_code') not in LANGUAGES:
+        if g.get('lang_code') is None:
             g.lang_code = request.accept_languages.best_match(LANGUAGES) or 'ru'
 
     @app.route('/')
