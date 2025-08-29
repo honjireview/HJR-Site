@@ -7,15 +7,15 @@ body {
     color: #EAEAEA;
 }
 
-/* ИЗМЕНЕНИЕ: Кнопка сделана еще длиннее */
+/* ИЗМЕНЕНИЕ: Кнопка сделана тоньше и длиннее */
 .btn {
     background-color: white;
     color: #0E0E10;
     font-weight: 700; /* bold */
-    padding-top: 1rem; /* py-4 */
-    padding-bottom: 1rem; /* py-4 */
-    padding-left: 4.5rem; /* px-18, еще длиннее */
-    padding-right: 4.5rem; /* px-18, еще длиннее */
+    padding-top: 0.75rem;    /* py-3, тоньше */
+    padding-bottom: 0.75rem; /* py-3, тоньше */
+    padding-left: 5rem;      /* px-20, еще длиннее */
+    padding-right: 5rem;     /* px-20, еще длиннее */
     border-radius: 9999px; /* rounded-full */
     display: inline-flex;
     align-items: center;
@@ -27,8 +27,67 @@ body {
     background-color: #D1D5DB; /* gray-300 - более заметный оттенок */
 }
 
+/* --- НОВЫЕ СТИЛИ ДЛЯ БЛОКА "ЖАНРЫ" --- */
+.genre-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+    height: 90px;
+    width: fit-content; /* Ширина по содержимому */
+    position: relative; /* Для позиционирования разделителей */
+    padding-top: 2.5rem; /* 40px */
+    padding-bottom: 2.5rem; /* 40px */
+}
 
-/* БОЛЬШШИЕ ЗАГОЛОВКИ (64px) ИЗ FIGMA */
-.section-title {
-    @apply text-5xl md:text-[64px] font-extrabold text-[#EAEAEA] leading-none;
+.genre-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 170px;
+    height: 90px;
+    border-radius: 40px;
+    flex-shrink: 0; /* Не сжиматься */
+}
+
+.genre-text {
+    font-family: 'AA Stetica', 'Manrope', sans-serif; /* AA Stetica как основной, Manrope как запасной */
+    font-style: normal;
+    font-weight: 400;
+    font-size: 60px; /* Адаптивный размер будет ниже */
+    line-height: 70px;
+    text-transform: uppercase;
+    color: rgba(250, 250, 250, 0.5);
+    white-space: nowrap; /* Запрет переноса текста */
+}
+
+/* Адаптивность для текста жанров */
+@media (max-width: 768px) {
+    .genre-text {
+        font-size: 40px;
+        line-height: 50px;
+    }
+    .genre-item {
+        gap: 20px;
+    }
+}
+@media (max-width: 640px) {
+    .genre-text {
+        font-size: 32px;
+        line-height: 40px;
+    }
+}
+
+
+/* Уникальные цвета для иконок */
+.genre-icon-fantasy { background-color: #1A1F3B; }
+.genre-icon-romance { background-color: #3A1F29; }
+.genre-icon-detective { background-color: #2B1E1E; }
+.genre-icon-science { background-color: #1B2A2F; }
+
+/* Линии-разделители */
+.genre-separator {
+    width: 100%;
+    height: 1px;
+    border-top: 1px solid rgba(250, 250, 250, 0.2);
 }
