@@ -7,15 +7,15 @@ body {
     color: #EAEAEA;
 }
 
-/* ИЗМЕНЕНИЕ: Стиль для кнопок, чтобы они были еще длиннее и с более заметным ховером */
+/* ИЗМЕНЕНИЕ: Кнопка сделана еще длиннее */
 .btn {
     background-color: white;
     color: #0E0E10;
     font-weight: 700; /* bold */
-    padding-top: 1rem; /* py-4, немного больше */
-    padding-bottom: 1rem; /* py-4, немного больше */
-    padding-left: 3.5rem; /* px-14, еще длиннее */
-    padding-right: 3.5rem; /* px-14, еще длиннее */
+    padding-top: 1rem; /* py-4 */
+    padding-bottom: 1rem; /* py-4 */
+    padding-left: 4.5rem; /* px-18, еще длиннее */
+    padding-right: 4.5rem; /* px-18, еще длиннее */
     border-radius: 9999px; /* rounded-full */
     display: inline-flex;
     align-items: center;
