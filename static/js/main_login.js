@@ -1,3 +1,4 @@
+// static/js/main_login.js
 document.addEventListener('DOMContentLoaded', () => {
     const userIcon = document.getElementById('user-icon');
     const overlay = document.getElementById('auth-modal-overlay');
@@ -27,11 +28,18 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     userIcon.addEventListener('click', (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Отменяем стандартное поведение ссылки
         openModal();
     });
 
     overlay.addEventListener('click', closeModal);
+
+    // Добавим закрытие по клавише Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === "Escape" && !modal.classList.contains('hidden')) {
+            closeModal();
+        }
+    });
 
     showRegisterBtn.addEventListener('click', (e) => {
         e.preventDefault();
