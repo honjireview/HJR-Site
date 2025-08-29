@@ -28,7 +28,12 @@ def get_git_commit_hash():
         return None
 
 def get_locale():
-    return g.get('lang_code', request.accept_languages.best_match(LANGUAGES) or 'ru')
+    # Эта функция определяет язык для текущего запроса.
+    # Она приоритезирует код языка из URL.
+    if 'lang_code' in g and g.lang_code in LANGUAGES:
+        return g.lang_code
+    # В противном случае, использует настройки браузера или язык по умолчанию.
+    return request.accept_languages.best_match(LANGUAGES) or 'ru'
 
 def create_app():
     app = Flask(__name__)
@@ -53,7 +58,6 @@ def create_app():
     babel.init_app(app, locale_selector=get_locale)
 
     HJRBOT_TELEGRAM_TOKEN = os.getenv('HJRBOT_TELEGRAM_TOKEN')
-    # ... (код инициализации TG бота и DB остается без изменений) ...
     if HJRBOT_TELEGRAM_TOKEN:
         try:
             temp_bot = telebot.TeleBot(HJRBOT_TELEGRAM_TOKEN)
@@ -69,6 +73,7 @@ def create_app():
         db.init_db_schema()
     db.init_app(app)
 
+    # --- ИЗМЕНЕНИЕ: Импортируем оба блюпринта ---
     from main_site import main_site_bp, static_bp
     from bot_portal import bot_portal_bp
     from bot_portal.logs_routes import logs_bp
@@ -80,15 +85,18 @@ def create_app():
 
     @app.url_value_preprocessor
     def pull_lang_code(endpoint, values):
+        # Извлекаем язык из URL и сохраняем его для этого запроса.
         g.lang_code = values.pop('lang_code', None) if values else None
 
     @app.before_request
     def before_request():
-        if not g.get('lang_code'):
+        # Убеждаемся, что язык определен для каждого запроса.
+        if g.get('lang_code') is None:
             g.lang_code = request.accept_languages.best_match(LANGUAGES) or 'ru'
 
     @app.route('/')
     def root_redirect():
+        # Перенаправляем на главную страницу с языком браузера.
         best_lang = request.accept_languages.best_match(LANGUAGES) or 'ru'
         return redirect(url_for('main_site.index', lang_code=best_lang))
 
