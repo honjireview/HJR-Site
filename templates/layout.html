@@ -34,8 +34,8 @@
                     <span>{{ g.lang_code.upper() if g.lang_code else 'RU' }}</span>
                 </button>
                 <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 py-2 w-20 bg-slate-800 rounded-md shadow-xl z-20" style="display: none;">
-                    <a href="{{ request.path.replace('/' + g.lang_code, '/ru') if g.lang_code else '/ru' + request.path }}" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-700">RU</a>
-                    <a href="{{ request.path.replace('/' + g.lang_code, '/en') if g.lang_code else '/en' + request.path }}" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-700">EN</a>
+                    <a href="{{ url_for(request.endpoint, lang_code='ru', **request.view_args) }}" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-700">RU</a>
+                    <a href="{{ url_for(request.endpoint, lang_code='en', **request.view_args) }}" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-700">EN</a>
                 </div>
             </div>
 

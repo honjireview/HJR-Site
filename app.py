@@ -79,11 +79,8 @@ def create_app():
 
     @app.url_defaults
     def add_language_code(endpoint, values):
-        # --- ИЗМЕНЕНИЕ: Заменена устаревшая функция ---
-        # Проверяем, относится ли endpoint к блюпринту 'main_site'
-        if 'lang_code' not in values and g.get('lang_code') and endpoint.startswith('main_site.'):
+        if 'lang_code' not in values and g.get('lang_code') and endpoint and endpoint.startswith('main_site.'):
             values['lang_code'] = g.lang_code
-        # --- КОНЕЦ ИЗМЕНЕНИЯ ---
 
     @app.url_value_preprocessor
     def pull_lang_code(endpoint, values):
@@ -98,6 +95,7 @@ def create_app():
 
     @app.route('/')
     def root_redirect():
+        # --- ИЗМЕНЕНИЕ: Возвращаем "умный" редирект на основе языка браузера ---
         best_lang = request.accept_languages.best_match(LANGUAGES) or 'ru'
         return redirect(url_for('main_site.index', lang_code=best_lang))
 
