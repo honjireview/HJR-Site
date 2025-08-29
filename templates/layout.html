@@ -7,9 +7,7 @@
     <link rel="icon" href="{{ url_for('main_site.static', filename='images/favicon.png') }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ url_for('main_site.static', filename='images/favicon.png') }}" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
-
     <link rel="stylesheet" href="{{ url_for('main_site.static', filename='css/main_site.css') }}">
-
     {% block head_css %}{% endblock %}
 </head>
 <body class="bg-[#0E0E10] text-[#EAEAEA]">
@@ -19,7 +17,7 @@
     <header class="py-6 flex justify-between items-center">
         <a href="{{ url_for('main_site.index') }}" class="text-2xl font-bold text-white tracking-wider">HJR</a>
         <nav class="hidden md:flex items-center space-x-8 text-white">
-            <a href="#" class="hover:opacity-75 transition-opacity">Новые</a>
+            <a href="{{ url_for('main_site.new_reviews') }}" class="hover:opacity-75 transition-opacity">Новые</a>
             <a href="#" class="hover:opacity-75 transition-opacity">О нас</a>
             <a href="{{ url_for('main_site.discussed') }}" class="hover:opacity-75 transition-opacity">Обсуждаемое</a>
             <a href="{{ url_for('main_site.reviews') }}" class="hover:opacity-75 transition-opacity">Рецензии</a>
@@ -42,15 +40,12 @@
         <div class="flex flex-col md:flex-row justify-between items-center gap-8">
             <a href="{{ url_for('main_site.index') }}" class="text-2xl font-bold text-white tracking-wider">HJR</a>
             <div class="flex items-center space-x-8 text-white">
-                <a href="#" class="hover:opacity-75 transition-opacity">Новые</a>
+                <a href="{{ url_for('main_site.new_reviews') }}" class="hover:opacity-75 transition-opacity">Новые</a>
                 <a href="{{ url_for('main_site.discussed') }}" class="hover:opacity-75 transition-opacity">Обсуждаемое</a>
                 <a href="{{ url_for('main_site.reviews') }}" class="hover:opacity-75 transition-opacity">Рецензии</a>
                 <a href="#" class="hover:opacity-75 transition-opacity">О нас</a>
             </div>
             <div class="flex items-center space-x-6">
-                <a href="#" class="text-white hover:opacity-75 transition-opacity"><svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.7099 15.18C15.2399 15.65 14.6599 16 14.0099 16C12.9699 16 12.2199 15.25 12.2199 14.21V12.65C12.2199 10.61 10.9699 9.77 9.42993 9.77C8.65993 9.77 8.01993 10.04 7.51993 10.54" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 11.51V7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-                <a href="#" class="text-white hover:opacity-75 transition-opacity"><svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 2H15C13.6739 2 12.4021 2.52678 11.4645 3.46447C10.5268 4.40215 10 5.67392 10 7V10H7V14H10V22H14V14H17L18 10H14V7C14 6.73478 14.1054 6.48043 14.2929 6.29289C14.4804 6.10536 14.7348 6 15 6H18V2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-                <a href="#" class="text-white hover:opacity-75 transition-opacity"><svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.44 5.06006C19.82 5.56006 20.88 6.64006 21.36 8.02006" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.56 18.94C4.18 18.44 3.12 17.36 2.64 15.98" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.44 18.94C19.82 18.44 20.88 17.36 21.36 15.98" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.56 5.06006C4.18 5.56006 3.12 6.64006 2.64 8.02006" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 10L14 12L16 14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 10L10 12L8 14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             </div>
         </div>
         <div class="mt-8 pt-8 border-t border-[#232325] text-sm text-[#8F8F90] flex flex-col md:flex-row justify-between items-center gap-4">

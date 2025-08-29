@@ -88,6 +88,45 @@ def reviews():
                            reviews=reviews_data)
 
 
+
+# --- НОВЫЙ МАРШРУТ ДЛЯ СТРАНИЦЫ "НОВЫЕ" ---
+@main_site_bp.route('/main/new/')
+def new_reviews():
+    """
+    Обрабатывает страницу каталога "Новые".
+    """
+    new_reviews_data = [
+        {
+            "tag": "Новый отзыв",
+            "tag_style": "gradient",
+            "title": "«Маленький принц» — нежная притча о дружбе, одиночестве и смысле жизни.",
+            "description": "Мир глазами ребёнка, где укрощённый лис важнее короля, а простая фраза меняет Вселенную.",
+            "date": "24.04.2025",
+            "image": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1367528355l/157993.jpg"
+        },
+        {
+            "tag": "Новый отзыв",
+            "tag_style": "gradient",
+            "title": "«Жестокий принц» — сердце в броне, корона в шипах",
+            "description": "История о хрупкой смертной, чьи амбиции опаснее магии, а чувства легко превращаются в оружие.",
+            "date": "12.04.2025",
+            "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1529520409l/25437156._SY475_.jpg"
+        },
+        {
+            "tag": "Новая рецензия",
+            "tag_style": "purple",
+            "title": "«Преступление и наказание» — хроника внутреннего мрака и тревожной совести",
+            "description": "Роман о границах морали, страхе, вине и пути к искуплению в мире, где истина не всегда светла.",
+            "date": "22.04.2025",
+            "image": "https://img4.labirint.ru/rc/6dc2a118e3322123512e0964205a1e75/220x340/books29/281358/cover.jpg?1563544474"
+        }
+    ]
+    return render_template('catalog.html',
+                           page_title="Новые",
+                           reviews=new_reviews_data)
+# --- КОНЕЦ НОВОГО МАРШРУТА ---
+
+
 @main_site_bp.route('/contact')
 def contact():
     """
