@@ -1,5 +1,5 @@
 # main_site/routes.py
-from flask import render_template
+from flask import render_template, redirect, url_for
 from . import main_site_bp
 from bot_portal.models.editor_model import EditorModel
 
@@ -154,6 +154,15 @@ def disclaimer():
     Отображает страницу "Отказ от ответственности".
     """
     return render_template('main_site/disclaimer.html')
+
+# --- НАЧАЛО ИЗМЕНЕНИЙ: Новый маршрут для страницы "Правила сообщества" ---
+@main_site_bp.route('/main/community-rules')
+def community_rules():
+    """
+    Отображает страницу "Правила сообщества".
+    """
+    return render_template('main_site/community_rules.html')
+# --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
 @main_site_bp.route('/main/login')
 def login():
