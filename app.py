@@ -73,30 +73,26 @@ def create_app():
         db.init_db_schema()
     db.init_app(app)
 
-    # --- ИЗМЕНЕНИЕ: Импортируем оба блюпринта ---
     from main_site import main_site_bp, static_bp
     from bot_portal import bot_portal_bp
     from bot_portal.logs_routes import logs_bp
 
     app.register_blueprint(main_site_bp, url_prefix='/<lang_code>')
-    app.register_blueprint(static_bp) # Регистрируем блюпринт для статики
+    app.register_blueprint(static_bp)
     app.register_blueprint(bot_portal_bp, url_prefix='/bot')
     app.register_blueprint(logs_bp, url_prefix='/bot/admin')
 
     @app.url_value_preprocessor
     def pull_lang_code(endpoint, values):
-        # Извлекаем язык из URL и сохраняем его для этого запроса.
         g.lang_code = values.pop('lang_code', None) if values else None
 
     @app.before_request
     def before_request():
-        # Убеждаемся, что язык определен для каждого запроса.
         if g.get('lang_code') is None:
             g.lang_code = request.accept_languages.best_match(LANGUAGES) or 'ru'
 
     @app.route('/')
     def root_redirect():
-        # Перенаправляем на главную страницу с языком браузера.
         best_lang = request.accept_languages.best_match(LANGUAGES) or 'ru'
         return redirect(url_for('main_site.index', lang_code=best_lang))
 

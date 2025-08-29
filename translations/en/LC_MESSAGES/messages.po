@@ -1,18 +1,17 @@
 # English translations for PROJECT.
-# Copyright (C) 2025 ORGANIZATION
+# Copyright (C) 2025 HONJI REVIEW / CC BY-SA
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# FIRST AUTHOR <dastermaf@honjireview.uz>, 2025.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"Project-Id-Version: 1.0.0 Alpha\n"
+"Report-Msgid-Bugs-To: info@honjireview.uz\n"
 "POT-Creation-Date: 2025-08-29 22:24+0500\n"
-"PO-Revision-Date: 2025-08-29 22:25+0500\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2025-08-30 00:05+0500\n"
+"Last-Translator: Gemini AI <dastermaf@honjireview.uz>\n"
 "Language: en\n"
-"Language-Team: en <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language-Team: Honji Review\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,53 +20,53 @@ msgstr ""
 #: templates/layout.html:22 templates/layout.html:61
 #: templates/main_site/index.html:34
 msgid "Новые"
-msgstr ""
+msgstr "New"
 
 #: templates/layout.html:23 templates/layout.html:64
 #: templates/main_site/about.html:2
 msgid "О нас"
-msgstr ""
+msgstr "About Us"
 
 #: templates/layout.html:24 templates/layout.html:62
 msgid "Обсуждаемое"
-msgstr ""
+msgstr "Discussed"
 
 #: templates/layout.html:25 templates/layout.html:63
 msgid "Рецензии"
-msgstr ""
+msgstr "Reviews"
 
 #: templates/layout.html:26
 msgid "Портал бота"
-msgstr ""
+msgstr "Bot Portal"
 
 #: templates/layout.html:72 templates/main_site/community_rules.html:2
 #: templates/main_site/community_rules.html:6
 msgid "Правила сообщества"
-msgstr ""
+msgstr "Community Rules"
 
 #: templates/layout.html:73
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Privacy Policy"
 
 #: templates/layout.html:74
 msgid "Licenses"
-msgstr ""
+msgstr "Licenses"
 
 #: templates/layout.html:75
 msgid "Disclaimer"
-msgstr ""
+msgstr "Disclaimer"
 
 #: templates/main_site/about.html:6
 msgid "О проекте Honji Review"
-msgstr ""
+msgstr "About the Honji Review Project"
 
 #: templates/main_site/about.html:7
 msgid "Кто мы, зачем мы существуем и какие у нас планы."
-msgstr ""
+msgstr "Who we are, why we exist, and what our plans are."
 
 #: templates/main_site/about.html:12
 msgid "Кто вы?"
-msgstr ""
+msgstr "Who are you?"
 
 #: templates/main_site/about.html:13
 msgid ""
@@ -75,22 +74,25 @@ msgid ""
 "любим читать, но в последнее время у нас не так много на это времени. Мы "
 "пишем отзывы на книги и делимся личными мнениями."
 msgstr ""
+"We are a group of young people interested in books. As a rule, we love to "
+"read, but lately, we haven't had much time for it. We write reviews of "
+"books and share our personal opinions."
 
 #: templates/main_site/about.html:16
 msgid "Исполнитель:"
-msgstr ""
+msgstr "Executor:"
 
 #: templates/main_site/about.html:22
 msgid "Совет редакторов:"
-msgstr ""
+msgstr "Board of Editors:"
 
 #: templates/main_site/about.html:27
 msgid "Список редакторов пуст."
-msgstr ""
+msgstr "The list of editors is empty."
 
 #: templates/main_site/about.html:33
 msgid "Как вы это создали?"
-msgstr ""
+msgstr "How did you create this?"
 
 #: templates/main_site/about.html:34
 msgid ""
@@ -99,6 +101,10 @@ msgid ""
 "\"хобби\". Прочитав книгу, подумал, почему бы не написать свое мнение о "
 "ней? Так и появился наш проект."
 msgstr ""
+"It all started with my love for writing, and I try to translate "
+"everything I perceive in this world into text. I don't know why, it's "
+"something of a \"hobby\". After reading a book, I thought, why not write "
+"my opinion about it? That's how our project came to be."
 
 #: templates/main_site/about.html:35
 msgid ""
@@ -107,10 +113,14 @@ msgid ""
 " публикации. А позже, по моему предложению, решил стать редактором "
 "канала."
 msgstr ""
+"After a while, I decided to show the channel to my friend. To my "
+"surprise, he liked it and bombarded me with various tips on improving the "
+"quality of the publications. Later, at my suggestion, he decided to "
+"become an editor of the channel."
 
 #: templates/main_site/about.html:39
 msgid "Зачем? Какой смысл?"
-msgstr ""
+msgstr "Why? What's the point?"
 
 #: templates/main_site/about.html:40
 msgid ""
@@ -121,10 +131,16 @@ msgid ""
 "впечатлениями на счет своих любимых книг/учебников, или наоборот, "
 "почитать чужие мнения, чтобы открыть для себя другую точку зрения."
 msgstr ""
+"Inspired by Wikipedia's reputation, we want to develop the project to "
+"perfection and make it an authoritative source. We also want to improve "
+"our writing skills and better remember the books we've read. Our goal is "
+"simple - to give people the opportunity to share their impressions of "
+"their favorite books/textbooks, or conversely, to read others' opinions "
+"to discover a different point of view."
 
 #: templates/main_site/about.html:44
 msgid "Какие планы на будущее?"
-msgstr ""
+msgstr "What are the plans for the future?"
 
 #: templates/main_site/about.html:45
 msgid ""
@@ -132,139 +148,163 @@ msgid ""
 "пойдут первые рецензии. Также, нужно установить конкретные критерии "
 "оценок."
 msgstr ""
+"We will strive for a large number of reviews, and then, I hope, the first "
+"full reviews will follow. We also need to establish specific evaluation "
+"criteria."
 
 #: templates/main_site/catalog.html:11
 msgid "Назад"
-msgstr ""
+msgstr "Back"
 
 #: templates/main_site/catalog.html:40
 msgid "Загрузить ещё"
-msgstr ""
+msgstr "Load More"
 
 #: templates/main_site/community_rules.html:8
 msgid ""
 "Чтобы наше сообщество было приятным и полезным для всех, пожалуйста, "
 "соблюдайте следующие простые правила."
 msgstr ""
+"To keep our community pleasant and helpful for everyone, please follow "
+"these simple rules."
 
 #: templates/main_site/community_rules.html:14
 msgid "1. Проявляйте уважение"
-msgstr ""
+msgstr "1. Be respectful"
 
 #: templates/main_site/community_rules.html:16
 msgid ""
 "Мы — сообщество людей с разными вкусами и мнениями. Критика произведений "
 "приветствуется, но критика и оскорбления других участников — недопустимы."
 msgstr ""
+"We are a community of people with different tastes and opinions. Criticism "
+"of works is welcome, but criticism and insults towards other participants "
+"are unacceptable."
 
 #: templates/main_site/community_rules.html:19
 #: templates/main_site/community_rules.html:30
 msgid "Запрещены:"
-msgstr ""
+msgstr "Prohibited:"
 
 #: templates/main_site/community_rules.html:19
 msgid ""
 "Прямые оскорбления, враждебные высказывания, преследование (харассмент) и"
 " любые формы дискриминации."
 msgstr ""
+"Direct insults, hostile speech, harassment, and any form of "
+"discrimination."
 
 #: templates/main_site/community_rules.html:20
 msgid "Помните:"
-msgstr ""
+msgstr "Remember:"
 
 #: templates/main_site/community_rules.html:20
 msgid "За каждым никнеймом стоит живой человек. Давайте общаться вежливо."
-msgstr ""
+msgstr "There is a real person behind every nickname. Let's communicate politely."
 
 #: templates/main_site/community_rules.html:25
 msgid "2. Придерживайтесь темы"
-msgstr ""
+msgstr "2. Stay on topic"
 
 #: templates/main_site/community_rules.html:27
 msgid ""
 "Наш проект посвящен книгам и сценариям. Пожалуйста, убедитесь, что ваши "
 "публикации, отзывы и комментарии соответствуют этой тематике."
 msgstr ""
+"Our project is dedicated to books and screenplays. Please ensure that your"
+" publications, reviews, and comments are relevant to this topic."
 
 #: templates/main_site/community_rules.html:30
 msgid ""
 "Реклама, спам и любой контент, не связанный с литературой и "
 "кинодраматургией."
-msgstr ""
+msgstr "Advertising, spam, and any content not related to literature and screenwriting."
 
 #: templates/main_site/community_rules.html:35
 msgid "3. Не публикуйте запрещенный контент"
-msgstr ""
+msgstr "3. Do not post prohibited content"
 
 #: templates/main_site/community_rules.html:37
 msgid ""
 "На сайте строго запрещено публиковать материалы определенного характера, "
 "чтобы обеспечить безопасность и комфорт для всех пользователей."
 msgstr ""
+"Publishing certain types of materials is strictly prohibited on the site "
+"to ensure the safety and comfort of all users."
 
 #: templates/main_site/community_rules.html:40
 msgid "Запрещено:"
-msgstr ""
+msgstr "Forbidden:"
 
 #: templates/main_site/community_rules.html:40
 msgid ""
 "Контент для взрослых (NSFW), сцены насилия, материалы, призывающие к "
 "незаконной деятельности, и распространение заведомо ложной информации."
 msgstr ""
+"Adult content (NSFW), scenes of violence, materials inciting illegal "
+"activities, and the dissemination of knowingly false information."
 
 #: templates/main_site/community_rules.html:41
 msgid "Личные данные:"
-msgstr ""
+msgstr "Personal data:"
 
 #: templates/main_site/community_rules.html:41
 msgid ""
 "Запрещено публиковать личную информацию других людей без их явного "
 "согласия."
 msgstr ""
+"It is forbidden to publish personal information of other people without "
+"their explicit consent."
 
 #: templates/main_site/community_rules.html:46
 msgid "4. Модерация"
-msgstr ""
+msgstr "4. Moderation"
 
 #: templates/main_site/community_rules.html:48
 msgid ""
 "Администрация и модераторы проекта следят за соблюдением правил. "
 "Нарушение может повлечь за собой следующие меры:"
 msgstr ""
+"The project administration and moderators monitor compliance with the "
+"rules. Violations may result in the following measures:"
 
 #: templates/main_site/community_rules.html:51
 msgid "Устное предупреждение."
-msgstr ""
+msgstr "A verbal warning."
 
 #: templates/main_site/community_rules.html:52
 msgid "Удаление комментария или публикации, нарушающих правила."
-msgstr ""
+msgstr "Deletion of a comment or publication that violates the rules."
 
 #: templates/main_site/community_rules.html:53
 msgid ""
 "Временная или постоянная блокировка аккаунта за систематические или "
 "грубые нарушения."
 msgstr ""
+"Temporary or permanent account suspension for systematic or gross "
+"violations."
 
 #: templates/main_site/community_rules.html:56
 msgid ""
 "Если вы заметили нарушение, пожалуйста, сообщите нам. Давайте вместе "
 "сделаем Honji Review лучше!"
 msgstr ""
+"If you notice a violation, please report it to us. Let's make Honji "
+"Review better together!"
 
 #: templates/main_site/disclaimer.html:8
 #: templates/main_site/privacy_policy.html:7
 msgid "Последнее обновление:"
-msgstr ""
+msgstr "Last updated:"
 
 #: templates/main_site/disclaimer.html:8
 #: templates/main_site/privacy_policy.html:7
 msgid "августа"
-msgstr ""
+msgstr "August"
 
 #: templates/main_site/disclaimer.html:14
 msgid "Общие положения"
-msgstr ""
+msgstr "General Provisions"
 
 #: templates/main_site/disclaimer.html:16
 msgid ""
@@ -274,10 +314,15 @@ msgid ""
 "субъективные мнения их авторов и не должны рассматриваться как "
 "профессиональные, экспертные или официальные оценки."
 msgstr ""
+"The information provided on the Honji Review website (hereinafter referred"
+" to as the \"Site\") is for informational and educational purposes only. "
+"All materials, including reviews, articles, and comments, reflect the "
+"subjective opinions of their authors and should not be considered as "
+"professional, expert, or official assessments."
 
 #: templates/main_site/disclaimer.html:21
 msgid "Отсутствие профессиональных консультаций"
-msgstr ""
+msgstr "No Professional Advice"
 
 #: templates/main_site/disclaimer.html:23
 msgid ""
@@ -288,10 +333,15 @@ msgid ""
 "обращаться к квалифицированным специалистам для получения точных и "
 "профессиональных советов."
 msgstr ""
+"The content of the Site is not professional literary criticism, financial, "
+"legal, or any other form of expert advice. Decisions based on information"
+" from this Site are made at the user's own risk. We strongly recommend "
+"consulting with qualified professionals for accurate and professional "
+"advice."
 
 #: templates/main_site/disclaimer.html:28
 msgid "Субъективность мнений"
-msgstr ""
+msgstr "Subjectivity of Opinions"
 
 #: templates/main_site/disclaimer.html:30
 msgid ""
@@ -301,10 +351,16 @@ msgid ""
 "предоставить платформу для различных точек зрения, однако не можем "
 "гарантировать их абсолютную точность, полноту или актуальность."
 msgstr ""
+"All assessments, opinions, and conclusions expressed in the published "
+"materials are the personal judgments of the authors. These opinions may "
+"not coincide with the position of the Honji Review project's editorial "
+"team or other authors. We strive to provide a platform for various points"
+" of view, but we cannot guarantee their absolute accuracy, completeness, "
+"or timeliness."
 
 #: templates/main_site/disclaimer.html:35
 msgid "Ограничение ответственности"
-msgstr ""
+msgstr "Limitation of Liability"
 
 #: templates/main_site/disclaimer.html:37
 msgid ""
@@ -314,159 +370,169 @@ msgid ""
 "данный Сайт, вы соглашаетесь с тем, что делаете это добровольно и "
 "принимаете на себя всю ответственность за возможные последствия."
 msgstr ""
+"The Site administration and its authors are not liable for any direct or "
+"indirect damages arising from the use or inability to use the information"
+" posted on the Site. By using this Site, you agree that you do so "
+"voluntarily and assume all responsibility for any possible consequences."
 
 #: templates/main_site/index.html:2
 msgid "Главная"
-msgstr ""
+msgstr "Home"
 
 #: templates/main_site/index.html:6
 msgid "«Чтение — это способ взглянуть на мир чужими глазами.»"
-msgstr ""
+msgstr "\"Reading is a way to see the world through someone else's eyes.\""
 
 #: templates/main_site/index.html:9
 msgid "Некоторые книги"
-msgstr ""
+msgstr "Some books"
 
 #: templates/main_site/index.html:9
 msgid "не заканчиваются"
-msgstr ""
+msgstr "don't end"
 
 #: templates/main_site/index.html:9
 msgid "с последней страницей"
-msgstr ""
+msgstr "with the last page"
 
 #: templates/main_site/index.html:12
 msgid "Мы делимся историями, что продолжаются внутри. 30+ отзывов уже здесь."
-msgstr ""
+msgstr "We share stories that continue within. 30+ reviews are already here."
 
 #: templates/main_site/index.html:15
 msgid "Читать"
-msgstr ""
+msgstr "Read"
 
 #: templates/main_site/index.html:24
-msgid "Чтение помогает найти тишину внутри, и мы с радостью делимся этим с тобой."
+msgid ""
+"Чтение помогает найти тишину внутри, и мы с радостью делимся этим с тобой."
 msgstr ""
+"Reading helps to find the silence within, and we are happy to share it "
+"with you."
 
 #: templates/main_site/index.html:27
 msgid "Наша цель."
-msgstr ""
+msgstr "Our goal."
 
 #: templates/main_site/index.html:28
 msgid "Создать пространство, где каждое слово о книге будет"
-msgstr ""
+msgstr "To create a space where every word about a book will be"
 
 #: templates/main_site/index.html:28
 msgid "честным"
-msgstr ""
+msgstr "honest"
 
 #: templates/main_site/index.html:28
 msgid "и"
-msgstr ""
+msgstr "and"
 
 #: templates/main_site/index.html:28
 msgid "искренним"
-msgstr ""
+msgstr "sincere"
 
 #: templates/main_site/index.html:28
 msgid "Мы стремимся, чтобы наши рецензии были не просто гидом для читателя, а"
-msgstr ""
+msgstr "We strive for our reviews to be not just a guide for the reader, but"
 
 #: templates/main_site/index.html:28
 msgid "надежным ориентиром"
-msgstr ""
+msgstr "a reliable reference"
 
 #: templates/main_site/index.html:28
 msgid ""
 "чтобы каждый мог почувствовать правду, скрытую в историях. Наш проект — "
 "это место, где личное мнение"
 msgstr ""
+"so that everyone can feel the truth hidden in the stories. Our project is"
+" a place where personal opinion"
 
 #: templates/main_site/index.html:28
 msgid "ценится"
-msgstr ""
+msgstr "is valued"
 
 #: templates/main_site/index.html:28
 msgid "О книги — это не просто слова, а"
-msgstr ""
+msgstr "About books — it's not just words, but"
 
 #: templates/main_site/index.html:28
 msgid "миры"
-msgstr ""
+msgstr "worlds"
 
 #: templates/main_site/index.html:28
 msgid "которые мы открываем и делимся с другими."
-msgstr ""
+msgstr "that we discover and share with others."
 
 #: templates/main_site/index.html:43
 msgid "Подробнее"
-msgstr ""
+msgstr "Read More"
 
 #: templates/main_site/index.html:50
 msgid "Жанры"
-msgstr ""
+msgstr "Genres"
 
 #: templates/main_site/index.html:56
 msgid "Фэнтези"
-msgstr ""
+msgstr "Fantasy"
 
 #: templates/main_site/index.html:58
 msgid "ФЭНТЕЗИ"
-msgstr ""
+msgstr "FANTASY"
 
 #: templates/main_site/index.html:65
 msgid "Романтика"
-msgstr ""
+msgstr "Romance"
 
 #: templates/main_site/index.html:67
 msgid "РОМАНТИКА"
-msgstr ""
+msgstr "ROMANCE"
 
 #: templates/main_site/index.html:74
 msgid "Детектив"
-msgstr ""
+msgstr "Detective"
 
 #: templates/main_site/index.html:76
 msgid "ДЕТЕКТИВ"
-msgstr ""
+msgstr "DETECTIVE"
 
 #: templates/main_site/index.html:83
 msgid "Научная литература"
-msgstr ""
+msgstr "Science Fiction"
 
 #: templates/main_site/index.html:85
 msgid "НАУЧНАЯ ЛИТЕРАТУРА"
-msgstr ""
+msgstr "SCIENCE FICTION"
 
 #: templates/main_site/index.html:94
 msgid "Начать продвижение"
-msgstr ""
+msgstr "Start Promotion"
 
 #: templates/main_site/index.html:95
 msgid ""
 "Напишем рецензию на вашу работу, чтобы она вышла за пределы "
 "парти-занского маркетинга."
 msgstr ""
+"We will write a review of your work to take it beyond guerrilla marketing."
 
 #: templates/main_site/index.html:97
 msgid "Имя"
-msgstr ""
+msgstr "Name"
 
 #: templates/main_site/index.html:98 templates/main_site/main_login.html:18
 #: templates/main_site/main_login.html:42
 msgid "Электронная почта"
-msgstr ""
+msgstr "Email"
 
 #: templates/main_site/index.html:99
 msgid "Оставить заявку"
-msgstr ""
+msgstr "Submit Application"
 
 #: templates/main_site/index.html:103
 msgid "Соглашаюсь на обработку Персональных данных"
-msgstr ""
+msgstr "I agree to the processing of Personal Data"
 
 #: templates/main_site/licenses.html:2 templates/main_site/licenses.html:6
 msgid "Лицензии и благодарности"
-msgstr ""
+msgstr "Licenses and Acknowledgements"
 
 #: templates/main_site/licenses.html:8
 msgid ""
@@ -474,135 +540,138 @@ msgid ""
 "кодом и свободно распространяемых ресурсов. Мы выражаем благодарность их "
 "авторам."
 msgstr ""
+"The Honji Review project would not be possible without open-source work "
+"and freely distributable resources. We express our gratitude to their "
+"authors."
 
 #: templates/main_site/licenses.html:15
 msgid "Ресурсы и ассеты"
-msgstr ""
+msgstr "Resources and Assets"
 
 #: templates/main_site/licenses.html:17
 msgid "Иконки"
-msgstr ""
+msgstr "Icons"
 
 #: templates/main_site/licenses.html:18
 msgid "Иконки, используемые на сайте, предоставлены сервисом Icons8."
-msgstr ""
+msgstr "The icons used on the site are provided by the Icons8 service."
 
 #: templates/main_site/licenses.html:20
 msgid "Сайт Icons8"
-msgstr ""
+msgstr "Icons8 Website"
 
 #: templates/main_site/licenses.html:21 templates/main_site/licenses.html:29
 #: templates/main_site/licenses.html:43 templates/main_site/licenses.html:52
 #: templates/main_site/licenses.html:61 templates/main_site/licenses.html:70
 #: templates/main_site/licenses.html:79
 msgid "Лицензия:"
-msgstr ""
+msgstr "License:"
 
 #: templates/main_site/licenses.html:25
 msgid "Шрифт Manrope"
-msgstr ""
+msgstr "Manrope Font"
 
 #: templates/main_site/licenses.html:26
 msgid "Основной шрифт сайта, распространяемый по свободной лицензии."
-msgstr ""
+msgstr "The main font of the site, distributed under a free license."
 
 #: templates/main_site/licenses.html:28
 msgid "Источник:"
-msgstr ""
+msgstr "Source:"
 
 #: templates/main_site/licenses.html:35
 msgid "Программное обеспечение"
-msgstr ""
+msgstr "Software"
 
 #: templates/main_site/licenses.html:36
 msgid "Этот проект использует следующие библиотеки с открытым исходным кодом:"
-msgstr ""
+msgstr "This project uses the following open-source libraries:"
 
 #: templates/main_site/licenses.html:40
 msgid "Микрофреймворк для создания веб-приложений."
-msgstr ""
+msgstr "A microframework for creating web applications."
 
 #: templates/main_site/licenses.html:49
 msgid "Адаптер PostgreSQL для Python."
-msgstr ""
+msgstr "A PostgreSQL adapter for Python."
 
 #: templates/main_site/licenses.html:58
 msgid "WSGI HTTP-сервер для UNIX."
-msgstr ""
+msgstr "A WSGI HTTP server for UNIX."
 
 #: templates/main_site/licenses.html:67
 msgid "Библиотека для взаимодействия с Telegram Bot API."
-msgstr ""
+msgstr "A library for interacting with the Telegram Bot API."
 
 #: templates/main_site/licenses.html:76
 msgid "Клиентская библиотека Google для Generative AI."
-msgstr ""
+msgstr "Google's client library for Generative AI."
 
 #: templates/main_site/licenses.html:85
 msgid "Расширения для Flask, обеспечивающие работу с формами и безопасность."
-msgstr ""
+msgstr "Flask extensions for handling forms and security."
 
 #: templates/main_site/licenses.html:87
 msgid "Лицензии: BSD-3-Clause и Apache 2.0 соответственно."
-msgstr ""
+msgstr "Licenses: BSD-3-Clause and Apache 2.0 respectively."
 
 #: templates/main_site/main_login.html:5
 msgid "Вход"
-msgstr ""
+msgstr "Login"
 
 #: templates/main_site/main_login.html:9 templates/main_site/main_login.html:33
 msgid "Войти через Facebook"
-msgstr ""
+msgstr "Login with Facebook"
 
 #: templates/main_site/main_login.html:13
 #: templates/main_site/main_login.html:37
 msgid "Войти через Google"
-msgstr ""
+msgstr "Login with Google"
 
 #: templates/main_site/main_login.html:16
 #: templates/main_site/main_login.html:40
 msgid "или"
-msgstr ""
+msgstr "or"
 
 #: templates/main_site/main_login.html:19
 #: templates/main_site/main_login.html:43
 msgid "Пароль"
-msgstr ""
+msgstr "Password"
 
 #: templates/main_site/main_login.html:20
 #: templates/main_site/main_login.html:45
 #: templates/main_site/main_login.html:48
 msgid "Войти"
-msgstr ""
+msgstr "Log In"
 
 #: templates/main_site/main_login.html:23
 msgid "Забыли пароль?"
-msgstr ""
+msgstr "Forgot password?"
 
 #: templates/main_site/main_login.html:24
 msgid "Ещё нет аккаунта?"
-msgstr ""
+msgstr "Don't have an account yet?"
 
 #: templates/main_site/main_login.html:24
 msgid "Зарегистрироваться"
-msgstr ""
+msgstr "Sign Up"
 
 #: templates/main_site/main_login.html:29
 msgid "Регистрация"
-msgstr ""
+msgstr "Registration"
 
 #: templates/main_site/main_login.html:44
 msgid "Подтвердить пароль"
-msgstr ""
+msgstr "Confirm Password"
 
 #: templates/main_site/main_login.html:48
 msgid "Уже есть аккаунт?"
-msgstr ""
+msgstr "Already have an account?"
 
 #: templates/main_site/privacy_policy.html:2
 #: templates/main_site/privacy_policy.html:6
 msgid "Политика конфиденциальности"
-msgstr ""
+msgstr "Privacy Policy"
 
 #: templates/main_site/privacy_policy.html:11
 msgid ""
@@ -611,24 +680,30 @@ msgid ""
 "вашу информацию при использовании нашего веб-сайта и связанных с ним "
 "услуг (далее \"Сервис\")."
 msgstr ""
+"This Privacy Policy describes how the Honji Review project (hereinafter "
+"\"we\", \"us\", or \"our\") collects, uses, and discloses your information "
+"when you use our website and related services (hereinafter the "
+"\"Service\")."
 
 #: templates/main_site/privacy_policy.html:13
 msgid "Сбор и использование информации"
-msgstr ""
+msgstr "Information Collection and Use"
 
 #: templates/main_site/privacy_policy.html:14
 msgid ""
 "Мы собираем несколько различных типов информации для различных целей, "
 "чтобы предоставлять и улучшать наш Сервис для вас."
 msgstr ""
+"We collect several different types of information for various purposes to "
+"provide and improve our Service to you."
 
 #: templates/main_site/privacy_policy.html:16
 msgid "Данные, которые вы предоставляете"
-msgstr ""
+msgstr "Data You Provide"
 
 #: templates/main_site/privacy_policy.html:18
 msgid "Данные аутентификации Telegram:"
-msgstr ""
+msgstr "Telegram Authentication Data:"
 
 #: templates/main_site/privacy_policy.html:18
 msgid ""
@@ -637,10 +712,14 @@ msgid ""
 "Telegram. Мы не получаем доступ к вашим чатам, номеру телефона или списку"
 " контактов."
 msgstr ""
+"When you log in to the Bot Control Panel, we receive your public "
+"username, unique Telegram ID, and public profile photo through the "
+"official Telegram widget. We do not get access to your chats, phone "
+"number, or contact list."
 
 #: templates/main_site/privacy_policy.html:19
 msgid "Содержимое, создаваемое пользователями:"
-msgstr ""
+msgstr "User-Generated Content:"
 
 #: templates/main_site/privacy_policy.html:19
 msgid ""
@@ -648,10 +727,12 @@ msgid ""
 "интерактивных функций, таких как ИИ-Ассистент, может быть сохранена для "
 "улучшения качества Сервиса."
 msgstr ""
+"Any information you provide while using interactive features, such as the "
+"AI Assistant, may be stored to improve the quality of the Service."
 
 #: templates/main_site/privacy_policy.html:22
 msgid "Данные журнала"
-msgstr ""
+msgstr "Log Data"
 
 #: templates/main_site/privacy_policy.html:23
 msgid ""
@@ -662,34 +743,39 @@ msgid ""
 "посещаете, время и дата вашего визита, время, проведенное на этих "
 "страницах, и другая статистика."
 msgstr ""
+"We may also collect information that your browser sends whenever you visit"
+" our Service (\"Log Data\"). This Log Data may include information such as "
+"your computer's IP address, browser type, browser version, the pages of "
+"our Service that you visit, the time and date of your visit, the time "
+"spent on those pages, and other statistics."
 
 #: templates/main_site/privacy_policy.html:25
 msgid "Использование данных"
-msgstr ""
+msgstr "Use of Data"
 
 #: templates/main_site/privacy_policy.html:26
 msgid "Мы используем собранные данные для различных целей:"
-msgstr ""
+msgstr "We use the collected data for various purposes:"
 
 #: templates/main_site/privacy_policy.html:28
 msgid "Для предоставления и поддержки нашего Сервиса."
-msgstr ""
+msgstr "To provide and maintain our Service."
 
 #: templates/main_site/privacy_policy.html:29
 msgid "Для аутентификации и управления учетными записями редакторов."
-msgstr ""
+msgstr "To authenticate and manage editor accounts."
 
 #: templates/main_site/privacy_policy.html:30
 msgid "Для мониторинга использования нашего Сервиса."
-msgstr ""
+msgstr "To monitor the usage of our Service."
 
 #: templates/main_site/privacy_policy.html:31
 msgid "Для обнаружения, предотвращения и решения технических проблем."
-msgstr ""
+msgstr "To detect, prevent, and address technical issues."
 
 #: templates/main_site/privacy_policy.html:34
 msgid "Безопасность данных"
-msgstr ""
+msgstr "Data Security"
 
 #: templates/main_site/privacy_policy.html:35
 msgid ""
@@ -699,10 +785,14 @@ msgid ""
 "средства для защиты вашей личной информации, мы не можем гарантировать ее"
 " абсолютную безопасность."
 msgstr ""
+"The security of your data is important to us, but remember that no method "
+"of transmission over the Internet or method of electronic storage is 100% "
+"secure. While we strive to use commercially acceptable means to protect "
+"your personal information, we cannot guarantee its absolute security."
 
 #: templates/main_site/privacy_policy.html:37
 msgid "Ссылки на другие сайты"
-msgstr ""
+msgstr "Links to Other Sites"
 
 #: templates/main_site/privacy_policy.html:38
 msgid ""
@@ -712,10 +802,14 @@ msgid ""
 "вам ознакомиться с Политикой конфиденциальности каждого сайта, который вы"
 " посещаете."
 msgstr ""
+"Our Service may contain links to other sites that are not operated by us. "
+"If you click on a third-party link, you will be directed to that third "
+"party's site. We strongly advise you to review the Privacy Policy of "
+"every site you visit."
 
 #: templates/main_site/privacy_policy.html:40
 msgid "Изменения в настоящей Политике конфиденциальности"
-msgstr ""
+msgstr "Changes to This Privacy Policy"
 
 #: templates/main_site/privacy_policy.html:41
 msgid ""
@@ -723,10 +817,12 @@ msgid ""
 "сообщим вам о любых изменениях, опубликовав новую Политику "
 "конфиденциальности на этой странице."
 msgstr ""
+"We may update our Privacy Policy from time to time. We will notify you of"
+" any changes by posting the new Privacy Policy on this page."
 
 #: templates/main_site/privacy_policy.html:43
 msgid "Свяжитесь с нами"
-msgstr ""
+msgstr "Contact Us"
 
 #: templates/main_site/privacy_policy.html:44
 msgid ""
@@ -734,4 +830,5 @@ msgid ""
 "конфиденциальности, пожалуйста, свяжитесь с нами по электронной почте: "
 "honjireview.info@gmail.com."
 msgstr ""
-
+"If you have any questions about this Privacy Policy, please contact us by "
+"email: honjireview.info@gmail.com."

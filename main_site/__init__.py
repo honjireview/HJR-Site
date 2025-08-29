@@ -8,7 +8,6 @@ main_site_bp = Blueprint(
 )
 
 # ОТДЕЛЬНЫЙ Blueprint только для статических файлов.
-# У него нет языкового префикса.
 static_bp = Blueprint(
     'main_site_static',
     __name__,
