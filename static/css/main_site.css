@@ -27,47 +27,62 @@ body {
     color: #0E0E10;
 }
 
-/* ИЗМЕНЕНИЕ: Увеличен отступ снизу для hero-секции */
+/* ИЗМЕНЕНИЕ: hero-секция теперь занимает минимум 100% высоты экрана */
 #hero-section {
-    padding-bottom: 12rem; /* 192px */
+    min-height: 100vh; /* Минимальная высота - полный экран */
+    display: flex; /* Для выравнивания содержимого по центру */
+    flex-direction: column;
+    justify-content: center; /* Центрируем содержимое по вертикали */
+    padding-top: 4rem; /* Оставляем верхний отступ */
+    padding-bottom: 4rem; /* Оставляем нижний отступ */
 }
 
-
+/* ИЗМЕНЕНИЕ: Уменьшаем базовый размер заголовков и корректируем для адаптивности */
 .section-title {
-    font-size: 3rem; /* 48px */
+    font-size: 2.5rem; /* 40px */
     font-weight: 800; /* extrabold */
     color: #EAEAEA;
-    line-height: 1;
+    line-height: 1.1; /* Немного увеличен line-height для лучшей читаемости */
     text-align: center;
 }
 
 @media (min-width: 768px) {
     .section-title {
-        font-size: 64px;
+        font-size: 3.5rem; /* 56px */
         text-align: left;
     }
 }
+@media (min-width: 1024px) {
+    .section-title {
+        font-size: 4rem; /* 64px */
+    }
+}
+
 
 .page-title {
-    font-size: 3rem; /* 48px */
+    font-size: 2.5rem; /* 40px */
     font-weight: 800; /* extrabold */
     color: #EAEAEA;
-    line-height: 1;
+    line-height: 1.1; /* Немного увеличен line-height */
     text-align: center;
     letter-spacing: -0.025em; /* tracking-tighter */
 }
 
 @media (min-width: 640px) {
     .page-title {
-        font-size: 4.5rem; /* 72px */
+        font-size: 3.5rem; /* 56px */
     }
 }
 @media (min-width: 768px) {
     .page-title {
-        font-size: 6rem; /* 96px */
+        font-size: 4.5rem; /* 72px */
     }
 }
-
+@media (min-width: 1024px) {
+    .page-title {
+        font-size: 5rem; /* 80px */
+    }
+}
 
 /* Цвета для жанров */
 .genre-icon-bg {
@@ -105,6 +120,11 @@ body {
 }
 @media (min-width: 768px) {
     .promotion-title {
-        font-size: 64px;
+        font-size: 3.5rem; /* 56px */
+    }
+}
+@media (min-width: 1024px) {
+    .promotion-title {
+        font-size: 4rem; /* 64px */
     }
 }
