@@ -12,19 +12,21 @@ body {
     background-color: white;
     color: #0E0E10;
     font-weight: 700; /* bold */
-    padding-top: 0.5rem;    /* py-2, тонкая */
-    padding-bottom: 0.5rem; /* py-2, тонкая */
-    padding-left: 7rem;      /* px-28, очень длинная */
-    padding-right: 7rem;     /* px-28, очень длинная */
+    padding-top: 0.6rem;    /* py-2.5, тоньше */
+    padding-bottom: 0.6rem; /* py-2.5, тоньше */
+    padding-left: 8rem;      /* px-32, длиннее */
+    padding-right: 8rem;     /* px-32, длиннее */
     border-radius: 9999px; /* rounded-full */
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* ИЗМЕНЕНИЕ: Более подходящий цвет при наведении */
 .btn:hover {
-    background-color: #D1D5DB; /* gray-300 - более заметный оттенок */
+    background-color: #EAEAEA;
+    color: #0E0E10;
 }
 
 /* БОЛЬШИЕ ЗАГОЛОВКИ (64px) ИЗ FIGMA */
