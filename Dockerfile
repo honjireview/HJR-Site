@@ -13,5 +13,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Копируем весь остальной код приложения
 COPY . .
 
-# Указываем Gunicorn, как запускать наше приложение, используя порт от Railway.
-CMD ["gunicorn", "--bind", "0.0.0.0:$PORT", "app:app"]
+# ИЗМЕНЕНИЕ: Запускаем команду через shell ('sh -c'), чтобы переменная $PORT была правильно обработана
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:$PORT app:app"]
