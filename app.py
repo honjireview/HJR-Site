@@ -1,7 +1,7 @@
 from flask import Flask, redirect, url_for, request, g, session
 from flask_talisman import Talisman
 from flask_wtf.csrf import CSRFProtect
-from flask_babel import Babel
+from flask_babel import Babel, get_locale as get_babel_locale
 import os
 import db
 import telebot
@@ -22,41 +22,28 @@ def get_git_commit_hash():
         commit_hash = os.getenv('RAILWAY_GIT_COMMIT_SHA') or os.getenv('COMMIT_HASH')
         if commit_hash:
             return commit_hash[:7]
-
         commit_hash = subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD']).strip().decode('utf-8')
         return commit_hash
     except (subprocess.CalledProcessError, FileNotFoundError):
         return None
 
+# --- ИЗМЕНЕНИЕ: Функция get_locale теперь не является декоратором ---
+def get_locale():
+    # Язык теперь всегда берется из URL
+    if g.get('lang_code') in LANGUAGES:
+        return g.lang_code
+    # Если в URL нет валидного языка, используем язык браузера или по умолчанию
+    return request.accept_languages.best_match(LANGUAGES) or 'ru'
+
 def create_app():
     app = Flask(__name__)
 
     csp = {
-        'default-src': [
-            '\'self\'',
-            'http://www.w3.org/2000/svg'
-        ],
-        'script-src': [
-            '\'self\'',
-            'https://cdn.tailwindcss.com',
-            'https://telegram.org',
-            '//unpkg.com/alpinejs' # Добавлено для AlpineJS
-        ],
-        'style-src': [
-            '\'self\'',
-            '\'unsafe-inline\'',
-            'https://cdn.tailwindcss.com',
-            'https://fonts.googleapis.com'
-        ],
-        'font-src': [
-            '\'self\'',
-            'https://fonts.gstatic.com'
-        ],
-        'img-src': [
-            '\'self\'',
-            'data:',
-            'https:'
-        ],
+        'default-src': ['\'self\'', 'http://www.w3.org/2000/svg'],
+        'script-src': ['\'self\'', 'https://cdn.tailwindcss.com', 'https://telegram.org', '//unpkg.com/alpinejs'],
+        'style-src': ['\'self\'', '\'unsafe-inline\'', 'https://cdn.tailwindcss.com', 'https://fonts.googleapis.com'],
+        'font-src': ['\'self\'', 'https://fonts.gstatic.com'],
+        'img-src': ['\'self\'', 'data:', 'https:'],
         'frame-src': ['https://oauth.telegram.org', 'https://telegram.org']
     }
     Talisman(app, content_security_policy=csp)
@@ -66,7 +53,9 @@ def create_app():
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=5)
     app.config['COMMIT_HASH'] = get_git_commit_hash() or 'local'
     app.config['BABEL_DEFAULT_LOCALE'] = 'ru'
-    babel.init_app(app)
+
+    # --- ИЗМЕНЕНИЕ: Передаем функцию get_locale как аргумент при инициализации ---
+    babel.init_app(app, locale_selector=get_locale)
 
     HJRBOT_TELEGRAM_TOKEN = os.getenv('HJRBOT_TELEGRAM_TOKEN')
     if HJRBOT_TELEGRAM_TOKEN:
@@ -93,14 +82,6 @@ def create_app():
     app.register_blueprint(bot_portal_bp, url_prefix='/bot')
     app.register_blueprint(logs_bp, url_prefix='/bot/admin')
 
-    @babel.localeselector
-    def get_locale():
-        # Язык теперь всегда берется из URL
-        if g.get('lang_code') in LANGUAGES:
-            return g.lang_code
-        # Если в URL нет валидного языка, используем язык браузера или по умолчанию
-        return request.accept_languages.best_match(LANGUAGES) or 'ru'
-
     @app.url_defaults
     def add_language_code(endpoint, values):
         if 'lang_code' not in values and g.get('lang_code'):
@@ -109,20 +90,16 @@ def create_app():
 
     @app.url_value_preprocessor
     def pull_lang_code(endpoint, values):
-        g.lang_code = values.pop('lang_code', None) if values else None
+        g.lang_code = values.pop('lang_code', None) if values else get_locale()
 
     @app.before_request
     def before_request_locale():
-        if request.endpoint and 'lang_code' not in request.view_args:
-            g.lang_code = get_locale()
+        g.lang_code = get_locale()
 
-    # --- ИЗМЕНЕНИЕ: Главная страница теперь всегда редиректит на URL с префиксом /ru ---
     @app.route('/')
     def root_redirect():
-        # Определяем лучший язык для первого визита и редиректим на него
         best_lang = request.accept_languages.best_match(LANGUAGES) or 'ru'
         return redirect(url_for('main_site.index', lang_code=best_lang))
-    # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
     return app
 

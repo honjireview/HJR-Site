@@ -13,6 +13,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Копируем весь остальной код приложения
 COPY . .
 
-# Указываем Gunicorn, как запускать наше приложение.
-# Он будет искать переменную 'app' в файле 'app.py'.
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app:app"]
+# Указываем Gunicorn, как запускать наше приложение, используя порт от Railway.
+CMD ["gunicorn", "--bind", "0.0.0.0:$PORT", "app:app"]
