@@ -98,13 +98,6 @@ body {
 @media (min-width: 768px) { .promotion-title { font-size: 3.5rem; } }
 @media (min-width: 1024px) { .promotion-title { font-size: 4rem; } }
 
-/* Опустить кнопку "Оставить заявку" в блоке "Начать продвижение" на десктопе */
-@media (min-width: 768px) {
-  .promotion-title ~ form .btn {
-    margin-top: 1.5rem; /* можно варьировать 1rem–2rem */
-  }
-}
-
 .about-card { background-color: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; }
 .about-card h2 { font-size: 1.875rem; font-weight: 700; margin-bottom: 1rem; }
 .about-card p, .about-card ul { color: #EAEAEA; opacity: 0.9; }

@@ -95,9 +95,11 @@
     <div class="bg-white/5 backdrop-blur-md rounded-2xl p-6 sm:p-12 text-center border border-white/10">
         <h2 class="promotion-title section-title text-center">{{ _('Начать продвижение') }}</h2>
         <p class="mt-4 text-[#8F8F90]">{{ _('Напишем рецензию на вашу работу, чтобы она вышла за пределы парти-занского маркетинга.') }}</p>
-        <form class="mt-10 max-w-3xl mx-auto flex flex-col md:flex-row gap-6 items-center">
-            <input type="text" name="name" placeholder="{{ _('Имя') }} *" class="bg-transparent border-b border-[#313134] w-full py-3 px-1 text-white placeholder-slate-500 focus:outline-none focus:border-white transition">
-            <input type="email" name="email" placeholder="{{ _('Электронная почта') }} *" class="bg-transparent border-b border-[#313134] w-full py-3 px-1 text-white placeholder-slate-500 focus:outline-none focus:border-white transition">
+        <form class="mt-10 max-w-3xl mx-auto flex flex-col gap-6 items-center">
+            <div class="w-full flex flex-col md:flex-row gap-6">
+                <input type="text" name="name" placeholder="{{ _('Имя') }} *" class="bg-transparent border-b border-[#313134] w-full py-3 px-1 text-white placeholder-slate-500 focus:outline-none focus:border-white transition">
+                <input type="email" name="email" placeholder="{{ _('Электронная почта') }} *" class="bg-transparent border-b border-[#313134] w-full py-3 px-1 text-white placeholder-slate-500 focus:outline-none focus:border-white transition">
+            </div>
             <button type="submit" class="btn w-full md:w-auto flex-shrink-0">{{ _('Оставить заявку') }}</button>
         </form>
         <div class="mt-6 text-sm text-[#8F8F90] flex justify-center items-center">
