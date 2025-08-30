@@ -29,7 +29,7 @@ body {
     background-position: center;
     opacity: 0.12;
 
-    /* ИЗМЕНЕНИЕ: Используется линейный градиент для затемнения верха и низа */
+    /* ИЗМЕНЕНИЕ: Заменили radial-gradient на linear-gradient для затемнения верха и низа */
     mask-image: linear-gradient(to bottom,
     transparent 0%,
     black 25%,
