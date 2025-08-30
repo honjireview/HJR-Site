@@ -1,31 +1,45 @@
 <!DOCTYPE html>
-<html lang="ru" class="scroll-smooth">
+<html lang="{{ g.lang_code or 'ru' }}" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Honji Review{% endblock %}</title>
-    <link rel="icon" href="{{ url_for('main_site.static', filename='images/favicon.png') }}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{ url_for('main_site.static', filename='images/favicon.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('main_site_static.static', filename='images/favicon.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('main_site_static.static', filename='images/favicon.png') }}" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="{{ url_for('main_site.static', filename='css/main_site.css') }}?v=1.1">
+    <link rel="stylesheet" href="{{ url_for('main_site_static.static', filename='css/main_site.css') }}?v=1.3">
     {% block head_css %}{% endblock %}
 </head>
-<body class="bg-[#0E0E10] text-[#EAEAEA]">
+<body class="bg-[#0E0E10] text-[#EAEAEA]" {% if open_login_modal %}data-open-login-modal="true"{% endif %}>
 
 <div class="max-w-[1440px] mx-auto px-6 sm:px-8 md:px-16">
 
     <header class="py-6 flex justify-between items-center">
-        <a href="{{ url_for('main_site.index') }}" class="text-2xl font-bold text-white tracking-wider">HJR</a>
+        <a href="{{ url_for('main_site.index', lang_code=g.lang_code) }}" class="text-2xl font-bold text-white tracking-wider">HJR</a>
 
         <div class="flex items-center gap-x-8">
             <nav class="hidden md:flex items-center space-x-8 text-white">
-                <a href="{{ url_for('main_site.new_reviews') }}" class="hover:opacity-75 transition-opacity">Новые</a>
-                <a href="{{ url_for('main_site.about') }}" class="hover:opacity-75 transition-opacity">О нас</a>
-                <a href="{{ url_for('main_site.discussed') }}" class="hover:opacity-75 transition-opacity">Обсуждаемое</a>
-                <a href="{{ url_for('main_site.reviews') }}" class="hover:opacity-75 transition-opacity">Рецензии</a>
-                <a href="{{ url_for('bot_portal.showcase') }}" class="text-indigo-400 hover:opacity-75 transition-opacity">Портал бота</a>
+                <a href="{{ url_for('main_site.new_reviews', lang_code=g.lang_code) }}" class="hover:opacity-75 transition-opacity">{{ _('Новые') }}</a>
+                <a href="{{ url_for('main_site.about', lang_code=g.lang_code) }}" class="hover:opacity-75 transition-opacity">{{ _('О нас') }}</a>
+                <a href="{{ url_for('main_site.discussed', lang_code=g.lang_code) }}" class="hover:opacity-75 transition-opacity">{{ _('Обсуждаемое') }}</a>
+                <a href="{{ url_for('main_site.reviews', lang_code=g.lang_code) }}" class="hover:opacity-75 transition-opacity">{{ _('Рецензии') }}</a>
+                <a href="{{ url_for('bot_portal.showcase') }}" class="text-indigo-400 hover:opacity-75 transition-opacity">{{ _('Портал бота') }}</a>
             </nav>
-            <a href="{{ url_for('main_site.login') }}" id="user-icon" class="text-white hover:opacity-75 transition-opacity">
+
+            <div class="relative">
+                <button id="lang-switcher-button" class="flex items-center gap-2 text-white hover:opacity-75 transition-opacity">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m4 13l4-4M19 17v-2a4 4 0 00-4-4H9M5 11l4-4M11 5l4-4m0 0l4 4m-4-4v12" />
+                    </svg>
+                    <span>{{ g.lang_code.upper() if g.lang_code else 'RU' }}</span>
+                </button>
+                <div id="lang-switcher-menu" class="absolute right-0 mt-2 py-2 w-20 bg-slate-800 rounded-md shadow-xl z-20" style="display: none;">
+                    <a href="{{ url_for(request.endpoint, lang_code='ru', **request.view_args) }}" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-700">RU</a>
+                    <a href="{{ url_for(request.endpoint, lang_code='en', **request.view_args) }}" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-700">EN</a>
+                </div>
+            </div>
+
+            <a href="{{ url_for('main_site.login', lang_code=g.lang_code) }}" id="user-icon" class="text-white hover:opacity-75 transition-opacity">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
@@ -42,23 +56,24 @@
 <footer class="mt-24 border-t border-[#232325]">
     <div class="max-w-[1440px] mx-auto px-6 sm:px-8 md:px-16 py-12">
         <div class="flex flex-col md:flex-row justify-between items-center gap-8">
-            <a href="{{ url_for('main_site.index') }}" class="text-2xl font-bold text-white tracking-wider">HJR</a>
+            <a href="{{ url_for('main_site.index', lang_code=g.lang_code) }}" class="text-2xl font-bold text-white tracking-wider">HJR</a>
             <div class="flex items-center space-x-8 text-white">
-                <a href="{{ url_for('main_site.new_reviews') }}" class="hover:opacity-75 transition-opacity">Новые</a>
-                <a href="{{ url_for('main_site.discussed') }}" class="hover:opacity-75 transition-opacity">Обсуждаемое</a>
-                <a href="{{ url_for('main_site.reviews') }}" class="hover:opacity-75 transition-opacity">Рецензии</a>
-                <a href="{{ url_for('main_site.about') }}" class="hover:opacity-75 transition-opacity">О нас</a>
+                <a href="{{ url_for('main_site.new_reviews', lang_code=g.lang_code) }}" class="hover:opacity-75 transition-opacity">{{ _('Новые') }}</a>
+                <a href="{{ url_for('main_site.discussed', lang_code=g.lang_code) }}" class="hover:opacity-75 transition-opacity">{{ _('Обсуждаемое') }}</a>
+                <a href="{{ url_for('main_site.reviews', lang_code=g.lang_code) }}" class="hover:opacity-75 transition-opacity">{{ _('Рецензии') }}</a>
+                <a href="{{ url_for('main_site.about', lang_code=g.lang_code) }}" class="hover:opacity-75 transition-opacity">{{ _('О нас') }}</a>
+                <a href="{{ url_for('main_site.contact', lang_code=g.lang_code) }}" class="hover:opacity-75 transition-opacity">{{ _('Контакты') }}</a>
             </div>
             <div class="flex items-center space-x-6">
             </div>
         </div>
         <div class="mt-8 pt-8 border-t border-[#232325] text-sm text-[#8F8F90] flex flex-col md:flex-row justify-between items-center gap-4">
-            <p>&copy; 2025 Honji Review</p>
+            <p>&copy; 2025 Honji Review | CC BY-NC-SA</p>
             <div class="flex flex-wrap justify-center gap-x-4 gap-y-2">
-                <a href="{{ url_for('main_site.community_rules') }}" class="hover:text-white">Правила сообщества</a>
-                <a href="{{ url_for('main_site.privacy_policy') }}" class="hover:text-white">Privacy Policy</a>
-                <a href="{{ url_for('main_site.licenses') }}" class="hover:text-white">Licenses</a>
-                <a href="{{ url_for('main_site.disclaimer') }}" class="hover:text-white">Disclaimer</a>
+                <a href="{{ url_for('main_site.community_rules', lang_code=g.lang_code) }}" class="hover:text-white">{{ _('Правила сообщества') }}</a>
+                <a href="{{ url_for('main_site.personal_data_policy', lang_code=g.lang_code) }}" class="hover:text-white">{{ _('Политика обработки персональных данных') }}</a>
+                <a href="{{ url_for('main_site.licenses', lang_code=g.lang_code) }}" class="hover:text-white">{{ _('Лицензии') }}</a>
+                <a href="{{ url_for('main_site.disclaimer', lang_code=g.lang_code) }}" class="hover:text-white">{{ _('Отказ от ответственности') }}</a>
             </div>
         </div>
     </div>
@@ -67,6 +82,7 @@
 {% include 'main_site/main_login.html' %}
 
 {% block body_js %}{% endblock %}
-<script src="{{ url_for('main_site.static', filename='js/main_login.js') }}"></script>
+<script src="{{ url_for('main_site_static.static', filename='js/main_site.js') }}"></script>
+<script src="{{ url_for('main_site_static.static', filename='js/main_login.js') }}"></script>
 </body>
 </html>

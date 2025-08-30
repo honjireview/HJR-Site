@@ -1,90 +1,108 @@
 {% extends "layout.html" %}
-{% block title %}Лицензии и благодарности - Honji Review{% endblock %}
+{% block title %}{{ _('Лицензии и благодарности') }} - Honji Review{% endblock %}
 {% block content %}
 <div class="py-12 max-w-4xl mx-auto">
     <div class="text-center mb-12">
-        <h1 class="page-title">Лицензии и благодарности</h1>
+        <h1 class="page-title">{{ _('Лицензии и благодарности') }}</h1>
         <p class="text-slate-400 mt-4">
-            Проект Honji Review был бы невозможен без работы с открытым исходным кодом и свободно распространяемых ресурсов. Мы выражаем благодарность их авторам.
+            {{ _('Проект Honji Review был бы невозможен без работы с открытым исходным кодом и свободно распространяемых ресурсов. Мы выражаем благодарность их авторам.') }}
         </p>
     </div>
 
     <div class="space-y-8 text-slate-300">
 
         <div class="about-card">
-            <h2 class="text-2xl font-bold mb-4">Ресурсы и ассеты</h2>
+            <h2 class="text-2xl font-bold mb-4">{{ _('Ресурсы и ассеты') }}</h2>
+
             <div class="border-t border-white/10 pt-4">
-                <h3 class="font-semibold">Иконки</h3>
-                <p class="text-sm text-slate-400">Иконки, используемые на сайте, предоставлены сервисом Icons8.</p>
+                <h3 class="font-semibold">Лицензия на контент</h3>
+                <p class="text-sm text-slate-400">Весь контент, размещенный на сайте (если иное не указано в самой публикации), доступен по лицензии Creative Commons.</p>
                 <ul class="list-disc list-inside mt-2">
-                    <li><a href="https://icons8.com" target="_blank" rel="noopener" class="text-indigo-400 hover:underline">Сайт Icons8</a></li>
-                    <li>Лицензия: <a href="https://icons8.com/license" target="_blank" rel="noopener" class="text-indigo-400 hover:underline">Icons8 License</a></li>
+                    <li><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ru" target="_blank" rel="noopener" class="text-indigo-400 hover:underline">CC BY-NC-SA 4.0 (Attribution-NonCommercial-ShareAlike)</a></li>
+                </ul>
+            </div>
+
+            <div class="border-t border-white/10 pt-4 mt-4">
+                <h3 class="font-semibold">Фоновое изображение</h3>
+                <p class="text-sm text-slate-400">Фоновая фотография на главной странице предоставлена сервисом Pexels.</p>
+                <ul class="list-disc list-inside mt-2">
+                    <li><a href="https://www.pexels.com/ja-jp/photo/159866/" target="_blank" rel="noopener" class="text-indigo-400 hover:underline">Источник: Pexels</a></li>
+                    <li>{{ _('Лицензия:') }} <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener" class="text-indigo-400 hover:underline">Creative Commons 0 (CC0)</a></li>
+                </ul>
+            </div>
+
+            <div class="border-t border-white/10 pt-4 mt-4">
+                <h3 class="font-semibold">{{ _('Иконки') }}</h3>
+                <p class="text-sm text-slate-400">{{ _('Иконки, используемые на сайте, предоставлены сервисом Icons8.') }}</p>
+                <ul class="list-disc list-inside mt-2">
+                    <li><a href="https://icons8.com" target="_blank" rel="noopener" class="text-indigo-400 hover:underline">{{ _('Сайт Icons8') }}</a></li>
+                    <li>{{ _('Лицензия:') }} <a href="https://icons8.com/license" target="_blank" rel="noopener" class="text-indigo-400 hover:underline">Icons8 License</a></li>
                 </ul>
             </div>
             <div class="border-t border-white/10 pt-4 mt-4">
-                <h3 class="font-semibold">Шрифт Manrope</h3>
-                <p class="text-sm text-slate-400">Основной шрифт сайта, распространяемый по свободной лицензии.</p>
+                <h3 class="font-semibold">{{ _('Шрифт Manrope') }}</h3>
+                <p class="text-sm text-slate-400">{{ _('Основной шрифт сайта, распространяемый по свободной лицензии.') }}</p>
                 <ul class="list-disc list-inside mt-2">
-                    <li>Источник: <a href="https://fonts.google.com/specimen/Manrope" target="_blank" rel="noopener" class="text-indigo-400 hover:underline">Google Fonts</a></li>
-                    <li>Лицензия: <a href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL" target="_blank" rel="noopener" class="text-indigo-400 hover:underline">Open Font License</a></li>
+                    <li>{{ _('Источник:') }} <a href="https://fonts.google.com/specimen/Manrope" target="_blank" rel="noopener" class="text-indigo-400 hover:underline">Google Fonts</a></li>
+                    <li>{{ _('Лицензия:') }} <a href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL" target="_blank" rel="noopener" class="text-indigo-400 hover:underline">Open Font License</a></li>
                 </ul>
             </div>
         </div>
 
         <div class="about-card">
-            <h2 class="text-2xl font-bold mb-4">Программное обеспечение</h2>
-            <p class="mb-4">Этот проект использует следующие библиотеки с открытым исходным кодом:</p>
+            <h2 class="text-2xl font-bold mb-4">{{ _('Программное обеспечение') }}</h2>
+            <p class="mb-4">{{ _('Этот проект использует следующие библиотеки с открытым исходным кодом:') }}</p>
 
             <div class="border-t border-white/10 pt-4">
                 <h3 class="font-semibold">Flask</h3>
-                <p class="text-sm text-slate-400">Микрофреймворк для создания веб-приложений.</p>
+                <p class="text-sm text-slate-400">{{ _('Микрофреймворк для создания веб-приложений.') }}</p>
                 <ul class="list-disc list-inside mt-2">
                     <li>Copyright © 2010 Pallets</li>
-                    <li>Лицензия: <a href="https://github.com/pallets/flask/blob/main/LICENSE.rst" target="_blank" rel="noopener" class="text-indigo-400 hover:underline">BSD-3-Clause License</a></li>
+                    <li>{{ _('Лицензия:') }} <a href="https://github.com/pallets/flask/blob/main/LICENSE.rst" target="_blank" rel="noopener" class="text-indigo-400 hover:underline">BSD-3-Clause License</a></li>
                 </ul>
             </div>
 
             <div class="border-t border-white/10 pt-4 mt-4">
                 <h3 class="font-semibold">psycopg2-binary</h3>
-                <p class="text-sm text-slate-400">Адаптер PostgreSQL для Python.</p>
+                <p class="text-sm text-slate-400">{{ _('Адаптер PostgreSQL для Python.') }}</p>
                 <ul class="list-disc list-inside mt-2">
                     <li>Copyright © 2001-2020 Daniele Varrazzo and C.</li>
-                    <li>Лицензия: <a href="https://www.gnu.org/licenses/lgpl-3.0.en.html" target="_blank" rel="noopener" class="text-indigo-400 hover:underline">LGPL-3.0</a></li>
+                    <li>{{ _('Лицензия:') }} <a href="https://www.gnu.org/licenses/lgpl-3.0.en.html" target="_blank" rel="noopener" class="text-indigo-400 hover:underline">LGPL-3.0</a></li>
                 </ul>
             </div>
 
             <div class="border-t border-white/10 pt-4 mt-4">
                 <h3 class="font-semibold">Gunicorn</h3>
-                <p class="text-sm text-slate-400">WSGI HTTP-сервер для UNIX.</p>
+                <p class="text-sm text-slate-400">{{ _('WSGI HTTP-сервер для UNIX.') }}</p>
                 <ul class="list-disc list-inside mt-2">
                     <li>Copyright © 2009-2018 Benoit Chesneau</li>
-                    <li>Лицензия: <a href="https://github.com/benoitc/gunicorn/blob/master/LICENSE" target="_blank" rel="noopener" class="text-indigo-400 hover:underline">MIT License</a></li>
+                    <li>{{ _('Лицензия:') }} <a href="https://github.com/benoitc/gunicorn/blob/master/LICENSE" target="_blank" rel="noopener" class="text-indigo-400 hover:underline">MIT License</a></li>
                 </ul>
             </div>
 
             <div class="border-t border-white/10 pt-4 mt-4">
                 <h3 class="font-semibold">pyTelegramBotAPI</h3>
-                <p class="text-sm text-slate-400">Библиотека для взаимодействия с Telegram Bot API.</p>
+                <p class="text-sm text-slate-400">{{ _('Библиотека для взаимодействия с Telegram Bot API.') }}</p>
                 <ul class="list-disc list-inside mt-2">
                     <li>Copyright © 2015-2022 Eternnoir</li>
-                    <li>Лицензия: <a href="https://github.com/eternnoir/pyTelegramBotAPI/blob/master/LICENSE" target="_blank" rel="noopener" class="text-indigo-400 hover:underline">MIT License</a></li>
+                    <li>{{ _('Лицензия:') }} <a href="https://github.com/eternnoir/pyTelegramBotAPI/blob/master/LICENSE" target="_blank" rel="noopener" class="text-indigo-400 hover:underline">MIT License</a></li>
                 </ul>
             </div>
 
             <div class="border-t border-white/10 pt-4 mt-4">
                 <h3 class="font-semibold">google-generativeai</h3>
-                <p class="text-sm text-slate-400">Клиентская библиотека Google для Generative AI.</p>
+                <p class="text-sm text-slate-400">{{ _('Клиентская библиотека Google для Generative AI.') }}</p>
                 <ul class="list-disc list-inside mt-2">
                     <li>Copyright © Google LLC</li>
-                    <li>Лицензия: <a href="https://github.com/google/generative-ai-python/blob/main/LICENSE" target="_blank" rel="noopener" class="text-indigo-400 hover:underline">Apache License 2.0</a></li>
+                    <li>{{ _('Лицензия:') }} <a href="https://github.com/google/generative-ai-python/blob/main/LICENSE" target="_blank" rel="noopener" class="text-indigo-400 hover:underline">Apache License 2.0</a></li>
                 </ul>
             </div>
 
             <div class="border-t border-white/10 pt-4 mt-4">
                 <h3 class="font-semibold">Flask-WTF & Flask-Talisman</h3>
-                <p class="text-sm text-slate-400">Расширения для Flask, обеспечивающие работу с формами и безопасность.</p>
+                <p class="text-sm text-slate-400">{{ _('Расширения для Flask, обеспечивающие работу с формами и безопасность.') }}</p>
                 <ul class="list-disc list-inside mt-2">
-                    <li>Лицензии: BSD-3-Clause и Apache 2.0 соответственно.</li>
+                    <li>{{ _('Лицензии: BSD-3-Clause и Apache 2.0 соответственно.') }}</li>
                 </ul>
             </div>
 

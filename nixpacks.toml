@@ -3,4 +3,5 @@
 cmds = ["echo 'Building...'"]
 
 [start]
-cmd = "nginx -g 'daemon off;'"
+# ИЗМЕНЕНИЕ: Запускаем наш стартовый скрипт вместо голого Nginx
+cmd = "sh start.sh"

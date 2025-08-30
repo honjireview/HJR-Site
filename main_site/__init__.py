@@ -1,12 +1,18 @@
 from flask import Blueprint
 
-# 1. Создаем "блюпринт"
+# Blueprint для динамических, языковых маршрутов
 main_site_bp = Blueprint(
     'main_site',
     __name__,
-    template_folder='../templates/main_site',
-    static_folder='../static'
+    template_folder='../templates/main_site'
 )
 
-# 2. Импортируем роуты в самом конце, чтобы избежать циклических импортов
+# ОТДЕЛЬНЫЙ Blueprint только для статических файлов.
+static_bp = Blueprint(
+    'main_site_static',
+    __name__,
+    static_folder='../static',
+    static_url_path='/main_site/static'
+)
+
 from . import routes

@@ -4,7 +4,7 @@ from . import main_site_bp
 from bot_portal.models.editor_model import EditorModel
 
 
-@main_site_bp.route('/main')
+@main_site_bp.route('/')
 def index():
     """
     Обрабатывает главную страницу основного сайта.
@@ -30,7 +30,7 @@ def index():
     return render_template('main_site/index.html', latest_reviews=latest_reviews)
 
 
-@main_site_bp.route('/main/community')
+@main_site_bp.route('/community')
 def discussed():
     """
     Обрабатывает страницу каталога "Обсуждаемое".
@@ -67,7 +67,7 @@ def discussed():
                            reviews=discussed_reviews)
 
 
-@main_site_bp.route('/main/reviews')
+@main_site_bp.route('/reviews')
 def reviews():
     """
     Обрабатывает страницу каталога "Рецензии".
@@ -87,7 +87,7 @@ def reviews():
                            reviews=reviews_data)
 
 
-@main_site_bp.route('/main/new')
+@main_site_bp.route('/new')
 def new_reviews():
     """
     Обрабатывает страницу каталога "Новые".
@@ -123,7 +123,7 @@ def new_reviews():
                            reviews=new_reviews_data)
 
 
-@main_site_bp.route('/main/about')
+@main_site_bp.route('/about')
 def about():
     """
     Обрабатывает страницу "О нас", загружая список редакторов из БД.
@@ -133,40 +133,57 @@ def about():
     editors = [editor for editor in all_editors if editor.get('role') != 'executor']
     return render_template('main_site/about.html', executor=executor, editors=editors)
 
-
-@main_site_bp.route('/main/privacy-policy')
-def privacy_policy():
+# --- ИЗМЕНЕНИЕ: Заменяем старую политику на новую ---
+@main_site_bp.route('/personal-data-policy')
+def personal_data_policy():
     """
-    Обрабатывает страницу политики конфиденциальности.
+    Обрабатывает страницу политики обработки персональных данных.
     """
-    return render_template('main_site/privacy_policy.html')
+    return render_template('main_site/personal_data_policy.html')
 
-@main_site_bp.route('/main/licenses')
+
+@main_site_bp.route('/licenses')
 def licenses():
     """
     Отображает страницу с информацией о лицензиях и благодарностями.
     """
     return render_template('main_site/licenses.html')
 
-@main_site_bp.route('/main/disclaimer')
+@main_site_bp.route('/disclaimer')
 def disclaimer():
     """
     Отображает страницу "Отказ от ответственности".
     """
     return render_template('main_site/disclaimer.html')
 
-# --- НАЧАЛО ИЗМЕНЕНИЙ: Новый маршрут для страницы "Правила сообщества" ---
-@main_site_bp.route('/main/community-rules')
+@main_site_bp.route('/community-rules')
 def community_rules():
     """
     Отображает страницу "Правила сообщества".
     """
     return render_template('main_site/community_rules.html')
-# --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
-@main_site_bp.route('/main/login')
+@main_site_bp.route('/contact')
+def contact():
+    """
+    Отображает страницу "Контакты".
+    """
+    return render_template('main_site/contact.html')
+
+@main_site_bp.route('/login')
 def login():
     """
-    Резервный маршрут для страницы входа.
+    Отображает главную страницу с флагом для автоматического открытия модального окна входа.
+    Это позволяет делиться прямой ссылкой на страницу входа.
     """
-    return redirect(url_for('main_site.index'))
+    # Мы загружаем те же данные, что и для главной страницы,
+    # чтобы фон и контент были идентичны.
+    latest_reviews = [
+        {"date": "14.04.2025", "title": "“Злой король” — трон из лжи, корона из ада", "description": "Мрачная и увлекательная история о магии, борьбе за власть и сложных отношениях, где каждая сила имеет свою цену."},
+        {"date": "12.04.2025", "title": "“Жестокий принц” — игра теней, сердце в броне, корона в шипах", "description": "История о хрупкой смертной, чьи амбиции опаснее магии, и о принце фейри, для которого презрение — искусство, и чья магия питается кровью и гордостью."},
+        {"date": "10.04.2025", "title": "“Преступление и наказание” — хроника внутреннего мрака и тревожной совести", "description": "Роман о границах морали, страхе, вине и пути к искуплению в мире, где истина не всегда светла."}
+    ]
+    # Передаем в шаблон флаг, который JаvaScript будет использовать для открытия окна
+    return render_template('main_site/index.html',
+                           latest_reviews=latest_reviews,
+                           open_login_modal=True)
