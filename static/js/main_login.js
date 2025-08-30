@@ -8,42 +8,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const showRegisterBtn = document.getElementById('show-register-view');
     const showLoginBtn = document.getElementById('show-login-view');
 
-    // Store the original path to return to it when the modal is closed
     let originalPath = window.location.pathname;
 
-    // Проверяем, существуют ли все необходимые элементы
     if (!userIcon || !overlay || !modal || !loginView || !registerView || !showRegisterBtn || !showLoginBtn) {
-        // Эта ошибка не должна появляться, если HTML корректен
         console.error('Auth modal elements not found on the page.');
         return;
     }
 
     const openModal = () => {
-        originalPath = window.location.pathname; // Save the path right before opening
-        const langCode = originalPath.split('/')[1] || 'ru'; // Extract lang_code from URL
-        const loginUrl = `/${langCode}/login`;
+        originalPath = window.location.pathname;
+        const loginUrl = userIcon.getAttribute('href'); // Получаем URL напрямую из ссылки
 
-        history.pushState(null, '', loginUrl); // Change URL
+        // Используем replaceState, чтобы не создавать лишнюю запись в истории
+        history.replaceState({ modal: 'open' }, '', loginUrl);
+
         overlay.classList.remove('hidden');
         modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden'; // Блокируем скролл страницы
+        document.body.style.overflow = 'hidden';
     };
 
     const closeModal = () => {
-        history.pushState(null, '', originalPath); // Change URL back
+        // Возвращаемся на исходный URL
+        history.replaceState({ modal: 'closed' }, '', originalPath);
+
         overlay.classList.add('hidden');
         modal.classList.add('hidden');
-        document.body.style.overflow = ''; // Возвращаем скролл
+        document.body.style.overflow = '';
     };
 
     userIcon.addEventListener('click', (e) => {
-        e.preventDefault(); // Отменяем стандартное поведение ссылки
+        e.preventDefault();
         openModal();
     });
 
     overlay.addEventListener('click', closeModal);
 
-    // Добавим закрытие по клавише Escape
     document.addEventListener('keydown', (e) => {
         if (e.key === "Escape" && !modal.classList.contains('hidden')) {
             closeModal();
@@ -62,14 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
         loginView.classList.remove('hidden');
     });
 
-    // Handle back/forward browser button navigation
+    // Обработка кнопок "назад/вперед" в браузере
     window.addEventListener('popstate', () => {
-        // If the modal should be open on the /login page but isn't, open it.
-        if (window.location.pathname.endsWith('/login') && modal.classList.contains('hidden')) {
+        const currentPath = window.location.pathname;
+        if (currentPath.endsWith('/login') && modal.classList.contains('hidden')) {
             openModal();
-        }
-        // If the modal is open but the URL is not /login anymore, close it.
-        else if (!window.location.pathname.endsWith('/login') && !modal.classList.contains('hidden')) {
+        } else if (!currentPath.endsWith('/login') && !modal.classList.contains('hidden')) {
             closeModal();
         }
     });

@@ -7,6 +7,36 @@ body {
     color: #EAEAEA;
 }
 
+/* --- НАЧАЛО ИЗМЕНЕНИЙ --- */
+#hero-section {
+    position: relative;
+    background-color: #0E0E10; /* Цвет фона, если изображение не загрузится */
+    padding-top: 10vh;
+    padding-bottom: 25vh;
+}
+
+#hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Путь к вашему изображению */
+    background-image: url('../images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    /* Эффект затемнения (прозрачность 0.1) */
+    opacity: 0.1;
+    z-index: 1;
+}
+
+#hero-section > * {
+    position: relative;
+    z-index: 2; /* Убеждаемся, что контент находится поверх фона */
+}
+/* --- КОНЕЦ ИЗМЕНЕНИЙ --- */
+
 .btn {
     background-color: white;
     color: #0E0E10;
@@ -25,11 +55,6 @@ body {
 .btn:hover {
     background-color: #EAEAEA;
     color: #0E0E10;
-}
-
-#hero-section {
-    padding-top: 10vh;
-    padding-bottom: 25vh;
 }
 
 .section-title {
