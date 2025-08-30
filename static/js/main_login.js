@@ -8,12 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const showRegisterBtn = document.getElementById('show-register-view');
     const showLoginBtn = document.getElementById('show-login-view');
 
-    // Флаг, который мы передаем из Flask (`open_login_modal`)
-    // Проверяем, есть ли на странице элемент, который мы создадим при open_login_modal=True
-    const shouldOpenModal = document.body.dataset.openLoginModal === 'true';
+    // Проверяем, передал ли Flask флаг для открытия окна
+    const shouldOpenModalOnLoad = document.body.dataset.openLoginModal === 'true';
 
-    let originalPath = window.location.pathname.endsWith('/login')
-        ? `/${window.location.pathname.split('/')[1]}` // Если мы на /login, то "домой" - это /ru/
+    // Определяем "домашний" URL, на который нужно будет вернуться
+    // Если мы уже на /login, то "дом" - это /<lang_code>/. Иначе - текущий URL.
+    const homePath = window.location.pathname.endsWith('/login')
+        ? window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')) + '/'
         : window.location.pathname;
 
     if (!userIcon || !overlay || !modal || !loginView || !registerView || !showRegisterBtn || !showLoginBtn) {
@@ -24,9 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const openModal = () => {
         const loginUrl = userIcon.getAttribute('href');
 
-        // Меняем URL, только если он еще не изменен
+        // Меняем URL, только если он еще не /login
         if (window.location.pathname !== loginUrl) {
-            history.pushState({ modal: 'open' }, '', loginUrl);
+            // pushState добавляет новую запись в историю браузера
+            history.pushState({ modalOpen: true }, '', loginUrl);
         }
 
         overlay.classList.remove('hidden');
@@ -35,9 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const closeModal = () => {
-        // Возвращаемся на исходный URL, если мы на странице /login
+        // Возвращаемся на предыдущий URL
         if (window.location.pathname.endsWith('/login')) {
-            history.pushState({ modal: 'closed' }, '', originalPath);
+            history.pushState({ modalOpen: false }, '', homePath);
         }
 
         overlay.classList.add('hidden');
@@ -70,8 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
         loginView.classList.remove('hidden');
     });
 
-    // Обработка кнопок "назад/вперед" в браузере
-    window.addEventListener('popstate', (event) => {
+    // Слушаем кнопки "вперед/назад" в браузере
+    window.addEventListener('popstate', () => {
         if (window.location.pathname.endsWith('/login')) {
             if (modal.classList.contains('hidden')) {
                 openModal();
@@ -83,8 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Если страница загрузилась с флагом от Flask, открываем окно
-    if (shouldOpenModal) {
+    // Если сервер сказал открыть окно при загрузке - открываем
+    if (shouldOpenModalOnLoad) {
         openModal();
     }
 });
