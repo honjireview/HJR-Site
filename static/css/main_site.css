@@ -7,7 +7,6 @@ body {
     color: #EAEAEA;
 }
 
-/* --- НАЧАЛО ИЗМЕНЕНИЙ: Корректные стили для фонового изображения --- */
 #hero-section {
     position: relative;
     overflow: hidden;
@@ -19,33 +18,26 @@ body {
     content: '';
     position: absolute;
     z-index: 1;
-
-    /* Позиционирование и размер фона */
     top: 50%;
-    right: -5%; /* Смещаем немного вправо */
-    width: 75%; /* Занимает правую часть секции */
-    height: 120%; /* Увеличиваем высоту для лучшего вида */
+    right: -5%;
+    width: 75%;
+    height: 120%;
     transform: translateY(-50%);
-
-    /* Изображение */
     background-image: url('../images/background.jpg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-
-    /* ИЗМЕНЕНИЕ: Затемнение - СДЕЛАНО ЧУТЬ ЯРЧЕ (с 0.07 на 0.12) */
     opacity: 0.12;
 
-    /* ИЗМЕНЕНИЕ: Плавное растворение краев с помощью маски - СДЕЛАНО БОЛЕЕ ОКРУГЛЫМ */
-    mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, black 20%, transparent 80%);
-    -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, black 20%, transparent 80%);
+    /* ИЗМЕНЕНИЕ: Маска сделана более агрессивной, чтобы сильнее затемнять углы */
+    mask-image: radial-gradient(ellipse 60% 75% at 50% 50%, black 15%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 60% 75% at 50% 50%, black 15%, transparent 70%);
 }
 
 #hero-section .hero-content {
     position: relative;
-    z-index: 2; /* Контент всегда выше фона */
+    z-index: 2;
 }
-/* --- КОНЕЦ ИЗМЕНЕНИЙ --- */
 
 .btn {
     background-color: white;
