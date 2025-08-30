@@ -1,29 +1,31 @@
 // static/js/main_login.js
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Получаем все нужные элементы со страницы ---
     const userIcon = document.getElementById('user-icon');
     const overlay = document.getElementById('auth-modal-overlay');
     const modal = document.getElementById('auth-modal');
 
-    // Проверяем, что все элементы существуют
+    // --- Проверяем, что все элементы на месте, чтобы избежать ошибок ---
     if (!userIcon || !overlay || !modal) {
         console.error('Не найдены все компоненты модального окна входа.');
         return;
     }
 
-    // --- ФУНКЦИИ УПРАВЛЕНИЯ ОКНОМ ---
+    // --- ОСНОВНАЯ ЛОГИКА ---
+
+    // Функция, которая ПОКАЗЫВАЕТ окно
     const showModal = () => {
         overlay.classList.remove('hidden');
         modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden'; // Блокируем прокрутку
+        document.body.style.overflow = 'hidden';
     };
 
+    // Функция, которая ПРЯЧЕТ окно
     const hideModal = () => {
         overlay.classList.add('hidden');
         modal.classList.add('hidden');
-        document.body.style.overflow = ''; // Возвращаем прокрутку
+        document.body.style.overflow = '';
     };
-
-    // --- ЛОГИКА ---
 
     // 1. Открытие окна по клику на иконку
     userIcon.addEventListener('click', (e) => {
@@ -37,7 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Закрытие окна (клик на фон или Escape)
     const closeModal = () => {
-        // history.back() вернет нас на предыдущий URL
+        // history.back() вернет нас на предыдущий URL в истории браузера.
+        // Это правильный способ закрытия, так как он вызовет событие popstate.
         history.back();
     };
     overlay.addEventListener('click', closeModal);
@@ -49,20 +52,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Обработка кнопок "вперед/назад" в браузере
     window.addEventListener('popstate', (e) => {
-        const loginUrl = userIcon.getAttribute('href');
-        // Проверяем, соответствует ли текущий URL - URLу для логина
-        if (window.location.href === loginUrl) {
-            showModal(); // Если да, показываем окно
+        // Если в объекте состояния истории есть наш флаг modal: 'open',
+        // значит, мы должны показать окно. Иначе - скрыть.
+        if (e.state && e.state.modal === 'open') {
+            showModal();
         } else {
-            hideModal(); // Если нет, прячем
+            hideModal();
         }
     });
 
-    // 4. Проверка при ПЕРВОЙ загрузке страницы
+    // 4. Проверка при ПЕРВОНАЧАЛЬНОЙ загрузке страницы
     // Если пользователь зашел по прямой ссылке /login...
     if (document.body.dataset.openLoginModal === 'true') {
         const loginUrl = userIcon.getAttribute('href');
-        // ...мы заменяем текущую (первую) запись в истории браузера.
+        // ...мы заменяем текущую запись в истории браузера.
         // Это нужно, чтобы при нажатии "назад" пользователь попал
         // на главную страницу, а не на тот сайт, откуда он перешел по ссылке.
         history.replaceState({ modal: 'open' }, '', loginUrl);
