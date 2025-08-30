@@ -208,8 +208,8 @@
                 <p class="text-sm text-slate-500 mt-2">Создано для повышения эффективности и справедливости в сообществе Honji Review.</p>
             </div>
             <div class="text-sm text-slate-500 flex items-center gap-x-6">
-                <a href="{{ url_for('main_site.about') }}" class="hover:text-indigo-400 transition">О нас</a>
-                <a href="{{ url_for('main_site.privacy_policy') }}" class="hover:text-indigo-400 transition">Политика конфиденциальности</a>
+                <a href="{{ url_for('main_site.about', lang_code=g.lang_code) }}" class="hover:text-indigo-400 transition">О нас</a>
+                <a href="{{ url_for('main_site.privacy_policy', lang_code=g.lang_code) }}" class="hover:text-indigo-400 transition">Политика конфиденциальности</a>
                 <a href="mailto:honjireview.info@gmail.com" class="hover:text-indigo-400 transition">Связаться с нами</a>
             </div>
         </div>
@@ -222,6 +222,7 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
     </svg>
 </button>
+
 <script src="{{ url_for('main_site_static.static', filename='js/bot_portal_showcase.js') }}" defer></script>
 </body>
 </html>
