@@ -29,9 +29,19 @@ body {
     background-position: center;
     opacity: 0.12;
 
-    /* ИЗМЕНЕНИЕ: Маска сделана более агрессивной, чтобы сильнее затемнять углы */
-    mask-image: radial-gradient(ellipse 60% 75% at 50% 50%, black 15%, transparent 70%);
-    -webkit-mask-image: radial-gradient(ellipse 60% 75% at 50% 50%, black 15%, transparent 70%);
+    /* ИЗМЕНЕНИЕ: Используется линейный градиент для затемнения верха и низа */
+    mask-image: linear-gradient(to bottom,
+    transparent 0%,
+    black 25%,
+    black 75%,
+    transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(to bottom,
+    transparent 0%,
+    black 25%,
+    black 75%,
+    transparent 100%
+    );
 }
 
 #hero-section .hero-content {
