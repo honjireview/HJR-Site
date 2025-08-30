@@ -7,35 +7,40 @@ body {
     color: #EAEAEA;
 }
 
-/* --- НАЧАЛО ИЗМЕНЕНИЙ: Стили для фона в шапке --- */
+/* --- НАЧАЛО ИЗМЕНЕНИЙ: Полностью новый подход к фоновому изображению --- */
 #hero-section {
-    position: relative; /* Необходимо для позиционирования псевдоэлемента */
+    position: relative; /* Нужно для позиционирования дочерних элементов */
+    overflow: hidden; /* Скрываем части изображения, выходящие за блок */
     padding-top: 10vh;
     padding-bottom: 25vh;
 }
 
-#hero-section::before {
-    content: '';
+/* Стили для декоративного изображения */
+.hero-background-image {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Путь к изображению относительно папки css */
-    background-image: url('../images/background.jpg');
-    background-size: cover;
-    background-position: center;
-    /* Создаем эффект тени/затемнения */
-    opacity: 0.1; /* Основной параметр затемнения */
-    z-index: 1; /* Размещаем фон под контентом */
+    /* Позиционируем справа по центру */
+    top: 50%;
+    right: 0;
+    /* Смещаем и масштабируем для нужного эффекта */
+    transform: translate(20%, -50%);
+    width: 65%;
+    height: auto;
+    z-index: 1; /* Размещаем под текстом */
+    opacity: 0.07; /* Делаем изображение еще темнее/прозрачнее */
+    pointer-events: none; /* Изображение не будет мешать кликать на текст */
+
+    /* САМОЕ ВАЖНОЕ: Создаем маску, которая плавно растворяет края */
+    mask-image: radial-gradient(ellipse 50% 60% at 50% 50%, black 35%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 50% 60% at 50% 50%, black 35%, transparent 100%);
 }
 
-/* Весь контент внутри секции должен быть над фоном */
+
 #hero-section .hero-content {
     position: relative;
-    z-index: 2;
+    z-index: 2; /* Убеждаемся, что контент находится поверх изображения */
 }
 /* --- КОНЕЦ ИЗМЕНЕНИЙ --- */
+
 
 .btn {
     background-color: white;

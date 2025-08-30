@@ -3,6 +3,8 @@
 
 {% block content %}
 <section id="hero-section" class="text-center md:text-left">
+    <img src="{{ url_for('main_site_static.static', filename='images/background.jpg') }}" class="hero-background-image" alt="">
+
     <div class="hero-content">
         <p class="text-lg text-center text-white mb-10">{{ _('«Чтение — это способ взглянуть на мир чужими глазами.»') }}</p>
         <div class="max-w-4xl mx-auto md:mx-0">
