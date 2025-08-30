@@ -19,7 +19,7 @@ body {
     content: '';
     position: absolute;
     z-index: 1;
-    top: 50%;
+    top: 45%;
     right: -5%; /* <--- Изображение смещено */
     width: 75%;
     height: 120%;
@@ -42,15 +42,12 @@ body {
     height: 100%;
     z-index: 2; /* Этот слой находится НАД картинкой */
 
-    /* * Радиальный градиент, который ТОЧНО ЦЕНТРИРОВАН относительно смещенной картинки.
-     * `at 57.5% center` - это вычисленный центр изображения, а не контейнера.
-     * Форма эллипса и значения подобраны, чтобы скрыть все края и углы.
-    */
+    /* * Радиальный градиент, слегка уменьшено затемнение и расширена "светлая" зона */
     background: radial-gradient(
             ellipse 45% 50% at 57.5% center,
             rgba(14, 14, 16, 0) 0%,
-            rgba(14, 14, 16, 0.3) 30%,
-            #0E0E10 70%
+            rgba(14, 14, 16, 0.18) 35%,
+            #0E0E10 82%
     );
 
     pointer-events: none; /* Позволяет кликать сквозь этот слой */
@@ -100,6 +97,13 @@ body {
 @media (min-width: 640px) { .promotion-title { font-size: 3rem; } }
 @media (min-width: 768px) { .promotion-title { font-size: 3.5rem; } }
 @media (min-width: 1024px) { .promotion-title { font-size: 4rem; } }
+
+/* Опустить кнопку "Оставить заявку" в блоке "Начать продвижение" на десктопе */
+@media (min-width: 768px) {
+  .promotion-title ~ form .btn {
+    margin-top: 1.5rem; /* можно варьировать 1rem–2rem */
+  }
+}
 
 .about-card { background-color: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; }
 .about-card h2 { font-size: 1.875rem; font-weight: 700; margin-bottom: 1rem; }

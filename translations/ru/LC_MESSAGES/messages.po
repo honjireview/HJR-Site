@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-08-29 22:24+0500\n"
+"POT-Creation-Date: 2025-08-30 17:02+0500\n"
 "PO-Revision-Date: 2025-08-29 22:25+0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: templates/layout.html:22 templates/layout.html:61
-#: templates/main_site/index.html:34
+#: templates/main_site/index.html:36
 msgid "Новые"
 msgstr ""
 
@@ -41,21 +41,26 @@ msgstr ""
 msgid "Портал бота"
 msgstr ""
 
-#: templates/layout.html:72 templates/main_site/community_rules.html:2
+#: templates/layout.html:65 templates/main_site/contact.html:2
+msgid "Контакты"
+msgstr ""
+
+#: templates/layout.html:73 templates/main_site/community_rules.html:2
 #: templates/main_site/community_rules.html:6
 msgid "Правила сообщества"
 msgstr ""
 
-#: templates/layout.html:73
-msgid "Privacy Policy"
-msgstr ""
-
-#: templates/layout.html:74
-msgid "Licenses"
+#: templates/layout.html:74 templates/main_site/personal_data_policy.html:2
+#: templates/main_site/personal_data_policy.html:6
+msgid "Политика обработки персональных данных"
 msgstr ""
 
 #: templates/layout.html:75
-msgid "Disclaimer"
+msgid "Лицензии"
+msgstr ""
+
+#: templates/layout.html:76
+msgid "Отказ от ответственности"
 msgstr ""
 
 #: templates/main_site/about.html:6
@@ -253,13 +258,42 @@ msgid ""
 "сделаем Honji Review лучше!"
 msgstr ""
 
+#: templates/main_site/contact.html:6
+msgid "Свяжитесь с нами"
+msgstr ""
+
+#: templates/main_site/contact.html:8
+msgid "Мы всегда открыты для вопросов, предложений и сотрудничества."
+msgstr ""
+
+#: templates/main_site/contact.html:14 templates/main_site/index.html:100
+#: templates/main_site/main_login.html:18
+#: templates/main_site/main_login.html:42
+msgid "Электронная почта"
+msgstr ""
+
+#: templates/main_site/contact.html:16
+msgid "Лучший способ связаться с нами для любых вопросов:"
+msgstr ""
+
+#: templates/main_site/contact.html:24
+msgid "Социальные сети"
+msgstr ""
+
+#: templates/main_site/contact.html:26
+msgid "Следите за нами на всех наших платформах:"
+msgstr ""
+
+#: templates/main_site/contact.html:29
+msgid "Наши соцсети (Linktree)"
+msgstr ""
+
 #: templates/main_site/disclaimer.html:8
-#: templates/main_site/privacy_policy.html:7
+#: templates/main_site/personal_data_policy.html:7
 msgid "Последнее обновление:"
 msgstr ""
 
 #: templates/main_site/disclaimer.html:8
-#: templates/main_site/privacy_policy.html:7
 msgid "августа"
 msgstr ""
 
@@ -320,148 +354,143 @@ msgstr ""
 msgid "Главная"
 msgstr ""
 
-#: templates/main_site/index.html:6
+#: templates/main_site/index.html:7
 msgid "«Чтение — это способ взглянуть на мир чужими глазами.»"
 msgstr ""
 
-#: templates/main_site/index.html:9
+#: templates/main_site/index.html:10
 msgid "Некоторые книги"
 msgstr ""
 
-#: templates/main_site/index.html:9
+#: templates/main_site/index.html:10
 msgid "не заканчиваются"
 msgstr ""
 
-#: templates/main_site/index.html:9
+#: templates/main_site/index.html:10
 msgid "с последней страницей"
 msgstr ""
 
-#: templates/main_site/index.html:12
+#: templates/main_site/index.html:13
 msgid "Мы делимся историями, что продолжаются внутри. 30+ отзывов уже здесь."
 msgstr ""
 
-#: templates/main_site/index.html:15
+#: templates/main_site/index.html:16
 msgid "Читать"
 msgstr ""
 
-#: templates/main_site/index.html:24
+#: templates/main_site/index.html:26
 msgid "Чтение помогает найти тишину внутри, и мы с радостью делимся этим с тобой."
 msgstr ""
 
-#: templates/main_site/index.html:27
+#: templates/main_site/index.html:29
 msgid "Наша цель."
 msgstr ""
 
-#: templates/main_site/index.html:28
+#: templates/main_site/index.html:30
 msgid "Создать пространство, где каждое слово о книге будет"
 msgstr ""
 
-#: templates/main_site/index.html:28
+#: templates/main_site/index.html:30
 msgid "честным"
 msgstr ""
 
-#: templates/main_site/index.html:28
+#: templates/main_site/index.html:30
 msgid "и"
 msgstr ""
 
-#: templates/main_site/index.html:28
+#: templates/main_site/index.html:30
 msgid "искренним"
 msgstr ""
 
-#: templates/main_site/index.html:28
+#: templates/main_site/index.html:30
 msgid "Мы стремимся, чтобы наши рецензии были не просто гидом для читателя, а"
 msgstr ""
 
-#: templates/main_site/index.html:28
+#: templates/main_site/index.html:30
 msgid "надежным ориентиром"
 msgstr ""
 
-#: templates/main_site/index.html:28
+#: templates/main_site/index.html:30
 msgid ""
 "чтобы каждый мог почувствовать правду, скрытую в историях. Наш проект — "
 "это место, где личное мнение"
 msgstr ""
 
-#: templates/main_site/index.html:28
+#: templates/main_site/index.html:30
 msgid "ценится"
 msgstr ""
 
-#: templates/main_site/index.html:28
+#: templates/main_site/index.html:30
 msgid "О книги — это не просто слова, а"
 msgstr ""
 
-#: templates/main_site/index.html:28
+#: templates/main_site/index.html:30
 msgid "миры"
 msgstr ""
 
-#: templates/main_site/index.html:28
+#: templates/main_site/index.html:30
 msgid "которые мы открываем и делимся с другими."
 msgstr ""
 
-#: templates/main_site/index.html:43
+#: templates/main_site/index.html:45
 msgid "Подробнее"
 msgstr ""
 
-#: templates/main_site/index.html:50
+#: templates/main_site/index.html:52
 msgid "Жанры"
 msgstr ""
 
-#: templates/main_site/index.html:56
+#: templates/main_site/index.html:58
 msgid "Фэнтези"
 msgstr ""
 
-#: templates/main_site/index.html:58
+#: templates/main_site/index.html:60
 msgid "ФЭНТЕЗИ"
 msgstr ""
 
-#: templates/main_site/index.html:65
+#: templates/main_site/index.html:67
 msgid "Романтика"
 msgstr ""
 
-#: templates/main_site/index.html:67
+#: templates/main_site/index.html:69
 msgid "РОМАНТИКА"
 msgstr ""
 
-#: templates/main_site/index.html:74
+#: templates/main_site/index.html:76
 msgid "Детектив"
 msgstr ""
 
-#: templates/main_site/index.html:76
+#: templates/main_site/index.html:78
 msgid "ДЕТЕКТИВ"
 msgstr ""
 
-#: templates/main_site/index.html:83
+#: templates/main_site/index.html:85
 msgid "Научная литература"
 msgstr ""
 
-#: templates/main_site/index.html:85
+#: templates/main_site/index.html:87
 msgid "НАУЧНАЯ ЛИТЕРАТУРА"
 msgstr ""
 
-#: templates/main_site/index.html:94
+#: templates/main_site/index.html:96
 msgid "Начать продвижение"
 msgstr ""
 
-#: templates/main_site/index.html:95
+#: templates/main_site/index.html:97
 msgid ""
 "Напишем рецензию на вашу работу, чтобы она вышла за пределы "
 "парти-занского маркетинга."
 msgstr ""
 
-#: templates/main_site/index.html:97
+#: templates/main_site/index.html:99
 msgid "Имя"
 msgstr ""
 
-#: templates/main_site/index.html:98 templates/main_site/main_login.html:18
-#: templates/main_site/main_login.html:42
-msgid "Электронная почта"
-msgstr ""
-
-#: templates/main_site/index.html:99
+#: templates/main_site/index.html:101
 msgid "Оставить заявку"
 msgstr ""
 
-#: templates/main_site/index.html:103
+#: templates/main_site/index.html:105
 msgid "Соглашаюсь на обработку Персональных данных"
 msgstr ""
 
@@ -480,70 +509,70 @@ msgstr ""
 msgid "Ресурсы и ассеты"
 msgstr ""
 
-#: templates/main_site/licenses.html:17
-msgid "Иконки"
-msgstr ""
-
-#: templates/main_site/licenses.html:18
-msgid "Иконки, используемые на сайте, предоставлены сервисом Icons8."
-msgstr ""
-
-#: templates/main_site/licenses.html:20
-msgid "Сайт Icons8"
-msgstr ""
-
-#: templates/main_site/licenses.html:21 templates/main_site/licenses.html:29
-#: templates/main_site/licenses.html:43 templates/main_site/licenses.html:52
-#: templates/main_site/licenses.html:61 templates/main_site/licenses.html:70
-#: templates/main_site/licenses.html:79
+#: templates/main_site/licenses.html:30 templates/main_site/licenses.html:39
+#: templates/main_site/licenses.html:47 templates/main_site/licenses.html:61
+#: templates/main_site/licenses.html:70 templates/main_site/licenses.html:79
+#: templates/main_site/licenses.html:88 templates/main_site/licenses.html:97
 msgid "Лицензия:"
 msgstr ""
 
-#: templates/main_site/licenses.html:25
-msgid "Шрифт Manrope"
-msgstr ""
-
-#: templates/main_site/licenses.html:26
-msgid "Основной шрифт сайта, распространяемый по свободной лицензии."
-msgstr ""
-
-#: templates/main_site/licenses.html:28
-msgid "Источник:"
-msgstr ""
-
 #: templates/main_site/licenses.html:35
-msgid "Программное обеспечение"
+msgid "Иконки"
 msgstr ""
 
 #: templates/main_site/licenses.html:36
+msgid "Иконки, используемые на сайте, предоставлены сервисом Icons8."
+msgstr ""
+
+#: templates/main_site/licenses.html:38
+msgid "Сайт Icons8"
+msgstr ""
+
+#: templates/main_site/licenses.html:43
+msgid "Шрифт Manrope"
+msgstr ""
+
+#: templates/main_site/licenses.html:44
+msgid "Основной шрифт сайта, распространяемый по свободной лицензии."
+msgstr ""
+
+#: templates/main_site/licenses.html:46
+msgid "Источник:"
+msgstr ""
+
+#: templates/main_site/licenses.html:53
+msgid "Программное обеспечение"
+msgstr ""
+
+#: templates/main_site/licenses.html:54
 msgid "Этот проект использует следующие библиотеки с открытым исходным кодом:"
 msgstr ""
 
-#: templates/main_site/licenses.html:40
+#: templates/main_site/licenses.html:58
 msgid "Микрофреймворк для создания веб-приложений."
 msgstr ""
 
-#: templates/main_site/licenses.html:49
+#: templates/main_site/licenses.html:67
 msgid "Адаптер PostgreSQL для Python."
 msgstr ""
 
-#: templates/main_site/licenses.html:58
+#: templates/main_site/licenses.html:76
 msgid "WSGI HTTP-сервер для UNIX."
 msgstr ""
 
-#: templates/main_site/licenses.html:67
+#: templates/main_site/licenses.html:85
 msgid "Библиотека для взаимодействия с Telegram Bot API."
 msgstr ""
 
-#: templates/main_site/licenses.html:76
+#: templates/main_site/licenses.html:94
 msgid "Клиентская библиотека Google для Generative AI."
 msgstr ""
 
-#: templates/main_site/licenses.html:85
+#: templates/main_site/licenses.html:103
 msgid "Расширения для Flask, обеспечивающие работу с формами и безопасность."
 msgstr ""
 
-#: templates/main_site/licenses.html:87
+#: templates/main_site/licenses.html:105
 msgid "Лицензии: BSD-3-Clause и Apache 2.0 соответственно."
 msgstr ""
 
@@ -600,139 +629,143 @@ msgstr ""
 msgid "Уже есть аккаунт?"
 msgstr ""
 
-#: templates/main_site/privacy_policy.html:2
-#: templates/main_site/privacy_policy.html:6
-msgid "Политика конфиденциальности"
-msgstr ""
+#~ msgid "Privacy Policy"
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:11
-msgid ""
-"Настоящая Политика конфиденциальности описывает, как проект Honji Review "
-"(далее \"мы\", \"нас\" или \"наш\") собирает, использует и раскрывает "
-"вашу информацию при использовании нашего веб-сайта и связанных с ним "
-"услуг (далее \"Сервис\")."
-msgstr ""
+#~ msgid "Licenses"
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:13
-msgid "Сбор и использование информации"
-msgstr ""
+#~ msgid "Disclaimer"
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:14
-msgid ""
-"Мы собираем несколько различных типов информации для различных целей, "
-"чтобы предоставлять и улучшать наш Сервис для вас."
-msgstr ""
+#~ msgid "Политика конфиденциальности"
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:16
-msgid "Данные, которые вы предоставляете"
-msgstr ""
+#~ msgid ""
+#~ "Настоящая Политика конфиденциальности описывает, "
+#~ "как проект Honji Review (далее \"мы\","
+#~ " \"нас\" или \"наш\") собирает, использует"
+#~ " и раскрывает вашу информацию при "
+#~ "использовании нашего веб-сайта и связанных "
+#~ "с ним услуг (далее \"Сервис\")."
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:18
-msgid "Данные аутентификации Telegram:"
-msgstr ""
+#~ msgid "Сбор и использование информации"
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:18
-msgid ""
-"При входе в Панель управления Бота мы получаем ваш публичный никнейм, "
-"уникальный Telegram ID и публичное фото профиля через официальный виджет "
-"Telegram. Мы не получаем доступ к вашим чатам, номеру телефона или списку"
-" контактов."
-msgstr ""
+#~ msgid ""
+#~ "Мы собираем несколько различных типов "
+#~ "информации для различных целей, чтобы "
+#~ "предоставлять и улучшать наш Сервис для"
+#~ " вас."
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:19
-msgid "Содержимое, создаваемое пользователями:"
-msgstr ""
+#~ msgid "Данные, которые вы предоставляете"
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:19
-msgid ""
-"Любая информация, которую вы предоставляете в рамках использования "
-"интерактивных функций, таких как ИИ-Ассистент, может быть сохранена для "
-"улучшения качества Сервиса."
-msgstr ""
+#~ msgid "Данные аутентификации Telegram:"
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:22
-msgid "Данные журнала"
-msgstr ""
+#~ msgid ""
+#~ "При входе в Панель управления Бота "
+#~ "мы получаем ваш публичный никнейм, "
+#~ "уникальный Telegram ID и публичное фото"
+#~ " профиля через официальный виджет Telegram."
+#~ " Мы не получаем доступ к вашим "
+#~ "чатам, номеру телефона или списку "
+#~ "контактов."
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:23
-msgid ""
-"Мы можем также собирать информацию, которую ваш браузер отправляет всякий"
-" раз, когда вы посещаете наш Сервис (\"Данные журнала\"). Эти Данные "
-"журнала могут включать такую информацию, как IP-адрес вашего компьютера, "
-"тип браузера, версия браузера, страницы нашего Сервиса, которые вы "
-"посещаете, время и дата вашего визита, время, проведенное на этих "
-"страницах, и другая статистика."
-msgstr ""
+#~ msgid "Содержимое, создаваемое пользователями:"
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:25
-msgid "Использование данных"
-msgstr ""
+#~ msgid ""
+#~ "Любая информация, которую вы предоставляете"
+#~ " в рамках использования интерактивных "
+#~ "функций, таких как ИИ-Ассистент, может "
+#~ "быть сохранена для улучшения качества "
+#~ "Сервиса."
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:26
-msgid "Мы используем собранные данные для различных целей:"
-msgstr ""
+#~ msgid "Данные журнала"
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:28
-msgid "Для предоставления и поддержки нашего Сервиса."
-msgstr ""
+#~ msgid ""
+#~ "Мы можем также собирать информацию, "
+#~ "которую ваш браузер отправляет всякий "
+#~ "раз, когда вы посещаете наш Сервис "
+#~ "(\"Данные журнала\"). Эти Данные журнала "
+#~ "могут включать такую информацию, как "
+#~ "IP-адрес вашего компьютера, тип браузера, "
+#~ "версия браузера, страницы нашего Сервиса, "
+#~ "которые вы посещаете, время и дата "
+#~ "вашего визита, время, проведенное на "
+#~ "этих страницах, и другая статистика."
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:29
-msgid "Для аутентификации и управления учетными записями редакторов."
-msgstr ""
+#~ msgid "Использование данных"
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:30
-msgid "Для мониторинга использования нашего Сервиса."
-msgstr ""
+#~ msgid "Мы используем собранные данные для различных целей:"
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:31
-msgid "Для обнаружения, предотвращения и решения технических проблем."
-msgstr ""
+#~ msgid "Для предоставления и поддержки нашего Сервиса."
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:34
-msgid "Безопасность данных"
-msgstr ""
+#~ msgid "Для аутентификации и управления учетными записями редакторов."
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:35
-msgid ""
-"Безопасность ваших данных важна для нас, но помните, что ни один метод "
-"передачи через Интернет или метод электронного хранения не является на "
-"100% безопасным. Хотя мы стремимся использовать коммерчески приемлемые "
-"средства для защиты вашей личной информации, мы не можем гарантировать ее"
-" абсолютную безопасность."
-msgstr ""
+#~ msgid "Для мониторинга использования нашего Сервиса."
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:37
-msgid "Ссылки на другие сайты"
-msgstr ""
+#~ msgid "Для обнаружения, предотвращения и решения технических проблем."
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:38
-msgid ""
-"Наш Сервис может содержать ссылки на другие сайты, которые не управляются"
-" нами. Если вы нажмете на ссылку третьей стороны, вы будете "
-"перенаправлены на сайт этой третьей стороны. Мы настоятельно рекомендуем "
-"вам ознакомиться с Политикой конфиденциальности каждого сайта, который вы"
-" посещаете."
-msgstr ""
+#~ msgid "Безопасность данных"
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:40
-msgid "Изменения в настоящей Политике конфиденциальности"
-msgstr ""
+#~ msgid ""
+#~ "Безопасность ваших данных важна для нас,"
+#~ " но помните, что ни один метод "
+#~ "передачи через Интернет или метод "
+#~ "электронного хранения не является на "
+#~ "100% безопасным. Хотя мы стремимся "
+#~ "использовать коммерчески приемлемые средства "
+#~ "для защиты вашей личной информации, мы"
+#~ " не можем гарантировать ее абсолютную "
+#~ "безопасность."
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:41
-msgid ""
-"Мы можем время от времени обновлять нашу Политику конфиденциальности. Мы "
-"сообщим вам о любых изменениях, опубликовав новую Политику "
-"конфиденциальности на этой странице."
-msgstr ""
+#~ msgid "Ссылки на другие сайты"
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:43
-msgid "Свяжитесь с нами"
-msgstr ""
+#~ msgid ""
+#~ "Наш Сервис может содержать ссылки на "
+#~ "другие сайты, которые не управляются "
+#~ "нами. Если вы нажмете на ссылку "
+#~ "третьей стороны, вы будете перенаправлены "
+#~ "на сайт этой третьей стороны. Мы "
+#~ "настоятельно рекомендуем вам ознакомиться с"
+#~ " Политикой конфиденциальности каждого сайта, "
+#~ "который вы посещаете."
+#~ msgstr ""
 
-#: templates/main_site/privacy_policy.html:44
-msgid ""
-"Если у вас есть какие-либо вопросы по поводу настоящей Политики "
-"конфиденциальности, пожалуйста, свяжитесь с нами по электронной почте: "
-"honjireview.info@gmail.com."
-msgstr ""
+#~ msgid "Изменения в настоящей Политике конфиденциальности"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Мы можем время от времени обновлять "
+#~ "нашу Политику конфиденциальности. Мы сообщим"
+#~ " вам о любых изменениях, опубликовав "
+#~ "новую Политику конфиденциальности на этой "
+#~ "странице."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Если у вас есть какие-либо вопросы "
+#~ "по поводу настоящей Политики "
+#~ "конфиденциальности, пожалуйста, свяжитесь с "
+#~ "нами по электронной почте: "
+#~ "honjireview.info@gmail.com."
+#~ msgstr ""
 
