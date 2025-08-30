@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HJR-Bot: Интерактивный Обзор</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="{{ url_for('main_site.static', filename='css/bot_portal_showcase.css') }}">
+    <link rel="stylesheet" href="{{ url_for('main_site_static.static', filename='css/bot_portal_showcase.css') }}">
 </head>
 <body class="bg-slate-900 text-slate-300">
 
-<!-- Splash Screen -->
 <div id="splash-screen" class="fixed inset-0 bg-slate-900/50 backdrop-blur-lg z-[100] flex items-center justify-center">
     <h1 class="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-indigo-200 animate-pulse">Honji Review Bot</h1>
 </div>
@@ -26,7 +25,6 @@
             <li><a href="#tech-stack" class="nav-link text-slate-300 hover:text-indigo-400 transition">Технологии</a></li>
             <li><a href="#faq" class="nav-link text-slate-300 hover:text-indigo-400 transition">FAQ</a></li>
             <li>
-                <!-- Кнопка входа в дашборд -->
                 <a href="{{ url_for('bot_portal.login') }}" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-indigo-500 transition duration-300 ease-in-out shadow-lg shadow-indigo-500/20">
                     Войти в панель
                 </a>
@@ -66,7 +64,6 @@
         </div>
     </section>
 
-    <!-- Остальные секции (problems, features, tech-stack, team, faq) остаются без изменений -->
     <section id="features" class="py-16 fade-in-section">
         <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold mb-2 text-white">Как это работает</h2>
@@ -220,13 +217,11 @@
 </footer>
 
 
-<!-- Scroll to Top Button -->
 <button id="scroll-to-top" class="hidden fixed bottom-8 right-8 bg-indigo-600 text-white w-12 h-12 rounded-full shadow-lg hover:bg-indigo-500 transition duration-300 z-50 flex items-center justify-center">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
     </svg>
 </button>
-
-<script src="{{ url_for('static', filename='js/bot_portal_showcase.js') }}" defer></script>
+<script src="{{ url_for('main_site_static.static', filename='js/bot_portal_showcase.js') }}" defer></script>
 </body>
 </html>
