@@ -133,13 +133,14 @@ def about():
     editors = [editor for editor in all_editors if editor.get('role') != 'executor']
     return render_template('main_site/about.html', executor=executor, editors=editors)
 
+# --- ИЗМЕНЕНИЕ: Заменяем старую политику на новую ---
+@main_site_bp.route('/personal-data-policy')
+def personal_data_policy():
+    """
+    Обрабатывает страницу политики обработки персональных данных.
+    """
+    return render_template('main_site/personal_data_policy.html')
 
-@main_site_bp.route('/privacy-policy')
-def privacy_policy():
-    """
-    Обрабатывает страницу политики конфиденциальности.
-    """
-    return render_template('main_site/privacy_policy.html')
 
 @main_site_bp.route('/licenses')
 def licenses():
@@ -162,7 +163,6 @@ def community_rules():
     """
     return render_template('main_site/community_rules.html')
 
-# --- ДОБАВЛЕН НОВЫЙ МАРШРУТ ---
 @main_site_bp.route('/contact')
 def contact():
     """
