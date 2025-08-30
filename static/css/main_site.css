@@ -7,37 +7,44 @@ body {
     color: #EAEAEA;
 }
 
-/* --- НАЧАЛО ИЗМЕНЕНИЙ: Полностью новый подход к фоновому изображению --- */
+/* --- НАЧАЛО ИЗМЕНЕНИЙ: Корректные стили для фонового изображения --- */
 #hero-section {
-    position: relative; /* Нужно для позиционирования дочерних элементов */
+    position: relative; /* Необходимо для позиционирования псевдоэлемента */
     overflow: hidden; /* Скрываем части изображения, выходящие за блок */
     padding-top: 10vh;
     padding-bottom: 25vh;
 }
 
-/* Стили для декоративного изображения */
-.hero-background-image {
+#hero-section::before {
+    content: '';
     position: absolute;
-    /* Позиционируем справа по центру */
+    /* Позиционируем справа по центру (1.2) */
     top: 50%;
     right: 0;
     /* Смещаем и масштабируем для нужного эффекта */
-    transform: translate(20%, -50%);
-    width: 65%;
-    height: auto;
+    transform: translate(15%, -50%);
+    width: 70%; /* Ширина декоративного элемента */
+    height: 120%; /* Высота декоративного элемента */
     z-index: 1; /* Размещаем под текстом */
-    opacity: 0.07; /* Делаем изображение еще темнее/прозрачнее */
-    pointer-events: none; /* Изображение не будет мешать кликать на текст */
 
-    /* САМОЕ ВАЖНОЕ: Создаем маску, которая плавно растворяет края */
-    mask-image: radial-gradient(ellipse 50% 60% at 50% 50%, black 35%, transparent 100%);
-    -webkit-mask-image: radial-gradient(ellipse 50% 60% at 50% 50%, black 35%, transparent 100%);
+    /* Указываем путь к изображению */
+    background-image: url('../images/background.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center right;
+
+    /* Делаем изображение еще темнее/прозрачнее (1.3) */
+    opacity: 0.08;
+
+    /* САМОЕ ВАЖНОЕ: Создаем маску, которая плавно растворяет края (1.5) */
+    mask-image: radial-gradient(ellipse 50% 70% at 30% 50%, black 40%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 50% 70% at 30% 50%, black 40%, transparent 100%);
 }
 
-
+/* Весь контент внутри секции должен быть над фоном */
 #hero-section .hero-content {
     position: relative;
-    z-index: 2; /* Убеждаемся, что контент находится поверх изображения */
+    z-index: 2;
 }
 /* --- КОНЕЦ ИЗМЕНЕНИЙ --- */
 
@@ -45,12 +52,12 @@ body {
 .btn {
     background-color: white;
     color: #0E0E10;
-    font-weight: 700; /* bold */
-    padding-top: 0.6rem;    /* py-2.5, тоньше */
-    padding-bottom: 0.6rem; /* py-2.5, тоньше */
-    padding-left: 8rem;      /* px-32, длиннее */
-    padding-right: 8rem;     /* px-32, длиннее */
-    border-radius: 9999px; /* rounded-full */
+    font-weight: 700;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    padding-left: 8rem;
+    padding-right: 8rem;
+    border-radius: 9999px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -63,8 +70,8 @@ body {
 }
 
 .section-title {
-    font-size: 2.5rem; /* 40px */
-    font-weight: 800; /* extrabold */
+    font-size: 2.5rem;
+    font-weight: 800;
     color: #EAEAEA;
     line-height: 1.1;
     text-align: center;
@@ -72,106 +79,97 @@ body {
 
 @media (min-width: 768px) {
     .section-title {
-        font-size: 3.5rem; /* 56px */
+        font-size: 3.5rem;
         text-align: left;
     }
 }
 @media (min-width: 1024px) {
     .section-title {
-        font-size: 4rem; /* 64px */
+        font-size: 4rem;
     }
 }
 
 .page-title {
-    font-size: 2.5rem; /* 40px */
-    font-weight: 800; /* extrabold */
+    font-size: 2.5rem;
+    font-weight: 800;
     color: #EAEAEA;
     line-height: 1.1;
     text-align: center;
-    letter-spacing: -0.025em; /* tracking-tighter */
+    letter-spacing: -0.025em;
 }
 
 @media (min-width: 640px) {
     .page-title {
-        font-size: 3.5rem; /* 56px */
+        font-size: 3.5rem;
     }
 }
 @media (min-width: 768px) {
     .page-title {
-        font-size: 4.5rem; /* 72px */
+        font-size: 4.5rem;
     }
 }
 @media (min-width: 1024px) {
     .page-title {
-        font-size: 5rem; /* 80px */
+        font-size: 5rem;
     }
 }
 
-/* Цвета для жанров */
 .genre-icon-bg {
     transition: background-color 0.3s ease;
 }
-
 .genre-fantasy .genre-icon-bg { background-color: #2c2a4a; }
 .genre-fantasy:hover .genre-icon-bg { background-color: #3e3b6d; }
-
 .genre-romance .genre-icon-bg { background-color: #4a2a3a; }
 .genre-romance:hover .genre-icon-bg { background-color: #6d3b55; }
-
 .genre-detective .genre-icon-bg { background-color: #2a3f4a; }
 .genre-detective:hover .genre-icon-bg { background-color: #3b5a6d; }
-
 .genre-scifi .genre-icon-bg { background-color: #2a4a3b; }
 .genre-scifi:hover .genre-icon-bg { background-color: #3b6d53; }
 
 @media (min-width: 1024px) {
     #genres-section .max-w-lg {
-        max-width: 42rem; /* 672px */
+        max-width: 42rem;
     }
 }
 
 .promotion-title {
-    font-size: 2.5rem; /* 40px */
+    font-size: 2.5rem;
 }
 @media (min-width: 640px) {
     .promotion-title {
-        font-size: 3rem; /* 48px */
+        font-size: 3rem;
     }
 }
 @media (min-width: 768px) {
     .promotion-title {
-        font-size: 3.5rem; /* 56px */
+        font-size: 3.5rem;
     }
 }
 @media (min-width: 1024px) {
     .promotion-title {
-        font-size: 4rem; /* 64px */
+        font-size: 4rem;
     }
 }
 
-/* Стили для обновленной страницы "О нас" */
 .about-card {
     background-color: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 1rem; /* 16px */
-    padding: 2rem; /* 32px */
-    margin-bottom: 2rem; /* 32px */
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
 }
-
 .about-card h2 {
-    font-size: 1.875rem; /* 30px */
+    font-size: 1.875rem;
     font-weight: 700;
     margin-bottom: 1rem;
 }
-
 .about-card p, .about-card ul {
     color: #EAEAEA;
     opacity: 0.9;
 }
-
 .about-card h3 {
-    font-size: 1.125rem; /* 18px */
+    font-size: 1.125rem;
     font-weight: 600;
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
