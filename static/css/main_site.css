@@ -7,10 +7,9 @@ body {
     color: #EAEAEA;
 }
 
-/* --- НАЧАЛО ИЗМЕНЕНИЙ --- */
+/* --- НАЧАЛО ИЗМЕНЕНИЙ: Стили для фона в шапке --- */
 #hero-section {
-    position: relative;
-    background-color: #0E0E10; /* Цвет фона, если изображение не загрузится */
+    position: relative; /* Необходимо для позиционирования псевдоэлемента */
     padding-top: 10vh;
     padding-bottom: 25vh;
 }
@@ -22,18 +21,19 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    /* Путь к вашему изображению */
+    /* Путь к изображению относительно папки css */
     background-image: url('../images/background.jpg');
     background-size: cover;
     background-position: center;
-    /* Эффект затемнения (прозрачность 0.1) */
-    opacity: 0.1;
-    z-index: 1;
+    /* Создаем эффект тени/затемнения */
+    opacity: 0.1; /* Основной параметр затемнения */
+    z-index: 1; /* Размещаем фон под контентом */
 }
 
-#hero-section > * {
+/* Весь контент внутри секции должен быть над фоном */
+#hero-section .hero-content {
     position: relative;
-    z-index: 2; /* Убеждаемся, что контент находится поверх фона */
+    z-index: 2;
 }
 /* --- КОНЕЦ ИЗМЕНЕНИЙ --- */
 

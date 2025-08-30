@@ -8,7 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const showRegisterBtn = document.getElementById('show-register-view');
     const showLoginBtn = document.getElementById('show-login-view');
 
-    let originalPath = window.location.pathname;
+    // Флаг, который мы передаем из Flask (`open_login_modal`)
+    // Проверяем, есть ли на странице элемент, который мы создадим при open_login_modal=True
+    const shouldOpenModal = document.body.dataset.openLoginModal === 'true';
+
+    let originalPath = window.location.pathname.endsWith('/login')
+        ? `/${window.location.pathname.split('/')[1]}` // Если мы на /login, то "домой" - это /ru/
+        : window.location.pathname;
 
     if (!userIcon || !overlay || !modal || !loginView || !registerView || !showRegisterBtn || !showLoginBtn) {
         console.error('Auth modal elements not found on the page.');
@@ -16,11 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const openModal = () => {
-        originalPath = window.location.pathname;
-        const loginUrl = userIcon.getAttribute('href'); // Получаем URL напрямую из ссылки
+        const loginUrl = userIcon.getAttribute('href');
 
-        // Используем replaceState, чтобы не создавать лишнюю запись в истории
-        history.replaceState({ modal: 'open' }, '', loginUrl);
+        // Меняем URL, только если он еще не изменен
+        if (window.location.pathname !== loginUrl) {
+            history.pushState({ modal: 'open' }, '', loginUrl);
+        }
 
         overlay.classList.remove('hidden');
         modal.classList.remove('hidden');
@@ -28,8 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const closeModal = () => {
-        // Возвращаемся на исходный URL
-        history.replaceState({ modal: 'closed' }, '', originalPath);
+        // Возвращаемся на исходный URL, если мы на странице /login
+        if (window.location.pathname.endsWith('/login')) {
+            history.pushState({ modal: 'closed' }, '', originalPath);
+        }
 
         overlay.classList.add('hidden');
         modal.classList.add('hidden');
@@ -62,12 +71,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Обработка кнопок "назад/вперед" в браузере
-    window.addEventListener('popstate', () => {
-        const currentPath = window.location.pathname;
-        if (currentPath.endsWith('/login') && modal.classList.contains('hidden')) {
-            openModal();
-        } else if (!currentPath.endsWith('/login') && !modal.classList.contains('hidden')) {
-            closeModal();
+    window.addEventListener('popstate', (event) => {
+        if (window.location.pathname.endsWith('/login')) {
+            if (modal.classList.contains('hidden')) {
+                openModal();
+            }
+        } else {
+            if (!modal.classList.contains('hidden')) {
+                closeModal();
+            }
         }
     });
+
+    // Если страница загрузилась с флагом от Flask, открываем окно
+    if (shouldOpenModal) {
+        openModal();
+    }
 });
