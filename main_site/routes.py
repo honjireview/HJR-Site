@@ -162,6 +162,14 @@ def community_rules():
     """
     return render_template('main_site/community_rules.html')
 
+# --- ДОБАВЛЕН НОВЫЙ МАРШРУТ ---
+@main_site_bp.route('/contact')
+def contact():
+    """
+    Отображает страницу "Контакты".
+    """
+    return render_template('main_site/contact.html')
+
 @main_site_bp.route('/login')
 def login():
     """
