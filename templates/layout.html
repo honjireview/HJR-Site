@@ -26,14 +26,14 @@
                 <a href="{{ url_for('bot_portal.showcase') }}" class="text-indigo-400 hover:opacity-75 transition-opacity">{{ _('Портал бота') }}</a>
             </nav>
 
-            <div class="relative" x-data="{ open: false }">
-                <button @click="open = !open" class="flex items-center gap-2 text-white hover:opacity-75 transition-opacity">
+            <div class="relative">
+                <button id="lang-switcher-button" class="flex items-center gap-2 text-white hover:opacity-75 transition-opacity">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m4 13l4-4M19 17v-2a4 4 0 00-4-4H9M5 11l4-4M11 5l4-4m0 0l4 4m-4-4v12" />
                     </svg>
                     <span>{{ g.lang_code.upper() if g.lang_code else 'RU' }}</span>
                 </button>
-                <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 py-2 w-20 bg-slate-800 rounded-md shadow-xl z-20" style="display: none;">
+                <div id="lang-switcher-menu" class="absolute right-0 mt-2 py-2 w-20 bg-slate-800 rounded-md shadow-xl z-20" style="display: none;">
                     <a href="{{ url_for(request.endpoint, lang_code='ru', **request.view_args) }}" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-700">RU</a>
                     <a href="{{ url_for(request.endpoint, lang_code='en', **request.view_args) }}" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-700">EN</a>
                 </div>
@@ -81,7 +81,7 @@
 {% include 'main_site/main_login.html' %}
 
 {% block body_js %}{% endblock %}
-<script src="//unpkg.com/alpinejs" defer></script>
+<script src="{{ url_for('main_site_static.static', filename='js/main_site.js') }}"></script>
 <script src="{{ url_for('main_site_static.static', filename='js/main_login.js') }}"></script>
 </body>
 </html>
