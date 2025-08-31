@@ -1,7 +1,0 @@
-# Файл конфигурации Nixpacks
-[phases.build]
-cmds = ["echo 'Building...'"]
-
-[start]
-# ИЗМЕНЕНИЕ: Запускаем наш стартовый скрипт вместо голого Nginx
-cmd = "sh start.sh"
